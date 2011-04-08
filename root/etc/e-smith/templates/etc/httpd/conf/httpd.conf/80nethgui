@@ -1,0 +1,11 @@
+Alias /nethgui /var/www/html/nethgui
+<Directory /var/www/html/nethgui>
+    AllowOverride None
+    Options +Indexes
+    order deny,allow
+    deny from all
+    allow from all
+    AddType application/x-httpd-php .php .php3
+    php_admin_flag      allow_url_fopen on
+</Directory>
+
