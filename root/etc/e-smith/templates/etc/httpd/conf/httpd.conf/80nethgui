@@ -1,5 +1,5 @@
-Alias /nethgui /var/www/html/nethgui
-<Directory /var/www/html/nethgui>
+Alias /nethgui /var/www/html/nethgui/www
+<Directory /var/www/html/nethgui/www>
     AllowOverride None
     Options +Indexes
     order deny,allow
