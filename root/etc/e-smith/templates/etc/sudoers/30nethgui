@@ -1,0 +1,2 @@
+Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event
+www ALL=NOPASSWD: SME
