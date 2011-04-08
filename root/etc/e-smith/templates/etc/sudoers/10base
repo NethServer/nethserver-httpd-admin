@@ -92,7 +92,3 @@ root	ALL=(ALL) 	ALL
 ## Allows members of the users group to shutdown this system
 # %users  localhost=/sbin/shutdown -h now
 
-Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event
-www ALL=NOPASSWD: SME
-davidep ALL=NOPASSWD: SME
-
