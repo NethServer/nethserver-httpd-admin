@@ -8,6 +8,8 @@ License:	GPL
 Source0:	%{name}-%{version}.tar.gz	
 BuildRoot:	/var/tmp/%{name}-%{version}-%{release}-buildroot
 
+Requires:	codeigniter
+
 BuildArch:	noarch
 BuildRequires: 	e-smith-devtools
 
