@@ -1,0 +1,14 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks  qw(:all);
+use File::Path;
+
+#--------------------------------------------------
+# actions for nethgui-framework-update event
+#--------------------------------------------------
+
+$event = "nethgui-framework-update";
+
+templates2events("/etc/sudoers", $event);
+templates2events("/etc/httpd/conf/httpd.conf", $event);
+safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/httpd-e-smith");
