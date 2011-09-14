@@ -1,3 +1,3 @@
 # NethGui commands
 Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event
-www ALL=NOPASSWD: SME
+apache ALL=NOPASSWD: SME
