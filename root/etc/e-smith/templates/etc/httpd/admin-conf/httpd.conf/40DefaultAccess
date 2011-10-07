@@ -1,0 +1,12 @@
+
+# First, we configure the "default" to be a very restrictive set of 
+# permissions.  
+
+<Directory />
+    Options None
+    AllowOverride None
+    order deny,allow
+    deny from all
+    allow from none
+</Directory>
+

@@ -1,0 +1,148 @@
+{
+    #$OUT .= "Listen 127.0.0.1:$port\n";
+    $OUT .= "Listen 0.0.0.0:$port\n";
+
+    $OUT .= <<HERE;
+
+HostnameLookups off
+
+ServerAdmin admin@$DomainName
+ServerRoot /etc/httpd
+ServerTokens ProductOnly
+
+User admin
+Group admin
+
+ErrorLog /var/log/httpd/admin_error_log
+LogLevel warn
+HERE
+
+foreach (qw(
+    env
+    log_config
+    mime
+    negotiation
+    status
+    info
+    include
+    autoindex
+    dir
+    cgi
+    asis
+    imap
+    imagemap
+    actions
+    userdir
+    proxy
+    proxy_http
+    alias
+    rewrite
+    access
+    authz_host
+    authz_user
+    auth
+    auth_anon
+    auth_digest
+    ldap
+    authnz_ldap
+    expires
+    headers
+    usertrack
+    setenvif
+    ssl
+    ))
+{
+    next unless -f "/usr/lib/httpd/modules/mod_${_}.so" || 
+                -f "/usr/lib64/httpd/modules/mod_${_}.so";
+    $OUT .= "LoadModule ${_}_module modules/mod_${_}.so\n";
+}
+
+$OUT .= <<HERE;
+PidFile /var/run/httpd-admin.pid
+ScoreBoardFile /var/run/httpd-admin.scoreboard
+UseCanonicalName off
+LogFormat "%h %l %u %t \\"%r\\" %>s %b" common
+LogFormat "%{User-agent}i" agent
+
+CustomLog /var/log/httpd/admin_access_log common
+
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+
+MaxClients 150
+MaxRequestsPerChild 100
+
+ServerName www.$DomainName
+
+MinSpareServers 1
+MaxSpareServers 5
+StartServers 1
+Timeout 300
+
+DefaultIcon /icons/unknown.gif
+DirectoryIndex index.htm index.html index.shtml index.cgi
+IndexOptions FancyIndexing VersionSort NameWidth=*
+IndexIgnore .??* *~ *# HEADER* README* RCS CVS *,v *,t
+AccessFileName .htaccess
+
+AddIconByEncoding (CMP,/icons/compressed.gif) x-compress x-gzip
+AddIconByType (TXT,/icons/text.gif) text/*
+AddIconByType (IMG,/icons/image2.gif) image/*
+AddIconByType (SND,/icons/sound2.gif) audio/*
+AddIconByType (VID,/icons/movie.gif) video/*
+DefaultType text/plain
+TypesConfig /etc/mime.types
+
+AddEncoding x-compress Z
+AddEncoding x-gzip gz
+
+AddIcon /icons/binary.gif .bin .exe
+AddIcon /icons/binhex.gif .hqx
+AddIcon /icons/tar.gif .tar
+AddIcon /icons/world2.gif .wrl .wrl.gz .vrml .vrm .iv
+AddIcon /icons/compressed.gif .Z .z .tgz .gz .zip
+AddIcon /icons/a.gif .ps .ai .eps
+AddIcon /icons/layout.gif .html .shtml .htm .pdf
+AddIcon /icons/text.gif .txt
+AddIcon /icons/c.gif .c
+AddIcon /icons/p.gif .pl .py
+AddIcon /icons/f.gif .for
+AddIcon /icons/dvi.gif .dvi
+AddIcon /icons/uuencoded.gif .uu
+AddIcon /icons/script.gif .conf .sh .shar .csh .ksh .tcl
+AddIcon /icons/tex.gif .tex
+AddIcon /icons/bomb.gif core
+
+AddIcon /icons/back.gif ..
+AddIcon /icons/hand.right.gif README
+AddIcon /icons/folder.gif ^^DIRECTORY^^
+AddIcon /icons/blank.gif ^^BLANKICON^^
+
+AddLanguage en .en
+AddLanguage fr .fr
+AddLanguage de .de
+AddLanguage da .da
+AddLanguage el .el
+AddLanguage it .it
+
+LanguagePriority en it de fr
+
+AddType text/html .shtml
+AddType application/x-pkcs7-crl    .crl
+
+AddType application/x-x509-ca-cert .crt
+
+BrowserMatch "Mozilla/2" nokeepalive
+BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+BrowserMatch "RealPlayer 4\.0" force-response-1.0
+BrowserMatch "Java/1\.0" force-response-1.0
+BrowserMatch "JDK/1\.0" force-response-1.0
+
+AddHandler cgi-script .cgi
+AddHandler server-parsed .shtml
+AddHandler imap-file map
+
+HERE
+}
+
