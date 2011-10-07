@@ -25,7 +25,7 @@ $OUT .= "SSLCipherSuite $modSSL{CipherSuite}";
 SSLPassPhraseDialog  builtin
 SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
 SSLSessionCacheTimeout  300
-SSLMutex  file:state/ssl_mutex
+SSLMutex  file:/var/cache/nethserver-httpd-admin/state
 SSLRandomSeed startup file:/dev/urandom 512
 SSLRandomSeed connect builtin
 {
