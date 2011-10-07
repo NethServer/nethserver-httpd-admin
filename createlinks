@@ -30,11 +30,6 @@ foreach (qw(console-save remoteaccess-update logrotate))
     safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin");
 }
 
-foreach my $service (keys %service2order)
-{
-    service_link_enhanced($service, $service2order{$service}, 7);
-}
-
 # Symlink httpd-admin to httpd.
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
