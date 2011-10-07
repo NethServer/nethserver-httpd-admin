@@ -23,7 +23,7 @@
        deny from all
        allow from all
        AddType application/x-httpd-php .php
-       php_value session.save_path /var/cache/nethgui
+       php_value session.save_path /var/cache/nethserver-httpd-admin
    </Directory>
 </VirtualHost>
 
