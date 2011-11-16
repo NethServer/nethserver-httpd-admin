@@ -22,32 +22,15 @@ foreach (qw(
     log_config
     mime
     negotiation
-    status
-    info
     include
     autoindex
     dir
-    cgi
-    asis
-    imap
-    imagemap
-    actions
-    userdir
-    proxy
-    proxy_http
     alias
     rewrite
     access
     authz_host
-    authz_user
-    auth
-    auth_anon
-    auth_digest
-    ldap
-    authnz_ldap
     expires
     headers
-    usertrack
     setenvif
     ssl
     ))
