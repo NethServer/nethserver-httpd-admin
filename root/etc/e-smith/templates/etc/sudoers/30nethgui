@@ -1,3 +1,3 @@
 # NethGui commands
-Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event
+Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event, /sbin/e-smith/validate
 admin ALL=NOPASSWD: SME
