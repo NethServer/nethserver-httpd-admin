@@ -10,3 +10,7 @@
     allow from none
 </Directory>
 
+<Directory /var/www/icons>
+    Allow from all
+</Directory>
+
