@@ -5,21 +5,25 @@ use esmith::Build::CreateLinks  qw(:all);
 # conf-httpd-admin
 
 templates2events("/etc/httpd/admin-conf/httpd.conf", qw(
-	console-save
-	bootstrap-console-save
-	network-create
-	network-delete
-	remoteaccess-update
-	logrotate
-        nethserver-httpd-admin-update
-	));
+    console-save
+    bootstrap-console-save
+    network-create
+    network-delete
+    remoteaccess-update
+    logrotate
+    nethserver-httpd-admin-update
+));
+
+templates2events("/etc/sudoers", qw(
+    bootstrap-console-save
+    nethserver-httpd-admin-update
+));
 
 # Set up generic logfile timestamp renaming/symlinking
 foreach (qw(
     /var/log/httpd/admin_access_log
     /var/log/httpd/admin_error_log
-    ))
-{
+)) {
     safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp" . $_;
     safe_touch "root/etc/e-smith/events/post-install/logfiles2timestamp" . $_;
     safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp" . $_;
@@ -33,5 +37,9 @@ foreach (qw(console-save remoteaccess-update logrotate))
 # Symlink httpd-admin to httpd.
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
-# Adds http-admin key in configuration database:
-event_link("initialize-default-databases", 'nethserver-httpd-admin-update', "05");
+{
+    # Adds http-admin key in configuration database:
+    my $event = 'nethserver-httpd-admin-update';
+    event_link("initialize-default-databases", $event, "05");
+    safe_symlink("restart", "root/etc/e-smith/events/" . $event . "/services2adjust/httpd-admin");
+}
