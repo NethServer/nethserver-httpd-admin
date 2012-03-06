@@ -11,18 +11,18 @@ templates2events("/etc/httpd/admin-conf/httpd.conf", qw(
 	network-delete
 	remoteaccess-update
 	logrotate
+        nethserver-httpd-admin-update
 	));
 
 # Set up generic logfile timestamp renaming/symlinking
-
 foreach (qw(
     /var/log/httpd/admin_access_log
     /var/log/httpd/admin_error_log
     ))
 {
-    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
-    safe_touch "root/etc/e-smith/events/post-install/logfiles2timestamp/$_";
-    safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp/$_";
+    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp" . $_;
+    safe_touch "root/etc/e-smith/events/post-install/logfiles2timestamp" . $_;
+    safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp" . $_;
 }
 
 foreach (qw(console-save remoteaccess-update logrotate))
@@ -33,4 +33,5 @@ foreach (qw(console-save remoteaccess-update logrotate))
 # Symlink httpd-admin to httpd.
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
-
+# Adds http-admin key in configuration database:
+event_link("initialize-default-databases", 'nethserver-httpd-admin-update', "05");
