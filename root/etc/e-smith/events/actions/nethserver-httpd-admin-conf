@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+my $daemon = 'httpd-admin';
+
+qx(/sbin/chkconfig $daemon on);
+# FIXME: Firewall configuration 
+qx(/usr/sbin/lokkit -p 980:tcp);
+qx(service $daemon status >/dev/null);
+if ( $? != 0 ) {
+    qx(service $daemon start);
+}
+
+exit($?);
