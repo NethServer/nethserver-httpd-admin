@@ -1,3 +1,3 @@
-# NethGui commands
-Cmnd_Alias SME = /sbin/e-smith/db, /sbin/e-smith/signal-event, /sbin/e-smith/validate
-admin ALL=NOPASSWD: SME
+# NethGui 
+Cmnd_Alias HTTPD_ADMIN = /sbin/e-smith/db, /sbin/e-smith/signal-event, /sbin/e-smith/validate, /sbin/e-smith/pam-authenticate-pw
+admin ALL=NOPASSWD: HTTPD_ADMIN
