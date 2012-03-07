@@ -29,9 +29,11 @@ foreach (qw(
     safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp" . $_;
 }
 
-foreach ((@packageEvents, qw(console-save remoteaccess-update logrotate))) {
-    safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin");
-}
+safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
+  console-save 
+  remoteaccess-update 
+  logrotate
+));
 
 # Symlink httpd-admin to httpd.
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
@@ -40,3 +42,4 @@ safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 event_link("initialize-default-databases", 'nethserver-httpd-admin-update', "05");
 event_link("nethserver-httpd-admin-conf", $_, "50") foreach(@packageEvents);
 
+safe_symlink("restart", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(@packageEvents);
