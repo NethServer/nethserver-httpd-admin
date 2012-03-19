@@ -1,10 +1,15 @@
 #!/usr/bin/perl
 
+#
+# NethServer
+#
+# Copyright (C) 2012 Nethesis srl
+#
+
+use strict;
+use NethServer::Service;
+
 my $daemon = 'httpd-admin';
 
-# FIXME: Runlevel configuration
-qx(/sbin/chkconfig $daemon on);
-# FIXME: Firewall configuration 
-qx(/usr/sbin/lokkit -p 980:tcp);
-
+NethServer::Service::start($daemon);
 

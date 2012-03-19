@@ -2,22 +2,25 @@
 
 use esmith::Build::CreateLinks  qw(:all);
 
+my $event;
+
+# Symlink httpd-admin to httpd.
+safe_symlink("httpd", "root/usr/sbin/httpd-admin");
+
 # conf-httpd-admin
-
-my @packageEvents = qw(
-    bootstrap-console-save
+templates2events("/etc/httpd/admin-conf/httpd.conf", (qw(
     nethserver-httpd-admin-update
-);
-
-templates2events("/etc/httpd/admin-conf/httpd.conf", (@packageEvents, qw(
     console-save
+    bootstrap-console-save
     network-create
     network-delete
     remoteaccess-update
     logrotate
 )));
 
-templates2events("/etc/sudoers", @packageEvents);
+templates2events("/etc/sudoers", (qw(
+    nethserver-httpd-admin-update
+)));
 
 # Set up generic logfile timestamp renaming/symlinking
 foreach (qw(
@@ -35,11 +38,11 @@ safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin")
   logrotate
 ));
 
-# Symlink httpd-admin to httpd.
-safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
 # Adds http-admin key in configuration database:
-event_link("initialize-default-databases", 'nethserver-httpd-admin-update', "05");
-event_link("nethserver-httpd-admin-conf", $_, "50") foreach(@packageEvents);
-
-safe_symlink("restart", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(@packageEvents);
+$event = 'nethserver-httpd-admin-update';
+event_link("initialize-default-databases", $event, "05");
+event_link("runlevel-adjust", $event, "50");
+event_link("firewall-adjust", $event, "55");
+event_link("nethserver-httpd-admin-conf", $event, "60");
+safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/httpd-admin");
