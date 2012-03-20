@@ -11,15 +11,24 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 fo
     my $crt = $modSSL{'crt'} ||
 	"/home/e-smith/ssl.crt/${SystemName}.${DomainName}.crt";
 
+    if( ! -r $crt ) {
+	warn "SSLCertificateFile: load default certificate\n";
+	$crt = '/etc/pki/tls/certs/localhost.crt';
+    }
+
     my $key = $modSSL{'key'} ||
 	"/home/e-smith/ssl.key/${SystemName}.${DomainName}.key";
+
+    if( ! -r $key ) {
+	warn "SSLCertificateKeyFile: load default certificate\n";
+	$key = '/etc/pki/tls/private/localhost.key';
+    }
 	
     $OUT .= <<SSL_END;
 SSLCertificateFile $crt
 SSLCertificateKeyFile $key
+SSLCipherSuite $modSSL{CipherSuite}
 SSL_END
-
-$OUT .= "SSLCipherSuite $modSSL{CipherSuite}";
 }
 
 SSLPassPhraseDialog  builtin

@@ -1,9 +1,7 @@
 {
-    #$OUT .= "Listen 127.0.0.1:$port\n";
-    $OUT .= "Listen 0.0.0.0:$port\n";
-
     $OUT .= <<HERE;
-
+Listen $port https
+SSLEngine on
 HostnameLookups off
 
 ServerAdmin admin@$DomainName
@@ -55,8 +53,6 @@ KeepAliveTimeout 15
 
 MaxClients 150
 MaxRequestsPerChild 100
-
-ServerName www.$DomainName
 
 MinSpareServers 1
 MaxSpareServers 5

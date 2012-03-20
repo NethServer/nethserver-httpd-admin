@@ -1,10 +1,8 @@
-<VirtualHost *:{ $port; }>
 
-   SSLEngine on
-   DocumentRoot /usr/share/nethesis/nethserver-manager
-   Alias /icons/ /var/www/icons/
+DocumentRoot /usr/share/nethesis/nethserver-manager
+Alias /icons/ /var/www/icons/
 
-   <Directory /usr/share/nethesis/nethserver-manager/>
+<Directory /usr/share/nethesis/nethserver-manager/>
        AllowOverride All
        Options +Indexes
        order deny,allow
@@ -12,8 +10,8 @@
        allow from all
        AddType application/x-httpd-php .php
        php_value session.save_path /var/cache/nethserver-httpd-admin
-   </Directory>
+</Directory>
    
 
-</VirtualHost>
+
 
