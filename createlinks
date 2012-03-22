@@ -46,8 +46,8 @@ event_actions('nethserver-httpd-admin-update',
 	      "firewall-adjust" => '55');
 	      
 # restart httpd-admin
-safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/httpd-admin") 
-    foreach $event (qw(
+safe_symlink("restart", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") 
+    foreach (qw(
         nethserver-httpd-admin-update
         bootstrap-console-save
 ));
