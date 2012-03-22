@@ -23,11 +23,13 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 fo
 	warn "SSLCertificateKeyFile: load default certificate\n";
 	$key = '/etc/pki/tls/private/localhost.key';
     }
+
+    my $cipher = $modSSL{CipherSuite} || 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM';
 	
     $OUT .= <<SSL_END;
 SSLCertificateFile $crt
 SSLCertificateKeyFile $key
-SSLCipherSuite $modSSL{CipherSuite}
+SSLCipherSuite $cipher
 SSL_END
 }
 
