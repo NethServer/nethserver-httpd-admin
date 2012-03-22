@@ -9,17 +9,12 @@ safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
 # conf-httpd-admin
 templates2events("/etc/httpd/admin-conf/httpd.conf", (qw(
-    nethserver-httpd-admin-update
     console-save
     bootstrap-console-save
     network-create
     network-delete
     remoteaccess-update
     logrotate
-)));
-
-templates2events("/etc/sudoers", (qw(
-    nethserver-httpd-admin-update
 )));
 
 # Set up generic logfile timestamp renaming/symlinking
@@ -33,16 +28,26 @@ foreach (qw(
 }
 
 safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
-  console-save 
-  remoteaccess-update 
-  logrotate
+    console-save
+    network-create
+    network-delete
+    remoteaccess-update
+    logrotate
 ));
 
+# package update event:
+event_templates('nethserver-httpd-admin-update',
+		'/etc/httpd/admin-conf/httpd.conf',
+		'/etc/sudoers');
 
-# Adds http-admin key in configuration database:
-$event = 'nethserver-httpd-admin-update';
-event_link("initialize-default-databases", $event, "05");
-event_link("runlevel-adjust", $event, "50");
-event_link("firewall-adjust", $event, "55");
-event_link("nethserver-httpd-admin-conf", $event, "60");
-safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/httpd-admin");
+event_actions('nethserver-httpd-admin-update',
+	      "initialize-default-databases" => '05',
+	      "runlevel-adjust" => '50',
+	      "firewall-adjust" => '55');
+	      
+# restart httpd-admin
+safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/httpd-admin") 
+    foreach $event (qw(
+        nethserver-httpd-admin-update
+        bootstrap-console-save
+));
