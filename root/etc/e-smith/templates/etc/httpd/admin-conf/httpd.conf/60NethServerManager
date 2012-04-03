@@ -5,9 +5,9 @@ Alias /icons/ /var/www/icons/
 <Directory /usr/share/nethesis/nethserver-manager/>
        AllowOverride All
        Options +Indexes
-       order deny,allow
-       deny from all
-       allow from all
+       Order Deny,Allow
+       Deny from all
+       Allow from { $localAccess || 'all' }
        AddType application/x-httpd-php .php
        php_value session.save_path /var/cache/nethserver-httpd-admin
 </Directory>
