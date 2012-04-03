@@ -1,1 +1,8 @@
-OPTIONS="-f /etc/httpd/admin-conf/httpd.conf"
+#
+# NethServer httpd-admin
+#
+# Copyright (C) 2012 Nethesis srl
+#
+
+OPTIONS=""
+SERVER_CONFIG_FILE="/etc/httpd/admin-conf/httpd.conf"

@@ -27,11 +27,14 @@ foreach (qw(
     safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp" . $_;
 }
 
-safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
+safe_symlink("graceful", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
     console-save
     network-create
     network-delete
     remoteaccess-update
+));
+
+safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
     logrotate
 ));
 

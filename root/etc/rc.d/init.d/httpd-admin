@@ -44,7 +44,7 @@ prog=httpd
 pidfile=${PIDFILE-/var/run/httpd-admin.pid}
 lockfile=${LOCKFILE-/var/lock/subsys/httpd-admin}
 RETVAL=0
-
+OPTIONS="-f $SERVER_CONFIG_FILE $OPTIONS"
 # The semantics of these two functions differ from the way apachectl does
 # things -- attempting to start while running is a failure, and shutdown
 # when not running is also a failure.  So we just do it the way init scripts
@@ -111,7 +111,7 @@ case "$1" in
         reload
 	;;
   graceful|help|configtest|fullstatus)
-	$apachectl $@
+	$apachectl $OPTIONS -k $@
 	RETVAL=$?
 	;;
   *)
