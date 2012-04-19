@@ -44,7 +44,7 @@ event_templates('nethserver-httpd-admin-update',
 		'/etc/sudoers');
 
 event_actions('nethserver-httpd-admin-update',
-	      "initialize-default-databases" => '05',
+	      "initialize-default-databases" => '00',
 	      "runlevel-adjust" => '50',
 	      "firewall-adjust" => '55');
 	      
