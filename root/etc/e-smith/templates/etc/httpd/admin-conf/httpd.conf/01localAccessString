@@ -19,7 +19,7 @@
 	    @localAccess;
    
     $port = ${'httpd-admin'}{TCPPort} || "980";
-
+    $SSL = ${'httpd-admin'}{SSL} || "enabled";
 
     "";
 }

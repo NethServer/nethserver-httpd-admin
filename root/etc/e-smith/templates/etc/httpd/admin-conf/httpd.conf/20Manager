@@ -1,7 +1,10 @@
 {
+    my $proto = $SSL eq 'enabled' ? 'https' : '';
+    my $SSLEngineStatus = $SSL eq 'enabled' ? 'on' : 'off';
+
     $OUT .= <<HERE;
-Listen $port https
-SSLEngine on
+Listen $port $proto
+SSLEngine $SSLEngineStatus
 HostnameLookups off
 
 ServerAdmin admin@$DomainName

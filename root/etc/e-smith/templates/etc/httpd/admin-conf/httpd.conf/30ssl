@@ -1,4 +1,3 @@
-SSLProxyEngine On
 
 SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
 {
@@ -12,7 +11,7 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 fo
 	"/home/e-smith/ssl.crt/${SystemName}.${DomainName}.crt";
 
     if( ! -r $crt ) {
-	warn "SSLCertificateFile: load default certificate\n";
+	# warn "SSLCertificateFile: load default certificate\n";
 	$crt = '/etc/pki/tls/certs/localhost.crt';
     }
 
@@ -20,7 +19,7 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 fo
 	"/home/e-smith/ssl.key/${SystemName}.${DomainName}.key";
 
     if( ! -r $key ) {
-	warn "SSLCertificateKeyFile: load default certificate\n";
+	# warn "SSLCertificateKeyFile: load default certificate\n";
 	$key = '/etc/pki/tls/private/localhost.key';
     }
 
