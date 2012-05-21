@@ -45,6 +45,7 @@ event_templates('nethserver-httpd-admin-update',
 
 event_actions('nethserver-httpd-admin-update',
 	      "initialize-default-databases" => '00',
+	      'nethserver-httpd-admin-conf' => '40',
 	      "runlevel-adjust" => '50',
 	      "firewall-adjust" => '55');
 	      

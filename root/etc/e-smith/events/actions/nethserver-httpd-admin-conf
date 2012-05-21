@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+use strict;
+
+use NethServer::Service;
+
+NethServer::Service::manage_add('nethserver-httpd-admin', 'httpd-admin');
+
