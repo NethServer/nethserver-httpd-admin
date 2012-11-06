@@ -8,50 +8,33 @@ my $event;
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
 # conf-httpd-admin
-templates2events("/etc/httpd/admin-conf/httpd.conf", (qw(
-    console-save
-    bootstrap-console-save
+event_templates($_, qw(/etc/httpd/admin-conf/httpd.conf)) foreach(qw(
     network-create
     network-delete
-    remoteaccess-update
-    logrotate
-)));
+));
 
-# Set up generic logfile timestamp renaming/symlinking
-foreach (qw(
-    /var/log/httpd/admin_access_log
-    /var/log/httpd/admin_error_log
-)) {
-    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp" . $_;
-    safe_touch "root/etc/e-smith/events/post-install/logfiles2timestamp" . $_;
-    safe_touch "root/etc/e-smith/events/post-upgrade/logfiles2timestamp" . $_;
-}
-
-safe_symlink("graceful", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
-    console-save
+event_services($_, qw(httpd-admin graceful)) foreach(qw(
     network-create
     network-delete
     remoteaccess-update
 ));
 
-safe_symlink("reload", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") foreach(qw(
-    logrotate
+#
+# nethserver-httpd-admin-update event:
+#
+event_templates('nethserver-httpd-admin-update', qw(
+		/etc/httpd/admin-conf/httpd.conf
+		/etc/sudoers
 ));
 
-# package update event:
-event_templates('nethserver-httpd-admin-update',
-		'/etc/httpd/admin-conf/httpd.conf',
-		'/etc/sudoers');
+event_actions('nethserver-httpd-admin-update', qw(
+	      initialize-default-databases 00
+	      nethserver-httpd-admin-conf 40
+	      runlevel-adjust 50
+	      firewall-adjust 55
+));
 
-event_actions('nethserver-httpd-admin-update',
-	      "initialize-default-databases" => '00',
-	      'nethserver-httpd-admin-conf' => '40',
-	      "runlevel-adjust" => '50',
-	      "firewall-adjust" => '55');
+event_services('nethserver-httpd-admin-update', qw(
+               httpd-admin restart
+));
 	      
-# restart httpd-admin
-safe_symlink("restart", "root/etc/e-smith/events/$_/services2adjust/httpd-admin") 
-    foreach (qw(
-        nethserver-httpd-admin-update
-        bootstrap-console-save
-));
