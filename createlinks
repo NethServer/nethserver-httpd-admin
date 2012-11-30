@@ -37,4 +37,12 @@ event_actions('nethserver-httpd-admin-update', qw(
 event_services('nethserver-httpd-admin-update', qw(
                httpd-admin restart
 ));
-	      
+
+#--------------------------------------------------
+# actions for interface-update event
+#--------------------------------------------------
+event_templates('interface-update',
+                '/etc/httpd/admin-conf/httpd.conf');
+event_services('interface-update',
+               'httpd-admin' => 'restart');
+ 
