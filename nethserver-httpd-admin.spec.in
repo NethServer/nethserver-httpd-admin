@@ -15,20 +15,6 @@ Requires: nethserver-php
 
 AutoReq: no
 
-%changelog
-* Wed Mar  7 2012 Davide Principi <davide.principi@nethesis.it> - 6.1.0-1.nh.git0653f8e2c
-- Replaced nethserver-httpd dependency with httpd, php, mod_ssl, sudo
-- %post script conforming to NethServer Development Rules
-
-* Wed Feb  8 2012 Davide <davide.principi@nethesis.it> - 0.0.5-1.nh
-- Updated to commit:08244fc
-
-* Tue Feb  7 2012 Davide <davide.principi@nethesis.it> - 0.0.4.2.nh
-- Updated to commit:89109b23ccd3
-
-* Fri Oct 07 2011 Giacomo Sanchietti <giacomo.sanchietti@gmail.com> 0.0.1-1nh
-- First release based on e-smith-manager 2.2.0-5.1.nh
-
 %description
 Apache configuration for the web administration console
 
@@ -63,3 +49,7 @@ event_queue add %{name}-update
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
+
+
+%changelog
+
