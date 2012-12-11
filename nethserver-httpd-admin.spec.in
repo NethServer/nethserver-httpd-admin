@@ -3,10 +3,9 @@ Name: nethserver-httpd-admin
 Version: @@VERSION@@
 Release: @@RELEASE@@%{?dist} 
 License: GPL
-Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 URL: http://dev.nethesis.it/projects/%{name}
-BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
+
 BuildRequires: nethserver-devtools
 BuildArch: noarch
 
