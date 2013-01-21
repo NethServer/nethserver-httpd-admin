@@ -1,45 +1,8 @@
 
 SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
-{
-    my $chain_file = $modSSL{CertificateChainFile} || "";
-    if ($chain_file ne "")
-    {
-       $OUT .= "SSLCertificateChainFile $chain_file";
-    }
 
-    my $crt = $modSSL{'crt'} ||
-	"/home/e-smith/ssl.crt/${SystemName}.${DomainName}.crt";
+# SSLCertificateChainFile 
+SSLCertificateFile /etc/pki/tls/certs/httpd-admin.crt
+SSLCertificateKeyFile /etc/pki/tls/private/httpd-admin.key
 
-    if( ! -r $crt ) {
-	# warn "SSLCertificateFile: load default certificate\n";
-	$crt = '/etc/pki/tls/certs/localhost.crt';
-    }
 
-    my $key = $modSSL{'key'} ||
-	"/home/e-smith/ssl.key/${SystemName}.${DomainName}.key";
-
-    if( ! -r $key ) {
-	# warn "SSLCertificateKeyFile: load default certificate\n";
-	$key = '/etc/pki/tls/private/localhost.key';
-    }
-
-    my $cipher = $modSSL{CipherSuite} || 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM';
-	
-    $OUT .= <<SSL_END;
-SSLCertificateFile $crt
-SSLCertificateKeyFile $key
-SSLCipherSuite $cipher
-SSL_END
-}
-
-SSLPassPhraseDialog  builtin
-SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
-SSLSessionCacheTimeout  300
-SSLMutex  file:/var/cache/nethserver-httpd-admin/state
-SSLRandomSeed startup file:/dev/urandom 512
-SSLRandomSeed connect builtin
-{
-    # Specify which SSL Protocols to accept for this context
-    $OUT .= "SSLProtocol all";
-    $OUT .= " -SSLv2" unless (defined(${'httpd'}{'SSLv2'}) && ${'httpd'}{'SSLv2'} eq 'enabled');
-}
