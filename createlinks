@@ -24,6 +24,11 @@ use esmith::Build::CreateLinks  qw(:all);
 
 my $event;
 
+my @certificates = (qw(
+                /etc/pki/tls/private/httpd-admin.key
+                /etc/pki/tls/certs/httpd-admin.crt
+));
+
 # Symlink httpd-admin to httpd.
 safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 
@@ -45,7 +50,7 @@ event_services($_, qw(httpd-admin graceful)) foreach(qw(
 event_templates('nethserver-httpd-admin-update', qw(
 		/etc/httpd/admin-conf/httpd.conf
 		/etc/sudoers
-));
+), @certificates);
 
 event_actions('nethserver-httpd-admin-update', qw(
 	      initialize-default-databases 00
@@ -69,10 +74,7 @@ event_services('interface-update',
 #
 # certificate-update event
 #
-event_templates('certificate-update', qw(
-                /etc/pki/tls/certs/httpd-admin.crt
-                /etc/pki/tls/private/httpd-admin.key
-));
+event_templates('certificate-update', @certificates);
 
 event_services('certificate-update', qw(
                httpd-admin graceful
