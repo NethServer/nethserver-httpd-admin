@@ -4,7 +4,7 @@ Version: @@VERSION@@
 Release: @@RELEASE@@ 
 License: GPL
 Source: %{name}-%{version}.tar.gz
-URL: http://dev.nethesis.it/projects/%{name}
+URL: %{url_prefix}/%{name} 
 
 BuildRequires: nethserver-devtools >= 1.0.0
 BuildArch: noarch
