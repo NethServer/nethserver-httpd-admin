@@ -79,3 +79,10 @@ event_templates('certificate-update', @certificates);
 event_services('certificate-update', qw(
                httpd-admin graceful
 ));
+
+#--------------------------------------------------
+# actions for migration-import event
+#--------------------------------------------------
+
+$event = "migration-import";
+event_actions($event, 'nethserver-httpd-admin-migrate' => 30);
