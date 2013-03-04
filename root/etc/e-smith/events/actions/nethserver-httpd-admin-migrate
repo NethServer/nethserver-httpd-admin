@@ -46,7 +46,7 @@ $new->set_prop('ValidFrom', $old->prop('ValidFrom') || '');
 #
 # Apply configuration
 # 
-if( ! esmith::event::event_signal('nethserver-ejabberd-update')) {
+if( ! esmith::event::event_signal('nethserver-httpd-admin-update')) {
     exit(1);
 }
 
