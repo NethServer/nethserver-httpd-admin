@@ -41,7 +41,8 @@ my $service = 'httpd-admin';
 my $old = $srcConfigDb->get($service);
 my $new = $dstConfigDb->get($service) || $dstConfigDb->new_record($service);
 $new->set_prop('ValidFrom', $old->prop('ValidFrom') || '');
-
+$old = $srcConfigDb->get('modSSL');
+$new->set_prop('SSLCipherSuite', $old->prop('CipherSuite') || 'ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM');
 
 #
 # Apply configuration
