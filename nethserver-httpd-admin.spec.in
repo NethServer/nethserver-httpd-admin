@@ -52,7 +52,10 @@ event_queue add %{name}-update
 
 
 %changelog
+* Tue Mar 19 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1.ns6
+- Add migration code
+- Use default SSL configuration
+
 * Thu Jan 31 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
 - Implemented nethserver-base certificate management
-
 
