@@ -69,7 +69,7 @@ event_services('nethserver-httpd-admin-update', qw(
 event_templates('interface-update',
                 '/etc/httpd/admin-conf/httpd.conf');
 event_services('interface-update',
-               'httpd-admin' => 'restart');
+               'httpd-admin' => 'reload');
  
 #
 # certificate-update event
