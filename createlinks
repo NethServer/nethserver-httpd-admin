@@ -54,7 +54,6 @@ event_templates('nethserver-httpd-admin-update', qw(
 
 event_actions('nethserver-httpd-admin-update', qw(
 	      initialize-default-databases 00
-	      nethserver-httpd-admin-conf 40
 ));
 
 event_services('nethserver-httpd-admin-update', qw(
