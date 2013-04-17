@@ -10,8 +10,9 @@ BuildRequires: nethserver-devtools >= 1.0.0
 BuildArch: noarch
 
 Requires: httpd, php, mod_ssl, sudo
-Requires: nethserver-php >= 1.0.0
-Requires: nethserver-base >= 1.1.0-2
+Requires: nethserver-php
+Requires: nethserver-base
+Requires: nethserver-nethgui
 
 AutoReq: no
 
