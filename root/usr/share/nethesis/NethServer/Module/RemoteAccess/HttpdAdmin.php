@@ -23,7 +23,8 @@ namespace NethServer\Module\RemoteAccess;
 use Nethgui\System\PlatformInterface as Validate;
 
 /**
- * @todo Describe Module class
+ * Manage access to httpd-admin service.
+ * Also show local networks (access is always granted to these networks).
  */
 class HttpdAdmin extends \Nethgui\Controller\TableController
 {
@@ -40,9 +41,11 @@ class HttpdAdmin extends \Nethgui\Controller\TableController
             array('address', Validate::IPv4, \Nethgui\Controller\Table\Modify::KEY),
             array('mask', Validate::IPv4_NETMASK, \Nethgui\Controller\Table\Modify::FIELD, '0'), // map 'mask' parameter to '0' column
         );
+        $rw_table = $this->getPlatform()->getTableAdapter('configuration', 'httpd-admin', 'ValidFrom', array(',', '/'));
+        $ro_table = $this->getPlatform()->getTableAdapter('networks','network');
 
         $this
-            ->setTableAdapter($this->getPlatform()->getTableAdapter('configuration', 'httpd-admin', 'ValidFrom', array(',', '/')))
+            ->setTableAdapter(new \NethServer\Module\RemoteAccess\HttpdAdmin\TableMergeDecorator($rw_table, $ro_table))
             ->setColumns($columns)
             ->addTableAction(new \Nethgui\Controller\Table\Modify('create', $parameterSchema, 'NethServer\Template\RemoteAccess\HttpdAdmin'))
             ->addTableAction(new \Nethgui\Controller\Table\Help('Help'))
@@ -51,6 +54,35 @@ class HttpdAdmin extends \Nethgui\Controller\TableController
         
         parent::initialize();
     }
+
+    /**
+     * Override prepareViewForColumnActions to hide/show enable/disable actions
+     * @param \Nethgui\View\ViewInterface $view
+     * @param string $key The data row key
+     * @param array $values The data row values
+     * @return \Nethgui\View\ViewInterface 
+     */
+    public function prepareViewForColumnActions(\Nethgui\Controller\Table\Read $action, \Nethgui\View\ViewInterface $view, $key, $values, &$rowMetadata)
+    {
+        $cellView = $action->prepareViewForColumnActions($view, $key, $values, $rowMetadata);
+
+        $editable = isset($values['editable']) ? $values['editable'] : false;
+
+        if (!$editable) {
+            unset($cellView['delete']);
+        }
+
+        return $cellView;
+    }
+
+    public function prepareViewForColumnKey(\Nethgui\Controller\Table\Read $action, \Nethgui\View\ViewInterface $view, $key, $values, &$rowMetadata)
+    {
+        if (!isset($values['editable']) || (!$values['editable'])) {
+            $rowMetadata['rowCssClass'] = trim($rowMetadata['rowCssClass'] . ' user-locked');
+        }
+        return strval($key);
+    }
+
 
     public function onParametersSaved(\Nethgui\Module\ModuleInterface $currentAction, $changes, $parameters)
     {
