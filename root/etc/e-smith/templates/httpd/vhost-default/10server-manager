@@ -1,6 +1,7 @@
-RewriteEngine on
-{
-    $port = ${'httpd-admin'}{TCPPort} || "980";
-    return "";
-}
-RewriteRule ^/server-manager(/.*|$)    https://%\{HTTP_HOST\}:{$port}/$1 [L,R]
+#
+# 10server-manager permanent redirect
+#
+Redirect permanent /server-manager https://{join('.', $SystemName, $DomainName)}:{${'httpd-admin'}{TCPPort} || "980"}
+
+
+
