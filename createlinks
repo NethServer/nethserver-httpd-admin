@@ -34,6 +34,7 @@ safe_symlink("httpd", "root/usr/sbin/httpd-admin");
 event_templates($_, qw(/etc/httpd/admin-conf/httpd.conf)) foreach(qw(
     network-create
     network-delete
+    remoteaccess-update
 ));
 
 event_services($_, qw(httpd-admin graceful)) foreach(qw(
