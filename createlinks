@@ -22,8 +22,6 @@
 
 use esmith::Build::CreateLinks  qw(:all);
 
-my $event;
-
 my @certificates = (qw(
                 /etc/pki/tls/private/httpd-admin.key
                 /etc/pki/tls/certs/httpd-admin.crt
@@ -80,6 +78,4 @@ event_services('certificate-update', qw(
 #--------------------------------------------------
 # actions for migration-import event
 #--------------------------------------------------
-
-$event = "migration-import";
-event_actions($event, 'nethserver-httpd-admin-migrate' => 30);
+event_actions("migration-import", qw(nethserver-httpd-admin-migrate 30));
