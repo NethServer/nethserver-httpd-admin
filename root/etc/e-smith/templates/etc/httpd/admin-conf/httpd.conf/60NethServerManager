@@ -3,12 +3,17 @@ DocumentRoot /usr/share/nethesis/nethserver-manager
 Alias /icons/ /var/www/icons/
 
 <Directory /usr/share/nethesis/nethserver-manager/>
-       AllowOverride All
        Options +Indexes
        Order Deny,Allow
        Deny from all
        Allow from { $localAccess || 'all' }
        AddType application/x-httpd-php .php
+       Options +FollowSymlinks
+       RewriteEngine on 
+       RewriteBase /
+       RewriteRule ^(js/|css/|images/|icons/|.+\.php) - [PT,L]
+       RewriteRule ^favicon.ico$ images/favicon.ico [L]
+       RewriteRule ^(.*)$ index.php/$1 [L] 
        php_value session.save_path /var/cache/nethserver-httpd-admin
        php_flag magic_quotes_gpc off
 </Directory>
