@@ -10,6 +10,7 @@ Alias /icons/ /var/www/icons/
        Allow from { $localAccess || 'all' }
        AddType application/x-httpd-php .php
        php_value session.save_path /var/cache/nethserver-httpd-admin
+       php_flag magic_quotes_gpc off
 </Directory>
    
 
