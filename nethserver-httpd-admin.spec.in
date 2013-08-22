@@ -1,4 +1,4 @@
-Summary: Administration console configuration based on Apache/httpd
+Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: @@VERSION@@
 Release: @@RELEASE@@ 
@@ -16,39 +16,33 @@ Requires: nethserver-nethgui
 
 AutoReq: no
 
-%description
-Apache configuration for the web administration console
+%description 
+Runs an Apache instance on port 980 with SSL that serves
+the nethserver-manager web application
 
 %prep
 %setup
 
 %build
 perl createlinks
-mkdir -p root/var/cache/nethserver-httpd-admin
-mkdir -p root/etc/httpd/admin-conf
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
-    --dir /var/cache/nethserver-httpd-admin/state 'attr(0750,admin,admin)' \
-    --dir /var/cache/nethserver-httpd-admin 'attr(0750,admin,admin)'\
+    --dir /var/cache/nethserver-httpd-admin 'attr(0750,admin,admin)' \
     > %{name}-%{version}-%{release}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%preun
-%post
-
-
-%postun
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
 
+%preun
+# We must stop our daemon before init.d script is removed:
+if [ $1 -eq 0 ]; then
+    /sbin/service httpd-admin stop &>/dev/null || :
+fi
 
 %changelog
 * Tue May  7 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
