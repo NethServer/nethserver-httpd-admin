@@ -45,6 +45,11 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Aug 28 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.5-1.ns6
+- Import nethserver-manager code from nethserver-base - Enhancement #2110 [NethServer]
+- RemoteAccess/HttpdAdmin UI module does not expand httpd-admin configuration - Bug #2094 [NethServer]
+- Single and double quotes characters escaped - Bug #2068 [NethServer]
+
 * Tue May  7 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
 - db defaults: added access prop with public default
 - httpd/vhost-default template: use Redirect directive, in place of RewriteRule #1838 
