@@ -60,8 +60,21 @@ $FW
 ;
 
 try {
-    $FW->dispatch($FW->createRequest());
+    $R = $FW->createRequest();
+    if ($R->getFormat() === 'xhtml') {
+        $R->setParameter('Menu', array())
+            ->setParameter('Notification', array())
+            ->setParameter('Resource', array())
+            ->setParameter('Logout', array())
+        ;
+    } elseif ($R->getFormat() === 'json') {
+        $R->setParameter('Notification', array());
+    }
+    $FW->dispatch($R);
 } catch (\Nethgui\Exception\HttpException $ex) {
     $FW->printHttpException($ex, TRUE);
+} catch (\Exception $ex) {
+    $FW->printHttpException(new Nethgui\Exception\HttpException('Internal server error', 500, 1377609335, $ex), TRUE);
 }
+
 
