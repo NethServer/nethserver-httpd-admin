@@ -2,6 +2,8 @@
 # 30httpd-admin
 #
 Cmnd_Alias HTTPD_ADMIN = { join(', ', @cmnd_alias_httpd_admin) }
+
 admin ALL=NOPASSWD: HTTPD_ADMIN
 
+Defaults:admin env_keep += "PTRACK_SOCKETPATH"
 
