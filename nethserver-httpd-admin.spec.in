@@ -45,6 +45,9 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Thu Oct 17 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
+- Add language code to URLs - Enhancement #2113 [Nethgui]
+
 * Wed Aug 28 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.5-1.ns6
 - Import nethserver-manager code from nethserver-base - Enhancement #2110 [NethServer]
 - RemoteAccess/HttpdAdmin UI module does not expand httpd-admin configuration - Bug #2094 [NethServer]
