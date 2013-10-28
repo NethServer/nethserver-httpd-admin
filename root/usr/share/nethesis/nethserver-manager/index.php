@@ -1,5 +1,7 @@
 <?php
 
+namespace NethServer;
+
 /*
  * Copyright (C) 2011 Nethesis S.r.l.
  *
@@ -37,12 +39,17 @@ extension_loaded('xdebug') && xdebug_disable();
 // Enable nethgui javascript files auto inclusion:
 define('NETHGUI_ENABLE_INCLUDE_WIDGET', TRUE);
 
-require_once('../Nethgui/Framework.php');
+$namespaces = array();
+$loader = include_once("../vendor/autoload.php");
+
+foreach ($loader->getPrefixes() as $nsName => $paths) {
+    $namespaces[trim($nsName, '\\')] = reset($paths) . DIRECTORY_SEPARATOR . trim($nsName, '\\');
+}
 
 $FW = new \Nethgui\Framework();
 $FW
     ->setLogLevel(E_WARNING | E_ERROR | E_NOTICE)
-    ->registerNamespace(realpath(__DIR__ . '/../NethServer'))
+    ->registerNamespace($namespaces[__NAMESPACE__])
     ->setDefaultModule('Dashboard')
     ->setDecoratorTemplate('NethServer\\Template\\Nethesis')
 ;
@@ -50,7 +57,8 @@ $FW
 try {
     $R = $FW->createRequest();
     if ($R->getFormat() === 'xhtml') {
-        $R->setParameter('Menu', array())
+        $R
+            ->setParameter('Menu', array())
             ->setParameter('Notification', array())
             ->setParameter('Resource', array())
             ->setParameter('Logout', array())

@@ -6,7 +6,7 @@ License: GPL
 Source: %{name}-%{version}.tar.gz
 URL: %{url_prefix}/%{name} 
 
-BuildRequires: nethserver-devtools >= 1.0.0
+BuildRequires: nethserver-devtools > 1.0.1
 BuildArch: noarch
 
 Requires: httpd, php, mod_ssl, sudo
@@ -25,9 +25,11 @@ the nethserver-manager web application
 
 %build
 perl createlinks
+composer install
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cp -va vendor root/usr/share/nethesis/
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
