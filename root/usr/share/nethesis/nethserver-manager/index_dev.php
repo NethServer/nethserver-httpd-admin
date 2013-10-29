@@ -1,4 +1,7 @@
 <?php
+
+namespace NethServer;
+
 /*
  * Copyright (C) 2011 Nethesis S.r.l.
  *
@@ -30,10 +33,10 @@ ini_set('default_mimetype', 'text/plain');
 ini_set('default_charset', 'UTF-8');
 setlocale(LC_CTYPE, 'en_US.utf-8');
 
-if(FALSE) {
-  header('HTTP/1.1 403 Forbidden');
-  echo "Access denied";
-  exit;
+if (FALSE) {
+    header('HTTP/1.1 403 Forbidden');
+    echo "Access denied";
+    exit;
 }
 
 // Disable hashed target names:
@@ -44,17 +47,21 @@ define('NETHGUI_ENABLE_INCLUDE_WIDGET', TRUE);
 
 // Disable caching:
 // define('NETHGUI_ENABLE_HTTP_CACHE_HEADERS', FALSE);
-
 // Enable debug mode (produces more verbose log
 // output and uses non-minified js & css)
 define('NETHGUI_DEBUG', TRUE);
 
-require_once('../Nethgui/Framework.php');
+$namespaces = array();
+$loader = include_once("../vendor/autoload.php");
+
+foreach ($loader->getPrefixes() as $nsName => $paths) {
+    $namespaces[trim($nsName, '\\')] = reset($paths) . DIRECTORY_SEPARATOR . trim($nsName, '\\');
+}
 
 $FW = new \Nethgui\Framework();
 $FW
     ->setLogLevel(E_WARNING | E_ERROR | E_NOTICE)
-    ->registerNamespace(realpath(__DIR__ . '/../NethServer'))
+    ->registerNamespace($namespaces[__NAMESPACE__])
     ->setDefaultModule('Dashboard')
     ->setDecoratorTemplate('NethServer\\Template\\Nethesis')
 ;
@@ -62,7 +69,8 @@ $FW
 try {
     $R = $FW->createRequest();
     if ($R->getFormat() === 'xhtml') {
-        $R->setParameter('Menu', array())
+        $R
+            ->setParameter('Menu', array())
             ->setParameter('Notification', array())
             ->setParameter('Resource', array())
             ->setParameter('Logout', array())
