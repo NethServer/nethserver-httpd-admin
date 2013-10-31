@@ -23,8 +23,9 @@ namespace NethServer;
 
 // PHP settings (timezone, error reporting..)
 date_default_timezone_set('UTC');
+ini_set('log_errors', "1");
 ini_set('error_log', 'syslog');
-error_reporting(E_ALL | E_STRICT);
+ini_set('error_reporting', E_ALL | E_STRICT);
 ini_set('session.use_trans_sid', "0");
 session_cache_limiter(FALSE);
 ini_set('display_errors', "1");

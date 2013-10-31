@@ -1,5 +1,4 @@
 <?php
-
 namespace NethServer;
 
 /*
@@ -23,15 +22,22 @@ namespace NethServer;
 
 // PHP settings (timezone, error reporting..)
 date_default_timezone_set('UTC');
+ini_set('log_errors', "1");
 ini_set('error_log', 'syslog');
-error_reporting(E_ALL | E_STRICT);
+ini_set('error_reporting', E_ALL | E_STRICT);
 ini_set('session.use_trans_sid', "0");
 session_cache_limiter(FALSE);
-ini_set('display_errors', "1");
+ini_set('display_errors', "0");
 ini_set('html_errors', "0");
 ini_set('default_mimetype', 'text/plain');
 ini_set('default_charset', 'UTF-8');
 setlocale(LC_CTYPE, 'en_US.utf-8');
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if (is_array($error)) {
+        printf("[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
+    }
+});
 
 // If xdebug is loaded, disable xdebug backtraces:
 extension_loaded('xdebug') && xdebug_disable();
