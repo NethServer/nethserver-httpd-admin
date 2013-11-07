@@ -63,7 +63,7 @@ input[type="text"][readonly] {background-color: #eee; color: #444}
 .tabs-list li {float: left; margin-right: 1em}
 
 .header {padding: .5em;  border: none}
-.labeled-control, .header, .Fieldset {margin-bottom: 1em; clear: both}
+.labeled-control, .header, .Fieldset, .Buttonlist {margin-bottom: 1em; clear: both}
 .Fieldset.expandable.collapsed {margin-bottom: 0}
 .Fieldset.expandable legend .TextLabel {cursor:pointer}
 
@@ -78,7 +78,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .labeled-control.label-right label {margin-left: 0.5em}
 .labeled-control.label-above label {display: block}
 
-.Buttonlist {clear: both; min-height: 27px}
+.Buttonlist {min-height: 27px}
 .Buttonlist .Help {position: absolute; top: auto; right: 0}
 .Buttonlist > .Button {margin-right: 0.4em;}
 .Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
