@@ -1,7 +1,8 @@
 #
 # 10server-manager permanent redirect
 #
-Redirect permanent /server-manager https://{join('.', $SystemName, $DomainName)}:{${'httpd-admin'}{TCPPort} || "980"}
+RewriteEngine On
+RewriteRule ^/server-manager(/.*)?$  https://%\{HTTP_HOST\}:{${'httpd-admin'}{TCPPort} || "980"}$1  [L,R=301]
 
 
 
