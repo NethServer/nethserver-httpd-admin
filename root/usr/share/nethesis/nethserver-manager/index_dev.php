@@ -83,7 +83,7 @@ try {
 } catch (\Nethgui\Exception\HttpException $ex) {
     $FW->printHttpException($ex, TRUE);
 } catch (\Exception $ex) {
-    $FW->printHttpException(new Nethgui\Exception\HttpException('Internal server error', 500, 1377609335, $ex), TRUE);
+    $FW->printHttpException(new \Nethgui\Exception\HttpException('Internal server error', 500, 1377609335, $ex), TRUE);
 }
 
 
