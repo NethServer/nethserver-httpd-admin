@@ -32,10 +32,11 @@ ini_set('html_errors', "0");
 ini_set('default_mimetype', 'text/plain');
 ini_set('default_charset', 'UTF-8');
 setlocale(LC_CTYPE, 'en_US.utf-8');
-register_shutdown_function(function() {
+register_shutdown_function(function() {   
     $error = error_get_last();
     if (is_array($error)) {
-        printf("[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
+        header('HTTP/1.1 500 Internal server error');
+        printf("\n\n[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
     }
 });
 

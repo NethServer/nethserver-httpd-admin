@@ -1,5 +1,4 @@
 <?php
-
 namespace NethServer;
 
 /*
@@ -28,13 +27,21 @@ ini_set('error_log', 'syslog');
 ini_set('error_reporting', E_ALL | E_STRICT);
 ini_set('session.use_trans_sid', "0");
 session_cache_limiter(FALSE);
-ini_set('display_errors', "1");
+ini_set('display_errors', "0");
 ini_set('html_errors', "0");
 ini_set('default_mimetype', 'text/plain');
 ini_set('default_charset', 'UTF-8');
 setlocale(LC_CTYPE, 'en_US.utf-8');
+register_shutdown_function(function() {    
+    $error = error_get_last();
+    if (is_array($error)) {
+        header('HTTP/1.1 500 Internal server error');
+        printf("\n\n[%s] %s\nFile %s, line %s\n", $error['type'], $error['message'], $error['file'], $error['line']);
+    }
+});
 
-if (FALSE) {
+
+if (FALSE || ! file_exists(__DIR__ . '/debug')) {
     header('HTTP/1.1 403 Forbidden');
     echo "Access denied";
     exit;
