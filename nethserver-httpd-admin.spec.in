@@ -6,7 +6,7 @@ License: GPL
 Source: %{name}-%{version}.tar.gz
 URL: %{url_prefix}/%{name} 
 
-BuildRequires: nethserver-devtools > 1.0.1
+BuildRequires: nethserver-devtools > 1.0.1, git
 BuildArch: noarch
 
 Requires: httpd, php, mod_ssl, sudo
@@ -29,7 +29,14 @@ composer install
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cp -va vendor root/usr/share/nethesis/
+
+mkdir -p root/usr/share/nethesis/vendor \
+         root/usr/share/nethesis/nethserver-manager/{js,css}
+
+cp -va vendor/{autoload.php,composer} root/usr/share/nethesis/vendor/
+cp -va vendor/nethserver/ui-deps-bundle/js/* root/usr/share/nethesis/nethserver-manager/js/
+cp -va vendor/nethserver/ui-deps-bundle/css/* root/usr/share/nethesis/nethserver-manager/css/
+
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \

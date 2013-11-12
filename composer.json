@@ -13,5 +13,14 @@
             "Nethgui\\": "",
             "NethServer\\": ""
         }
+    },
+    "repositories": [
+	{
+	    "type": "vcs",
+	    "url": "git://code.nethesis.it/ui-deps-bundle"
+	}
+    ],
+    "require": {
+	"nethserver/ui-deps-bundle": "1.0.0"
     }
 }
