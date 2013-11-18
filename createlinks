@@ -27,9 +27,6 @@ my @certificates = (qw(
                 /etc/pki/tls/certs/httpd-admin.crt
 ));
 
-# Symlink httpd-admin to httpd.
-safe_symlink("httpd", "root/usr/sbin/httpd-admin");
-
 # conf-httpd-admin
 event_templates($_, qw(/etc/httpd/admin-conf/httpd.conf)) foreach(qw(
     network-create
@@ -37,7 +34,7 @@ event_templates($_, qw(/etc/httpd/admin-conf/httpd.conf)) foreach(qw(
     remoteaccess-update
 ));
 
-event_services($_, qw(httpd-admin graceful)) foreach(qw(
+event_services($_, qw(httpd-admin reload)) foreach(qw(
     network-create
     network-delete
     remoteaccess-update
@@ -47,6 +44,7 @@ event_services($_, qw(httpd-admin graceful)) foreach(qw(
 # nethserver-httpd-admin-update event:
 #
 event_templates('nethserver-httpd-admin-update', qw(
+                /etc/init/httpd-admin.conf
 		/etc/httpd/admin-conf/httpd.conf
 		/etc/sudoers
 ), @certificates);
@@ -65,7 +63,7 @@ event_services('nethserver-httpd-admin-update', qw(
 event_templates('interface-update',
                 '/etc/httpd/admin-conf/httpd.conf');
 event_services('interface-update',
-               'httpd-admin' => 'reload');
+               'httpd-admin' => 'restart');
  
 #
 # certificate-update event
@@ -73,7 +71,7 @@ event_services('interface-update',
 event_templates('certificate-update', @certificates);
 
 event_services('certificate-update', qw(
-               httpd-admin graceful
+               httpd-admin reload
 ));
 
 #--------------------------------------------------
