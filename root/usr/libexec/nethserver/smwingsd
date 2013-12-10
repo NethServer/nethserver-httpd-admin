@@ -1,0 +1,153 @@
+#!/usr/bin/perl
+
+#
+# Copyright (C) 2013 Nethesis S.r.l.
+# http://www.nethesis.it - support@nethesis.it
+# 
+# This script is part of NethServer.
+# 
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+# 
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+package smwingsd;
+
+use strict;
+use JSON;
+use esmith::db;
+use base 'Net::Server::Multiplex';
+
+umask 0027;
+__PACKAGE__->new()->run();
+exit;
+
+sub default_values {
+    return {	
+	'user' => 'admin',
+	'group' => 'admin',
+	'conf_file' => '/etc/smwingsd.conf',
+	'background' => 1,
+	'setsid' => 1,
+	'log_file' => 'Sys::Syslog',
+	'syslog_ident' => 'smwingsd',
+	'port' => '/var/run/smwingsd.sock|unix',
+    };
+}
+
+sub allow_deny_hook {
+    return 1;
+}
+
+sub mux_input {
+    my $self = shift;
+    my $mux = shift;
+    my $fh = shift;
+    my $in_buf = shift;
+
+    my ($request, $msg_type) = $self->{'net_server'}->read_request($$in_buf);
+
+    if( ! defined $request) {
+	return;
+    }
+
+    $$in_buf = "";
+
+    $self->{'net_server'}->handle_request($msg_type, $request);
+}
+
+sub read_request {
+    my $self = shift;
+    my $buf = shift;
+
+    if(length($buf) < 5) {
+	# no header. Wait for more input.
+	return undef;
+    }
+
+    my $hdr = substr($buf, 0, 5);    
+    my $payload = substr($buf, 5);
+    my ($msg_type, $payload_sz) = unpack("CN", $hdr);
+
+    if(length($payload) < $payload_sz) {
+	# incomplete payload. Wait for more input.
+	return undef;
+    }
+
+    $self->log(4, "<< $payload");
+    return (from_json($payload, {utf8 => 1, pretty => 0, allow_nonref => 1}), $msg_type); 
+}
+
+sub write_response {
+    my $self = shift;
+    my $msg_type = shift;
+    my $response = shift;
+    my $payload = to_json($response, {utf8 => 1, pretty => 0, allow_nonref => 1});
+    $self->log(4, ">> $payload");
+    print pack("CN", $msg_type, length($payload)) . $payload;
+}
+
+sub handle_request {
+     my $self = shift;
+     my $msg_type = shift;
+     my $request = shift;
+
+     my $response = undef;
+
+     #
+     # Message type bits:
+     # * low nibble is control 
+     #   (1=>request/response, 2=>error flag, 3-4=>notused)
+     # * high nibble is the request type code
+     #
+     if(ref($request) ne 'ARRAY') {
+	 $response = {'code' => 1, 'text'=> 'Invalid request'};
+	 $msg_type |= 0x03;	 	 
+     } elsif($msg_type == 0x10) { # database query
+	 my ($db, $act, @args) = @{$request};	 
+	 $response = $self->do_query($db, $act, @args);
+	 $msg_type |= 0x01;	 
+     } else {	 
+	 $response = {'code' => 0, 'text'=> sprintf("Invalid message type 0x%x", $msg_type)};
+	 $msg_type |= 0x03;	 
+     }
+
+     $self->write_response($msg_type, $response);
+}
+ 
+sub do_query {
+    my $self = shift;
+    my $dbn = shift;
+    my $act = shift;
+    my @args = @_;
+
+    my $res = undef;
+    my $db = esmith::db->open(($self->get_property('chroot') ? '/' : '') . $dbn);
+
+    if( ! $db) {
+	$self->log(0, "Error opening database $dbn");
+	$res = undef;
+    } elsif($act eq 'getjson') {
+	$res = $db->prepare_json(@args);
+    } elsif($act eq 'getprop') {
+	$res = $db->get_prop(@args);
+    } elsif($act eq 'gettype') {
+	$res = $db->get_type(@args);
+    } else {
+	$self->log(0, "Unsupported action '$act'");
+	$res = undef;
+    }	
+
+    return $res;
+}
+
+1;

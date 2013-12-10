@@ -13,6 +13,7 @@ Requires: httpd, php, mod_ssl, sudo
 Requires: nethserver-php
 Requires: nethserver-base
 Requires: nethserver-nethgui
+Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
 
 AutoReq: no
 
