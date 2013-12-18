@@ -54,6 +54,13 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Dec 18 2013 Davide Principi <davide.principi@nethesis.it> - 1.1.0-1.ns6
+- server-manager redirect on port 980 - Enhancement #2330 [NethServer]
+- Implement Composer PSR-0 autoloader - Feature #2293 [Nethgui]
+- Remove external JS libraries from source repositories - Enhancement #2167 [NethServer]
+- Process tracking and notifications - Feature #2029 [NethServer]
+- Service supervision with Upstart - Feature #2014 [NethServer]
+
 * Thu Oct 17 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
 - Add language code to URLs - Enhancement #2113 [Nethgui]
 
