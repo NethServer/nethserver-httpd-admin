@@ -40,6 +40,7 @@ cp -va vendor/nethserver/ui-deps-bundle/css/* root/usr/share/nethesis/nethserver
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
     --dir /var/cache/nethserver-httpd-admin 'attr(0750,srvmgr,srvmgr)' \
+    --dir /var/log/httpd-admin 'attr(0700,root,root)' \
     > %{name}-%{version}-%{release}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
 

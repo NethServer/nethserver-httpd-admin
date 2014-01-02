@@ -14,7 +14,7 @@ ServerTokens ProductOnly
 User srvmgr
 Group srvmgr
 
-ErrorLog /var/log/httpd/admin_error_log
+ErrorLog /var/log/httpd-admin/error_log
 LogLevel warn
 HERE
 
@@ -48,7 +48,7 @@ UseCanonicalName off
 LogFormat "%h %l %u %t \\"%r\\" %>s %b" common
 LogFormat "%{User-agent}i" agent
 
-CustomLog /var/log/httpd/admin_access_log common
+CustomLog /var/log/httpd-admin/access_log common
 
 KeepAlive On
 MaxKeepAliveRequests 100

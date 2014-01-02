@@ -1,0 +1,9 @@
+/var/log/httpd-admin/*log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        /sbin/reload httpd-admin > /dev/null 2>/dev/null || true
+    endscript
+}
