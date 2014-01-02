@@ -29,8 +29,6 @@ perl createlinks
 composer install
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 mkdir -p root/usr/share/nethesis/vendor \
          root/usr/share/nethesis/nethserver-manager/{js,css}
 
@@ -54,11 +52,6 @@ if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
 
-%preun
-# We must stop our daemon before init.d script is removed:
-if [ $1 -eq 0 ]; then
-    /sbin/service httpd-admin stop &>/dev/null || :
-fi
 
 %changelog
 * Thu Oct 17 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
