@@ -7,12 +7,12 @@ Listen $port $proto
 SSLEngine $SSLEngineStatus
 HostnameLookups off
 
-ServerAdmin admin@$DomainName
+ServerAdmin root@$DomainName
 ServerRoot /etc/httpd
 ServerTokens ProductOnly
 
-User admin
-Group admin
+User srvmgr
+Group srvmgr
 
 ErrorLog /var/log/httpd/admin_error_log
 LogLevel warn

@@ -27,14 +27,14 @@ use JSON;
 use esmith::db;
 use base 'Net::Server::Multiplex';
 
-umask 0027;
+umask 0117;
 __PACKAGE__->new()->run();
 exit;
 
 sub default_values {
     return {	
-	'user' => 'admin',
-	'group' => 'admin',
+	'user' => 'srvmgr',
+	'group' => 'adm',
 	'conf_file' => '/etc/smwingsd.conf',
 	'background' => 1,
 	'setsid' => 1,

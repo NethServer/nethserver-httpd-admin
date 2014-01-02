@@ -41,12 +41,18 @@ cp -va vendor/nethserver/ui-deps-bundle/css/* root/usr/share/nethesis/nethserver
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
-    --dir /var/cache/nethserver-httpd-admin 'attr(0750,admin,admin)' \
+    --dir /var/cache/nethserver-httpd-admin 'attr(0750,srvmgr,srvmgr)' \
     > %{name}-%{version}-%{release}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
+
+%pre
+# ensure srvmgr user exists:
+if ! id srvmgr >/dev/null 2>&1 ; then
+   useradd -r -U -G adm srvmgr
+fi
 
 %preun
 # We must stop our daemon before init.d script is removed:
