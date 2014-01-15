@@ -24,6 +24,7 @@
 rm -rf /var/cache/nethserver-httpd-admin/nethgui-resource-cache-*
 
 # Fix session permissions from old admin user
-if id admin &>/dev/null; then
-    chown --silent --from=admin:admin srvmgr:srvmgr /var/cache/nethserver-httpd-admin/sess_*
+sessions=(/var/cache/nethserver-httpd-admin/sess_*)
+if [ -f "${sessions}" ]; then
+    chown --from=500:500 srvmgr:srvmgr ${sessions[*]}
 fi
