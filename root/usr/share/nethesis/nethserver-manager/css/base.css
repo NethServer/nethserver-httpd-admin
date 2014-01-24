@@ -166,7 +166,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .HelpDocument h3 {font-size: 110%}
 
 .HelpDocument p {margin: .5em 0}
-.HelpDocument dt {margin: 1em 0 .2em}
+.HelpDocument dt {margin: 1em 0 .2em; text-decoration: underline}
 .HelpDocument dd {margin: .2em 0}
 .HelpDocument ul {list-style: disc; padding-left: 30px}
 
