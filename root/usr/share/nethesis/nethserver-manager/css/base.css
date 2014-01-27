@@ -170,7 +170,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .HelpDocument dd {margin: .2em 0}
 .HelpDocument ul {list-style: disc; padding-left: 30px}
 
-.HelpDocument :first-child {margin-top: 0}
+.HelpDocument > div.section > :first-child {margin-top: 0}
 
 .ui-tabs.ui-widget-content {border:none}
 .ui-tabs, .ui-tabs .ui-tabs-panel {padding: 0}
