@@ -55,6 +55,15 @@ fi
 
 
 %changelog
+* Wed Feb 05 2014 Davide Principi <davide.principi@nethesis.it> - 1.2.0-1.ns6
+- No feedback from Shutdown UI module - Bug #2629 [NethServer]
+- RST format for help files - Enhancement #2627 [NethServer]
+- Move httpd-admin web server logs - Feature #2551 [NethServer]
+- Default remote access from public networks - Enhancement #2548 [NethServer]
+- Restore httpd-admin symlink - Enhancement #2536 [NethServer]
+- Move admin user in LDAP DB - Feature #2492 [NethServer]
+- Give wings to server-manager - Enhancement #2460 [NethServer]
+
 * Thu Oct 17 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
 - Add language code to URLs - Enhancement #2113 [Nethgui]
 
