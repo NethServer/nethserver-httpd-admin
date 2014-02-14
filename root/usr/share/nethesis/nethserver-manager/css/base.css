@@ -13,7 +13,8 @@ h1,h2,h3,h4,h5,h6 { font-size: 100%; margin: 0; padding: 0; font-weight: normal}
 fieldset {border: none}
 script {display: none}
 .ui-widget {font-size: inherit}
-input[type="text"], input[type="password"], select {border: 1px solid; border-color: #aaa #999 #777 #aaa; font-size: 120%; background-color: white }
+input[type="text"], input[type="password"], select {border: 1px solid; border-color: #aaa #aaa #aaa #aaa; font-size: 130%; background-color: white; padding: 5px; color: #202020 }
+input[type="text"]:focus, input[type="password"]:focus {border: 1px solid; border-color: #0F0F0F #0F0F0F #0F0F0F #0F0F0F;}
 input[type="checkbox"], input[type="radio"] {display: inline-block}
 input[type="text"][readonly] {background-color: #eee; color: #444}
 
@@ -47,9 +48,10 @@ input[type="text"][readonly] {background-color: #eee; color: #444}
 .Navigation.Flat a.currentMenuItem { background-color: #fff }
 
 .Navigation #Menu_search {width: 100%; border: none}
-.Navigation .searchPanel {margin: 0 .5em; border: 1px solid lightgrey; background: white; position: relative}
-.Navigation .searchPanel button {border: none; position: absolute; top: 0; right: 0}
+.Navigation .searchPanel {margin: 0 .5em; background: transparent; position: relative; margin-right: 0.7em;}
+.Navigation .searchPanel button {border: none; position: absolute; top: 0; right: -3px; background: none}
 .Navigation .searchPanel .ui-button-text {padding: 0}
+.searchPanel input[type="text"] { padding: 2px; font-size: 100% }
 
 .secondaryContent .Inset {margin-top: .5em}
 
@@ -76,7 +78,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .labeled-control.label-right {overflow: hidden}
 .labeled-control.label-left label {display: inline-block; min-width: 10em; margin-right: 0.5em}
 .labeled-control.label-right label {margin-left: 0.5em}
-.labeled-control.label-above label {display: block}
+.labeled-control.label-above label {display: block; margin-bottom: 0.2em;}
 
 .Buttonlist {min-height: 27px}
 .Buttonlist .Help {position: absolute; top: auto; right: 0}
@@ -84,7 +86,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
 .Buttonlist > .Button.link.ui-state-hover:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-hover.png') repeat-x left bottom}
 
-.ui-buttonset .ui-button {margin-right: -.1em}
+.ui-buttonset .ui-button {margin-right: -.1em; background: #E6E6E6;}
 .ui-buttonset .ui-button.ui-state-hover {z-index: 10}
 .popup {display:block; position:absolute; background: white; z-index: 100; min-width: 100px; border: 1px solid #eee; overflow: hidden}
 .popup  .Button {display:block; width: 100%; background: white; text-align: left; padding: .3em .5em; border: none}
@@ -98,7 +100,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 /* BEGIN DataTable jQuery plugin */
 .dataTables_wrapper { margin-bottom: 8px; min-height: 0}
 .DataTable table {border-collapse: collapse; border: 1px solid #ccc; background: #fff}
-.DataTable td {padding: 2px 4px;}
+.DataTable td {padding: 4px 6px;}
 /*.DataTable .ui-widget-header { background: #eee; padding: 2px; color: #444}*/
 .DataTable .ui-widget-header { background: #fff; border: none; padding: 3px; font-weight: normal}
 .DataTable .ui-widget-header select { font-size: 100%}
@@ -107,11 +109,12 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .DataTable .dataTables_paginate span{ margin: 1px;}
 .DataTable .dataTables_info { float: left;}
 .dataTables_length { float: left }
-.DataTable td .ui-button-text {padding: .1em .3em}
+.DataTable td .ui-button-text {padding: .1em .3em; padding: 5px}
 .DataTable .small-dataTable .fg-toolbar {display: none}
 .css_right {position: absolute; top: 0; right: 0}
-.DataTable th.ui-state-default {text-align: left; padding: .5em .3em; cursor: pointer; font-weight: bold; background-color: #E6E6E; color: #002F64; }
+.DataTable th.ui-state-default {text-align: left; padding: .5em .3em; cursor: pointer; font-weight: bold; background: #E6E6E6; color: #2E2E2E; }
 .DataTables_sort_wrapper {position: relative}
+.DataTable tr {border-bottom: 1px solid #eee;}
 .DataTable tr.user-new td {color: #888;}
 .DataTable tr.user-new td:first-child {color: #777; background: url('../images/key.png') no-repeat center right }
 .DataTable tr.user-locked td {color: #888;}
@@ -133,9 +136,9 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .ObjectPicker .labeled-control {margin: 0 1em 0 0; padding: 0; display: inline-block}
 .ObjectPicker .labeled-control.label-right label {margin-left: .2em}
 .ObjectPicker .checkboxset {position: absolute; right: 0; top: 0; margin-right: 0}
-.ObjectPicker .checkboxset .ui-button-text, .ObjectPicker .searchbox .ui-button-text {padding: .2em 1em}
+.ObjectPicker .checkboxset .ui-button-text, .ObjectPicker .searchbox .ui-button-text {padding: 5px}
 .ObjectPicker .searchbox {margin-bottom: .6em}
-.ObjectPicker li .label {display: block; padding: .3em 0 .3em .3em; border: 1px solid #ddd; border-right: none}
+.ObjectPicker li .label {display: block; padding: 6px; border: 1px solid #ddd; border-right: none}
 .ObjectPicker {margin-bottom: 1.2em}
 /* END ObjectPicker */
 
@@ -185,12 +188,12 @@ p.TextLabel {margin: 0.5em 0}
 /* Responsive layout */
 
 .secondaryContent { margin-top: 2em }
-.secondaryContent .contentWrapper { padding: .5em 0; border-radius: 5px; }
+.secondaryContent .contentWrapper { padding: .5em 0; border-radius: 2px; }
 .secondaryContent h2 {display:none}
 
 #ModuleTitle { display: none }
 #productTitle { color: white; font-weight: bold; font-family: arial, sans-serif; position: absolute; bottom: -6px; left: 10px; font-size: 22px}
-#headerMenu {position: absolute; right: 15px; bottom: 0; background: white; padding: 2px; border-radius: 2px 2px 0 0}
+#headerMenu {position: absolute; right: 15px; bottom: 0; background: white; padding: 5px; border-radius: 2px 2px 0 0; font-size: 110%}
 #headerMenu a {color: #555; text-decoration: none}
 
 @media screen and (min-width: 40em) {
@@ -200,17 +203,17 @@ p.TextLabel {margin: 0.5em 0}
     .CurrentModule { border-bottom: 1px solid #aaa; min-height: 300px; }
     .DataTable {min-height: auto;}
     .header {padding: .5em;  border: none; }
-    #pageHeader { position:relative; height: 50px; margin-left: .5em; margin-right: .5em; margin-bottom: .5em; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;}
-    #productTitle {  font-size: 48px; bottom: -14px }
+    #pageHeader { position:relative; height: 50px; margin-left: .5em; margin-right: .5em; margin-bottom: .5em; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px;}
+    #productTitle { bottom: -1px }
     #footer { display: inherit; position: fixed; color: #aaa; padding: 5px; text-align: right; bottom: 0; right: 0; border-top: 1px solid #eee; background: white; min-width: 100%}
     .Tabs { min-height: 300px; }
 } /*end media screen */
 
-#pageHeader { background: #bed2ea; }
-.header {background: #bed2ea; color: #002F64 }
+#pageHeader { background: #2E2E2E; }
+.header {color: #2E2E2E }
 .Navigation.Flat a {color: #fff;}
-.Navigation.Flat a:hover {color: #003C7B;}
+.Navigation.Flat a:hover {color: #2E2E2E;}
 .Navigation.Flat .category {color: #fff;}
-.secondaryContent .contentWrapper { background: #003C7B;}
-.Navigation.Flat a.currentMenuItem { color: #003C7B}
+.secondaryContent .contentWrapper { background: #3D4547;}
+.Navigation.Flat a.currentMenuItem { color: #2E2E2E}
 
