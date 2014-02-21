@@ -17,6 +17,7 @@ input[type="text"], input[type="password"], select {border: 1px solid; border-co
 input[type="text"]:focus, input[type="password"]:focus {border: 1px solid; border-color: #0F0F0F #0F0F0F #0F0F0F #0F0F0F;}
 input[type="checkbox"], input[type="radio"] {display: inline-block}
 input[type="text"][readonly] {background-color: #eee; color: #444}
+input[type="text"].mandatory { background: url("img/mandatory_field.png") no-repeat right center }
 
 .flatList li {display: inline; margin-right: 1ex}
 
