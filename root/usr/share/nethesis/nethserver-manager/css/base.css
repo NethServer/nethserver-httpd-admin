@@ -13,13 +13,18 @@ h1,h2,h3,h4,h5,h6 { font-size: 100%; margin: 0; padding: 0; font-weight: normal}
 fieldset {border: none}
 script {display: none}
 .ui-widget {font-size: inherit}
-input[type="text"], input[type="password"], select {border: 1px solid; border-color: #aaa #aaa #aaa #aaa; font-size: 130%; background-color: white; padding: 5px; color: #202020 }
-input[type="text"]:focus, input[type="password"]:focus {border: 1px solid; border-color: #0F0F0F #0F0F0F #0F0F0F #0F0F0F;}
-input[type="checkbox"], input[type="radio"] {display: inline-block}
-input[type="text"][readonly] {background-color: #eee; color: #444}
-input[type="text"].mandatory { background: url("img/mandatory_field.png") no-repeat right center }
-
 .flatList li {display: inline; margin-right: 1ex}
+
+.CheckBox, .RadioButton {display: inline-block}
+
+.primaryContent .TextInput, .primaryContent select {font-size: 130%}
+
+.TextInput , select {; border: 1px solid #aaa; background-color: #fff; padding: 5px; color: #202020 }
+.TextInput:focus {border-color: #0F0F0F }
+.TextInput.ui-state-error:focus {border-color: #F83939 }
+.TextInput.mandatory.active { background: url("img/mandatory_normal.png") no-repeat right center }
+.TextInput.mandatory.active.ui-state-error { background: url("img/mandatory_error.png") no-repeat right center }
+.TextInput[readonly] { background-color: #eee; color: #444}
 
 #pageHeader { position:relative; height: 22px; margin-bottom: .5em; }
 #pageHeader h1 { font-size: 1.7em; }
@@ -55,7 +60,7 @@ input[type="text"].mandatory { background: url("img/mandatory_field.png") no-rep
 .Navigation .searchPanel {margin: 0 .5em; background: transparent; position: relative; margin-right: 0.7em;}
 .Navigation .searchPanel button {border: none; position: absolute; top: 0; right: -3px; background: none}
 .Navigation .searchPanel .ui-button-text {padding: 0}
-.searchPanel input[type="text"] { padding: 2px; font-size: 100% }
+.searchPanel .TextInput { padding: 2px; font-size: 1em }
 
 .secondaryContent .Inset {margin-top: .5em}
 
