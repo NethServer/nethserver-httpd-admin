@@ -55,6 +55,10 @@ fi
 
 
 %changelog
+* Wed Feb 26 2014 Davide Principi <davide.principi@nethesis.it> - 1.2.1-1.ns6
+- Revamp web UI style - Enhancement #2656 [NethServer]
+- Emphasized visual style for mandatory text input fields - Feature #1753 [NethServer]
+
 * Wed Feb 05 2014 Davide Principi <davide.principi@nethesis.it> - 1.2.0-1.ns6
 - No feedback from Shutdown UI module - Bug #2629 [NethServer]
 - RST format for help files - Enhancement #2627 [NethServer]
