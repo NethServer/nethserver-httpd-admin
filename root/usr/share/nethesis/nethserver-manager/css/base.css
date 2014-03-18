@@ -78,7 +78,7 @@ script {display: none}
 .Fieldset.expandable.collapsed {margin-bottom: 0}
 .Fieldset.expandable legend .TextLabel {cursor:pointer}
 
-.FieldsetSwitchPanel {margin-left: 2em}
+.FieldsetSwitchPanel {margin-left: 2em; margin-bottom: 1em}
 fieldset {margin-left: 16px}
 legend {padding: 0 0 .6em 18px; display: block; font-size: 100%; color: #444; position: relative; left: -16px}
 legend .ui-icon:first-child {position: absolute; top: 0; left: -2px; opacity: .5; -moz-opacity: .5}
@@ -95,7 +95,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
 .Buttonlist > .Button.link.ui-state-hover:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-hover.png') repeat-x left bottom}
 
-.ui-buttonset .ui-button {margin-right: -.1em; background: #E6E6E6;}
+.ui-buttonset .ui-button {margin-right: -.1em}
 .ui-buttonset .ui-button.ui-state-hover {z-index: 10}
 .popup {display:block; position:absolute; background: white; z-index: 100; min-width: 100px; border: 1px solid #eee; overflow: hidden}
 .popup  .Button {display:block; width: 100%; background: white; text-align: left; padding: .3em .5em; border: none}
