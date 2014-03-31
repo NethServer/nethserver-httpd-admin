@@ -84,14 +84,14 @@ sub read_request {
     }
 
     $self->log(4, "<< $payload");
-    return (from_json($payload, {utf8 => 1, pretty => 0, allow_nonref => 1}), $msg_type); 
+    return (JSON->new->decode($payload), $msg_type); 
 }
 
 sub write_response {
     my $self = shift;
     my $msg_type = shift;
     my $response = shift;
-    my $payload = to_json($response, {utf8 => 1, pretty => 0, allow_nonref => 1});
+    my $payload = JSON->new->allow_nonref->latin1->encode($response);
     $self->log(4, ">> $payload");
     print pack("CN", $msg_type, length($payload)) . $payload;
 }
