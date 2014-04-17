@@ -55,6 +55,9 @@ fi
 
 
 %changelog
+* Thu Apr 17 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1.ns6
+- Fix visualization problems with accented letters - Bug #2701
+
 * Mon Mar 24 2014 Davide Principi <davide.principi@nethesis.it> - 1.2.2-1.ns6
 - YUM categories in PackageManager - Feature #2694 [NethServer]
 
