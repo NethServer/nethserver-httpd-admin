@@ -14,6 +14,11 @@ fieldset {border: none}
 script {display: none}
 .ui-widget {font-size: inherit}
 .flatList li {display: inline; margin-right: 1ex}
+.inlineblock {display: inline-block}
+.wspreline {white-space: pre-line}
+.displaynone {display: none}
+.pencil {background: white url("img/pencil.png") no-repeat right center; background-size: auto 100%; background-origin: content-box}
+.search {background: white url("img/search.png") no-repeat right center; background-size: auto 100%; background-origin: content-box}
 
 .CheckBox, .RadioButton {display: inline-block}
 
@@ -89,8 +94,8 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .labeled-control.label-right label {margin-left: 0.5em}
 .labeled-control.label-above label {display: block; margin-bottom: 0.2em;}
 
-.Buttonlist {min-height: 27px}
-.Buttonlist .Help {position: absolute; top: auto; right: 0}
+.Buttonlist {min-height: 27px; position: relative}
+.Buttonlist .Help {position: absolute; top: 0; right: 0}
 .Buttonlist > .Button {margin-right: 0.4em;}
 .Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
 .Buttonlist > .Button.link.ui-state-hover:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-hover.png') repeat-x left bottom}
