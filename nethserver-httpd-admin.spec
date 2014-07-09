@@ -1,18 +1,26 @@
+%define nethgui_commit f9aa109c38d9d7ff1895c647135c24a0c4adf522
+%define uideps_commit  4c6534c9089197bfadeba0cc4569a20b994a4b31
+%define pimple_commit  2.1.0
+
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: @@VERSION@@
-Release: @@RELEASE@@ 
+Version: 1.2.3
+Release: 1%{?dist}
 License: GPL
-Source: %{name}-%{version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
+Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
+Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
+Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
+
 URL: %{url_prefix}/%{name} 
 
 BuildRequires: nethserver-devtools > 1.0.1, git
 BuildArch: noarch
 
 Requires: httpd, php, mod_ssl, sudo
+Obsoletes: nethserver-nethgui
 Requires: nethserver-php
 Requires: nethserver-base
-Requires: nethserver-nethgui
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
 
 AutoReq: no
@@ -22,20 +30,20 @@ Runs an Apache instance on port 980 with SSL that serves
 the nethserver-manager web application
 
 %prep
-%setup
+%setup    
+%setup -D -T -b 1 
+%setup -D -T -b 2 
+%setup -D -T -b 3 
 
 %build
 perl createlinks
-composer install
+
+mkdir -p root/usr/share/nethesis/nethserver-manager
+cp -av $RPM_BUILD_DIR/ui-deps-bundle-%{uideps_commit}/{css,js} root/usr/share/nethesis/nethserver-manager/
+cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/Nethgui    root/usr/share/nethesis/Nethgui
+cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple  root/usr/share/nethesis/Pimple
 
 %install
-mkdir -p root/usr/share/nethesis/vendor \
-         root/usr/share/nethesis/nethserver-manager/{js,css}
-
-cp -va vendor/{autoload.php,composer} root/usr/share/nethesis/vendor/
-cp -va vendor/nethserver/ui-deps-bundle/js/* root/usr/share/nethesis/nethserver-manager/js/
-cp -va vendor/nethserver/ui-deps-bundle/css/* root/usr/share/nethesis/nethserver-manager/css/
-
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
