@@ -17,7 +17,7 @@
     "repositories": [
 	{
 	    "type": "vcs",
-	    "url": "git://code.nethesis.it/ui-deps-bundle"
+	    "url": "https://github.com/nethesis/ui-deps-bundle.git"
 	}
     ],
     "require": {
