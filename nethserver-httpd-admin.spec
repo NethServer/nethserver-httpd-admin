@@ -1,6 +1,7 @@
 %define nethgui_commit f9aa109c38d9d7ff1895c647135c24a0c4adf522
 %define uideps_commit  4c6534c9089197bfadeba0cc4569a20b994a4b31
 %define pimple_commit  2.1.0
+%define fontawesome_commit 4.1.0
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
@@ -11,6 +12,7 @@ Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
 Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
+Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_commit}/Font-Awesome-%{fontawesome_commit}.tar.gz
 
 URL: %{url_prefix}/%{name} 
 
@@ -34,6 +36,7 @@ the nethserver-manager web application
 %setup -D -T -b 1 
 %setup -D -T -b 2 
 %setup -D -T -b 3 
+%setup -D -T -b 4 
 
 %build
 perl createlinks
@@ -42,6 +45,7 @@ mkdir -p root/usr/share/nethesis/nethserver-manager
 cp -av $RPM_BUILD_DIR/ui-deps-bundle-%{uideps_commit}/{css,js} root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/Nethgui    root/usr/share/nethesis/Nethgui
 cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple  root/usr/share/nethesis/Pimple
+cp -av $RPM_BUILD_DIR/FontAwesome-%{pimple_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
 
 %install
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
