@@ -1,7 +1,8 @@
 %define nethgui_commit f9aa109c38d9d7ff1895c647135c24a0c4adf522
-%define uideps_commit  4c6534c9089197bfadeba0cc4569a20b994a4b31
-%define pimple_commit  2.1.0
+%define uideps_commit 4c6534c9089197bfadeba0cc4569a20b994a4b31
+%define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
+%define extradocs root%{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
@@ -45,7 +46,19 @@ mkdir -p root/usr/share/nethesis/nethserver-manager
 cp -av $RPM_BUILD_DIR/ui-deps-bundle-%{uideps_commit}/{css,js} root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/Nethgui    root/usr/share/nethesis/Nethgui
 cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple  root/usr/share/nethesis/Pimple
-cp -av $RPM_BUILD_DIR/FontAwesome-%{pimple_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
+cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
+
+# Copy documentation and licenses from components:
+mkdir -p %{extradocs}/Pimple-%{pimple_commit}
+cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/{CHANGELOG,LICENSE,README.rst} %{extradocs}/Pimple-%{pimple_commit}/
+
+mkdir -p %{extradocs}/Font-Awesome-%{fontawesome_commit}
+cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/README.md %{extradocs}/Font-Awesome-%{fontawesome_commit}/
+
+mkdir -p %{extradocs}/nethserver-nethgui-%{nethgui_commit}
+cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{extradocs}/nethserver-nethgui-%{nethgui_commit}/
+
+cp COPYING %{extradocs}/
 
 %install
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
@@ -54,7 +67,6 @@ rm -f %{name}-%{version}-%{release}-filelist
     --dir /var/cache/nethserver-httpd-admin 'attr(0750,srvmgr,srvmgr)' \
     --dir /var/log/httpd-admin 'attr(0700,root,root)' \
     > %{name}-%{version}-%{release}-filelist
-echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
