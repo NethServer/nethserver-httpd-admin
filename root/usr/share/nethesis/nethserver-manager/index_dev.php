@@ -70,6 +70,7 @@ foreach ($loader->getPrefixes() as $nsName => $paths) {
     $namespaces[trim($nsName, '\\')] = reset($paths) . DIRECTORY_SEPARATOR . trim($nsName, '\\');
 }
 $loader->add('Pimple', $nsbase);
+$loader->add('Mustache', $nsbase);
 
 $FW = new \Nethgui\Framework();
 $FW

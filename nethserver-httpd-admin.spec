@@ -2,6 +2,8 @@
 %define uideps_commit 4c6534c9089197bfadeba0cc4569a20b994a4b31
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
+%define mustachejs_commit 0.8.2
+%define mustachephp_commit 2.6.1
 %define extradocs root%{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
@@ -14,6 +16,8 @@ Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
 Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
 Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_commit}/Font-Awesome-%{fontawesome_commit}.tar.gz
+Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
+Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
 
 URL: %{url_prefix}/%{name} 
 
@@ -38,6 +42,8 @@ the nethserver-manager web application
 %setup -D -T -b 2 
 %setup -D -T -b 3 
 %setup -D -T -b 4 
+%setup -D -T -b 5
+%setup -D -T -b 6 
 
 %build
 perl createlinks
@@ -45,8 +51,10 @@ perl createlinks
 mkdir -p root/usr/share/nethesis/nethserver-manager
 cp -av $RPM_BUILD_DIR/ui-deps-bundle-%{uideps_commit}/{css,js} root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/Nethgui    root/usr/share/nethesis/Nethgui
-cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple  root/usr/share/nethesis/Pimple
+cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple              root/usr/share/nethesis/Pimple
 cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
+cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/mustache.js     root/usr/share/nethesis/nethserver-manager/js
+cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/src/Mustache  root/usr/share/nethesis/Mustache
 
 # Copy documentation and licenses from components:
 mkdir -p %{extradocs}/Pimple-%{pimple_commit}
@@ -58,6 +66,14 @@ cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/README.md %{extradocs}/
 mkdir -p %{extradocs}/nethserver-nethgui-%{nethgui_commit}
 cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{extradocs}/nethserver-nethgui-%{nethgui_commit}/
 
+mkdir -p %{extradocs}/mustache.js-%{mustachejs_commit}
+cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.md}  %{extradocs}/mustache.js-%{mustachejs_commit}
+
+mkdir -p %{extradocs}/mustache.php-%{mustachephp_commit}
+cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{extradocs}/mustache.php-%{mustachephp_commit}
+
+# Copy package documentation
+mkdir -p %{extradocs}
 cp COPYING %{extradocs}/
 
 %install
