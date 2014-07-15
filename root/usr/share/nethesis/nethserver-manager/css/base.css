@@ -34,14 +34,14 @@ script {display: none}
 #pageHeader { position:relative; height: 22px; margin-bottom: .5em; }
 #pageHeader h1 { font-size: 1.7em; }
 #pageHeader h2 { display: none; }
-#footer { display: none }
+
 #allWrapper { }
 #allWrapper #pageContent { overflow: inherit }
 
 #loading-message {display: none}
 .NethguiLoading {display:none !important}
 
-#Notification li { color: #363636; border: 1px solid #fcefa1; background-color: #fbf9ee; padding: .5em; margin-top: .5em; }
+#Notification li { color: #363636; border: 1px solid #fcefa1; background-color: #fbf9ee; padding: .5em; margin: .5em .5em 0 .5em; }
 
 .Navigation a {text-decoration: none}
 .Navigation li a:hover {text-decoration: none; background: #fff}
@@ -61,8 +61,8 @@ script {display: none}
 
 .secondaryContent .Inset {margin-top: .5em}
 
-.Progressbar {position: relative; margin-bottom: .6em }
-.ProgressbarText {position: absolute; top: 4px; left: auto; right: auto; }
+.Progressbar {position: relative; margin-bottom: .6em; text-align: center; }
+.ProgressbarText {position: absolute; top: 4px; }
 
 .ui-dialog-content {padding-bottom: 2.5em}
 .ui-dialog-content .Buttonlist {position: absolute; right: .4em; bottom: .4em}
@@ -161,7 +161,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 
 .ui-tooltip-red .ui-tooltip-content {background: #fef1ec}
 
-.HelpArea {position: fixed; top: 0; right: 0; width: 300px; height: 100%; }
+.HelpArea {position: fixed; top: 0; right: 0; width: 300px; height: 100%; display: none}
 .HelpArea .wrap { border-left: 3px solid #eee; height: 100%; padding: 1em 0 0 1em; background-color: #ffffd6}
 .HelpArea .HelpDocument { overflow: auto; margin-top: 1em }
 .CurrentModule .HelpDocument {font-size: medium}
@@ -210,9 +210,7 @@ p.TextLabel {margin: 0.5em 0}
     .DataTable {min-height: auto;}
     .header {padding: .5em;  border: none; }
     #pageHeader { position:relative; height: 50px; margin: 0 .5em .5em .5em; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px;}
-    #Notification > ul { margin: 0 .5em .5em .5em; position: relative }
     #productTitle { display: block }
-    #footer { display: inherit; position: fixed; color: #aaa; padding: 5px; text-align: right; bottom: 0; right: 0; border-top: 1px solid #eee; background: white; min-width: 100%}
     .Tabs { min-height: 300px; }
 } /*end media screen */
 
