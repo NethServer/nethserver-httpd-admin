@@ -4,6 +4,7 @@
 %define fontawesome_commit 4.1.0
 %define mustachejs_commit 0.8.2
 %define mustachephp_commit 2.6.1
+%define symfonyprocess_commit 2.5.2
 %define extradocs root%{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
@@ -18,6 +19,7 @@ Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-
 Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_commit}/Font-Awesome-%{fontawesome_commit}.tar.gz
 Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
 Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
+Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Process-%{symfonyprocess_commit}.tar.gz
 
 URL: %{url_prefix}/%{name} 
 
@@ -38,12 +40,13 @@ the nethserver-manager web application
 
 %prep
 %setup    
-%setup -D -T -b 1 
-%setup -D -T -b 2 
-%setup -D -T -b 3 
-%setup -D -T -b 4 
+%setup -D -T -b 1
+%setup -D -T -b 2
+%setup -D -T -b 3
+%setup -D -T -b 4
 %setup -D -T -b 5
-%setup -D -T -b 6 
+%setup -D -T -b 6
+%setup -D -T -b 7
 
 %build
 perl createlinks
@@ -55,6 +58,7 @@ cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple              root/usr/s
 cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/mustache.js     root/usr/share/nethesis/nethserver-manager/js
 cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/src/Mustache  root/usr/share/nethesis/Mustache
+pushd $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump $RPM_BUILD_DIR/%{name}-%{version}/root/usr/share/nethesis/Symfony; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{extradocs}/Pimple-%{pimple_commit}
@@ -71,6 +75,9 @@ cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.m
 
 mkdir -p %{extradocs}/mustache.php-%{mustachephp_commit}
 cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{extradocs}/mustache.php-%{mustachephp_commit}
+
+mkdir -p %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+cp -av $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
 
 # Copy package documentation
 mkdir -p %{extradocs}

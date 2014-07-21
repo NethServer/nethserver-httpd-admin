@@ -71,6 +71,7 @@ foreach ($loader->getPrefixes() as $nsName => $paths) {
 }
 $loader->add('Pimple', $nsbase);
 $loader->add('Mustache', $nsbase);
+$loader->add('Symfony', $nsbase);
 
 $FW = new \Nethgui\Framework();
 $FW
@@ -85,12 +86,15 @@ try {
     if ($R->getFormat() === 'xhtml') {
         $R
             ->setParameter('Menu', array())
+            ->setParameter('Tracker', array())
             ->setParameter('Notification', array())
             ->setParameter('Resource', array())
-            ->setParameter('Logout', array())
+            ->setParameter('Logout', array())            
         ;
     } elseif ($R->getFormat() === 'json') {
-        $R->setParameter('Notification', array());
+        $R
+            ->setParameter('Tracker', array())
+            ->setParameter('Notification', array());
     }
     $FW->dispatch($R);
 } catch (\Nethgui\Exception\HttpException $ex) {

@@ -41,10 +41,10 @@ script {display: none}
 #loading-message {display: none}
 .NethguiLoading {display:none !important}
 
-#Notification li { color: #363636; border: 1px solid #fcefa1; background-color: #fbf9ee; padding: .5em; margin: .5em .5em 0 .5em; }
+#Notification li.notification { color: #363636; border: 1px solid #fcefa1; background-color: #fbf9ee; padding: .5em; margin: .5em .5em 0 .5em; }
 
 .Navigation a {text-decoration: none}
-.Navigation li a:hover {text-decoration: none; background: #fff}
+.Navigation li a:hover {text-decoration: none; background: #505b5e}
 
 .Navigation.Flat a {display: block}
 .Navigation.Flat .category {font-weight:bold; display:block; padding: .5em .5em; margin-top: .5em; letter-spacing: 1px}
@@ -217,7 +217,6 @@ p.TextLabel {margin: 0.5em 0}
 #pageHeader { background: #2E2E2E; }
 .header {color: #2E2E2E }
 .Navigation.Flat a {color: #fff;}
-.Navigation.Flat a:hover {color: #2E2E2E;}
 .Navigation.Flat .category {color: #fff;}
 .secondaryContent .contentWrapper { background: #3D4547;}
 .Navigation.Flat a.currentMenuItem { color: #2E2E2E}
