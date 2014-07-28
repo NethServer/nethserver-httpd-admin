@@ -60,11 +60,18 @@ define('NETHGUI_ENABLE_INCLUDE_WIDGET', TRUE);
 define('NETHGUI_DEBUG', TRUE);
 
 $namespaces = array();
-$loader = include_once("../vendor/autoload.php");
-
+include_once("autoload.php");
+$nsbase = dirname(__DIR__);
+$loader = new \Composer\Autoload\ClassLoader();
+$loader->add('Nethgui',  $nsbase);
+$loader->add('NethServer', $nsbase);
+$loader->register();
 foreach ($loader->getPrefixes() as $nsName => $paths) {
     $namespaces[trim($nsName, '\\')] = reset($paths) . DIRECTORY_SEPARATOR . trim($nsName, '\\');
 }
+$loader->add('Pimple', $nsbase);
+$loader->add('Mustache', $nsbase);
+$loader->add('Symfony', $nsbase);
 
 $FW = new \Nethgui\Framework();
 $FW
@@ -79,12 +86,15 @@ try {
     if ($R->getFormat() === 'xhtml') {
         $R
             ->setParameter('Menu', array())
+            ->setParameter('Tracker', array())
             ->setParameter('Notification', array())
             ->setParameter('Resource', array())
-            ->setParameter('Logout', array())
+            ->setParameter('Logout', array())            
         ;
     } elseif ($R->getFormat() === 'json') {
-        $R->setParameter('Notification', array());
+        $R
+            ->setParameter('Tracker', array())
+            ->setParameter('Notification', array());
     }
     $FW->dispatch($R);
 } catch (\Nethgui\Exception\HttpException $ex) {
