@@ -58,7 +58,7 @@ cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple              root/usr/s
 cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/mustache.js     root/usr/share/nethesis/nethserver-manager/js
 cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/src/Mustache  root/usr/share/nethesis/Mustache
-pushd $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump $RPM_BUILD_DIR/%{name}-%{version}/root/usr/share/nethesis/Symfony; popd
+pushd $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump $RPM_BUILD_DIR/%{name}-%{version}/root/usr/share/nethesis/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{extradocs}/Pimple-%{pimple_commit}
