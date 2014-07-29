@@ -41,8 +41,6 @@ script {display: none}
 #loading-message {display: none}
 .NethguiLoading {display:none !important}
 
-#Notification li.notification { color: #363636; border: 1px solid #fcefa1; background-color: #fbf9ee; padding: .5em; margin: .5em .5em 0 .5em; }
-
 .Navigation a {text-decoration: none}
 .Navigation li a:hover {text-decoration: none; background: #505b5e}
 
