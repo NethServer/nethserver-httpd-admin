@@ -1,4 +1,4 @@
-%define nethgui_commit 772a1037569d8e4a58b8bf4d5fb0baab6bc4eb77
+%define nethgui_commit 4d5668afa818c2556c4d2c9512f52296d3ee61bf
 %define uideps_commit 4c6534c9089197bfadeba0cc4569a20b994a4b31
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
