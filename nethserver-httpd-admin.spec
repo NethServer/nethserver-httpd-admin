@@ -30,6 +30,7 @@ Requires: httpd, php, mod_ssl, sudo
 Obsoletes: nethserver-nethgui
 Requires: nethserver-php
 Requires: nethserver-base
+Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
 
 AutoReq: no
@@ -99,7 +100,10 @@ rm -f %{name}-%{version}-%{release}-filelist
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
+/sbin/stop httpd-admin >/dev/null 2>&1 || : 
 
+%post
+/sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
 * Thu Apr 17 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1.ns6
