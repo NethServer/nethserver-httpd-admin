@@ -1,4 +1,4 @@
-%define nethgui_commit 4d5668afa818c2556c4d2c9512f52296d3ee61bf
+%define nethgui_commit c97b82c1d2ea81ba49548517bbb82b62fb13f7d7
 %define uideps_commit 4c6534c9089197bfadeba0cc4569a20b994a4b31
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
@@ -10,7 +10,7 @@
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: 1.2.3
-Release: 99%{?dist}
+Release: 100%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -48,6 +48,10 @@ the nethserver-manager web application
 %setup -D -T -b 5
 %setup -D -T -b 6
 %setup -D -T -b 7
+
+# Nethgui:
+# cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
+# %patch0 -p1
 
 %build
 perl createlinks
