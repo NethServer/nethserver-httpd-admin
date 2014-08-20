@@ -9,8 +9,8 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.2.3
-Release: 100%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -110,6 +110,11 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Wed Aug 20 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.0-1.ns6
+- Embed Nethgui 1.6.0 into httpd-admin RPM - Enhancement #2820 [NethServer]
+- Build from plain .spec file enhanced - Enhancement #2812 [NethServer]
+- Firewall: beautify rules page - Enhancement #2783 [NethServer]
+
 * Thu Apr 17 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1.ns6
 - Fix visualization problems with accented letters - Bug #2701
 
