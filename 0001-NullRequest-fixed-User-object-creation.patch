@@ -1,0 +1,38 @@
+From 025b82ca0d91308d3ce0520de8bb9f9dc3413fcb Mon Sep 17 00:00:00 2001
+From: Davide Principi <davide.principi@nethesis.it>
+Date: Wed, 20 Aug 2014 14:13:23 +0200
+Subject: [PATCH] NullRequest: fixed User object creation.
+
+---
+ Nethgui/Controller/NullRequest.php | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/Nethgui/Controller/NullRequest.php b/Nethgui/Controller/NullRequest.php
+index b5b2753..ff1ddf4 100644
+--- a/Nethgui/Controller/NullRequest.php
++++ b/Nethgui/Controller/NullRequest.php
+@@ -34,9 +34,12 @@ class NullRequest implements \Nethgui\Controller\RequestInterface
+      */
+     private $session;
+ 
++    private $log;
++
+     private function __construct()
+     {
+         $this->session = new \Nethgui\Utility\NullSession();
++        $this->log = new \Nethgui\Log\Nullog();
+     }
+ 
+     /**
+@@ -82,7 +85,7 @@ class NullRequest implements \Nethgui\Controller\RequestInterface
+ 
+     public function getUser()
+     {
+-        return new \Nethgui\Authorization\User($this->session);
++        return new \Nethgui\Authorization\User($this->session, $this->log);
+     }
+ 
+     public function hasParameter($parameterName)
+-- 
+1.9.3
+

@@ -10,7 +10,7 @@
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -20,6 +20,8 @@ Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_comm
 Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
 Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
 Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Process-%{symfonyprocess_commit}.tar.gz
+
+Patch0: 0001-NullRequest-fixed-User-object-creation.patch
 
 URL: %{url_prefix}/%{name} 
 
@@ -50,8 +52,8 @@ the nethserver-manager web application
 %setup -D -T -b 7
 
 # Nethgui:
-# cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
-# %patch0 -p1
+cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
+%patch0 -p1
 
 %build
 perl createlinks
@@ -110,6 +112,9 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Wed Aug 20 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.0-2.ns6
+- Added 0001-NullRequest-fixed-User-object-creation.patch
+
 * Wed Aug 20 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.0-1.ns6
 - Embed Nethgui 1.6.0 into httpd-admin RPM - Enhancement #2820 [NethServer]
 - Build from plain .spec file enhanced - Enhancement #2812 [NethServer]
