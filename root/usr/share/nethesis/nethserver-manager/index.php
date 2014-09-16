@@ -23,7 +23,7 @@ namespace NethServer;
 // PHP settings (timezone, error reporting..)
 date_default_timezone_set('UTC');
 ini_set('log_errors', "1");
-ini_set('error_log', 'syslog');
+ini_set('error_log', NULL);
 ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 ini_set('session.use_trans_sid', "0");
 session_cache_limiter(FALSE);
@@ -35,7 +35,8 @@ setlocale(LC_CTYPE, 'en_US.utf-8');
 register_shutdown_function(function() {   
     $error = error_get_last();
     if (is_array($error) && (intval($error['type']) & error_reporting())) {
-        header('HTTP/1.1 500 Internal server error');
+        header('HTTP/1.1 500 Internal server error');        
+        syslog(LOG_ERR, sprintf("[%s] %s - File %s, line %s", $error['type'], $error['message'], $error['file'], $error['line']));
         printf("\n\n[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
     }
 });
