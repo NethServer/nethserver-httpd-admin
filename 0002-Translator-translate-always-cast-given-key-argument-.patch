@@ -1,0 +1,42 @@
+From 7009d3d271482aeb2f61b789759c62f0a029ec68 Mon Sep 17 00:00:00 2001
+From: Davide Principi <davide.principi@nethesis.it>
+Date: Wed, 17 Sep 2014 10:32:18 +0200
+Subject: [PATCH 1/2] Translator (translate): always cast given $key argument
+ to String. Refs #2844
+
+---
+ Nethgui/View/Translator.php |   10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/Nethgui/View/Translator.php b/Nethgui/View/Translator.php
+index 84e51c6..0232afb 100644
+--- a/Nethgui/View/Translator.php
++++ b/Nethgui/View/Translator.php
+@@ -84,21 +84,17 @@ class Translator implements \Nethgui\View\TranslatorInterface, \Nethgui\Utility\
+      * @param string $languageCode The language code
+      * @return string
+      */
+-    public function translate(\Nethgui\Module\ModuleInterface $module, $string, $args = array(), $languageCode = NULL)
++    public function translate(\Nethgui\Module\ModuleInterface $module, $key, $args = array(), $languageCode = NULL)
+     {
+-        if ( ! is_string($string)) {
+-            throw new \InvalidArgumentException(sprintf("%s: in translate(); unexpected `%s` type!", get_class($this), gettype($string)), 1322150166);
+-        }
+-
+         if ( ! isset($languageCode)) {
+             $languageCode = $this->getLanguageCode();
+         }
+ 
+         if (empty($languageCode)) {
+-            $translation = $string;
++            $translation = $key;
+         } else {
+             $catalogStack = $this->extractLanguageCatalogStack($module);
+-            $translation = $this->lookupTranslation($string, $languageCode, $catalogStack);
++            $translation = $this->lookupTranslation((string) $key, $languageCode, $catalogStack);
+         }
+ 
+         /**
+-- 
+1.7.9.5
+

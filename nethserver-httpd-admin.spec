@@ -10,7 +10,7 @@
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: 1.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -22,6 +22,7 @@ Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustac
 Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Process-%{symfonyprocess_commit}.tar.gz
 
 Patch0: 0001-NullRequest-fixed-User-object-creation.patch
+Patch1: 0002-Translator-translate-always-cast-given-key-argument-.patch
 
 URL: %{url_prefix}/%{name} 
 
@@ -54,6 +55,8 @@ the nethserver-manager web application
 # Nethgui:
 cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
 %patch0 -p1
+%patch1 -p1
+
 
 %build
 perl createlinks
