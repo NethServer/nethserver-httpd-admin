@@ -26,6 +26,7 @@ use strict;
 use JSON;
 use esmith::db;
 use base 'Net::Server::Multiplex';
+use Encode qw(encode decode);
 
 umask 0117;
 __PACKAGE__->new()->run();
@@ -91,7 +92,7 @@ sub write_response {
     my $self = shift;
     my $msg_type = shift;
     my $response = shift;
-    my $payload = JSON->new->allow_nonref->latin1->encode($response);
+    my $payload = encode('UTF-8', JSON->new->allow_nonref->encode($response), Encode::FB_DEFAULT);
     $self->log(4, ">> $payload");
     print pack("CN", $msg_type, length($payload)) . $payload;
 }
