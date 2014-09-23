@@ -1,10 +1,12 @@
-%define nethgui_commit 8dd628ebe85c95b4f93797432f1a4c7aebd51efe
-%define uideps_commit 4c6534c9089197bfadeba0cc4569a20b994a4b31
+%define nethgui_commit 2317e06bbadf591c729af1ac2adbd88d62600550
+%define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
 %define mustachejs_commit 0.8.2
 %define mustachephp_commit 2.6.1
 %define symfonyprocess_commit 2.5.2
+%define datatables_commit 1.10.2
+%define datatablesplugins_commit fa5734b2908382f771047e1486a67405ee4d9b42
 %define extradocs root%{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
@@ -20,9 +22,8 @@ Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_comm
 Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
 Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
 Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Process-%{symfonyprocess_commit}.tar.gz
-
-Patch0: 0001-NullRequest-fixed-User-object-creation.patch
-Patch1: 0002-Translator-translate-always-cast-given-key-argument-.patch
+Source8: https://github.com/DataTables/DataTables/archive/%{datatables_commit}/DataTables-%{datatables_commit}.tar.gz
+Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commit}/Plugins-%{datatablesplugins_commit}.tar.gz
 
 URL: %{url_prefix}/%{name} 
 
@@ -51,12 +52,11 @@ the nethserver-manager web application
 %setup -D -T -b 5
 %setup -D -T -b 6
 %setup -D -T -b 7
+%setup -D -T -b 8
+%setup -D -T -b 9
 
 # Nethgui:
 cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
-%patch0 -p1
-%patch1 -p1
-
 
 %build
 perl createlinks
@@ -68,6 +68,8 @@ cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple              root/usr/s
 cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
 cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/mustache.js     root/usr/share/nethesis/nethserver-manager/js
 cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/src/Mustache  root/usr/share/nethesis/Mustache
+cp -v $RPM_BUILD_DIR/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js root/usr/share/nethesis/nethserver-manager/js
+cp -v $RPM_BUILD_DIR/Plugins-%{datatablesplugins_commit}/sorting/*.js root/usr/share/nethesis/nethserver-manager/js
 pushd $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump $RPM_BUILD_DIR/%{name}-%{version}/root/usr/share/nethesis/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
@@ -88,6 +90,9 @@ cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENS
 
 mkdir -p %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
 cp -av $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+
+mkdir -p %{extradocs}/DataTables-%{datatables_commit}
+cp -av $RPM_BUILD_DIR/DataTables-%{datatables_commit}/license.txt  %{extradocs}/DataTables-%{datatables_commit}
 
 # Copy package documentation
 mkdir -p %{extradocs}
