@@ -24,12 +24,14 @@ script {display: none}
 
 .primaryContent .TextInput, .primaryContent select {font-size: 130%}
 
-.TextInput , select {; border: 1px solid #aaa; background-color: #fff; padding: 5px; color: #202020 }
+.TextInput , select {border: 1px solid #aaa; background-color: #fff; padding: 5px; color: #202020 }
 .TextInput:focus {border-color: #0F0F0F }
 .TextInput.ui-state-error:focus {border-color: #F83939 }
 .TextInput.mandatory.active { background: url("img/mandatory_normal.png") no-repeat right center }
 .TextInput.mandatory.active.ui-state-error { background: url("img/mandatory_error.png") no-repeat right center }
 .TextInput[readonly] { background-color: #eee; color: #444}
+
+.Selector.multiple li {display:flex}
 
 #pageHeader { position:relative; height: 22px; margin-bottom: .5em; }
 #pageHeader h1 { font-size: 1.7em; }
