@@ -11,8 +11,8 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.0
-Release: 3%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -120,6 +120,11 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Thu Oct 02 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.1-1.ns6
+- Selector widget: support validation tooltip  - Enhancement #2890 [Nethgui]
+- Special DataTable sorting functions - Enhancement #2882 [Nethgui]
+- Cannot access Server Manager after migration - Bug #2786 [NethServer]
+
 * Wed Aug 20 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.0-2.ns6
 - Added 0001-NullRequest-fixed-User-object-creation.patch
 
