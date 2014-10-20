@@ -1,3 +1,8 @@
+#
+# 30ssl
+#
+
+SSLProtocol All -SSLv2 -SSLv3
 
 SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
 
