@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.2
+Version: 1.3.3
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Wed Oct 22 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.3-1.ns6
+- Protection against POODLE SSLv3 Vulnerability - Bug #2921 [NethServer]
+
 * Wed Oct 15 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.2-1.ns6
 - Support DHCP on multiple interfaces - Feature #2849 [NethServer]
 
