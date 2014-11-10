@@ -1,4 +1,4 @@
-%define nethgui_commit 25e17108c813b38b44d975d2dd052e289ff3469f
+%define nethgui_commit e6a14cdc86d313f34010d88284ef02c19b497cca
 %define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
@@ -32,6 +32,7 @@ BuildArch: noarch
 
 Requires: httpd, php, mod_ssl, sudo
 Obsoletes: nethserver-nethgui
+Requires: nethserver-lib > 2.1.1-1
 Requires: nethserver-php
 Requires: nethserver-base
 Requires: upstart
