@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.3
+Version: 1.3.4
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -121,6 +121,11 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Wed Nov 19 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.4-1.ns6
+- Notify user if event fails - Enhancement #2927 [NethServer]
+- Help/Template module error - Bug #2891 [Nethgui]
+- "Language not found" error when requesting server-manager root URL - Bug #2883 [NethServer]
+
 * Wed Oct 22 2014 Davide Principi <davide.principi@nethesis.it> - 1.3.3-1.ns6
 - Protection against POODLE SSLv3 Vulnerability - Bug #2921 [NethServer]
 
