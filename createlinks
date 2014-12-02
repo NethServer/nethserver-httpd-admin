@@ -27,19 +27,6 @@ my @certificates = (qw(
                 /etc/pki/tls/certs/httpd-admin.crt
 ));
 
-# conf-httpd-admin
-event_templates($_, qw(/etc/httpd/admin-conf/httpd.conf)) foreach(qw(
-    network-create
-    network-delete
-    remoteaccess-update
-));
-
-event_services($_, qw(httpd-admin reload)) foreach(qw(
-    network-create
-    network-delete
-    remoteaccess-update
-));
-
 #
 # nethserver-httpd-admin-update event:
 #
@@ -58,13 +45,6 @@ event_services('nethserver-httpd-admin-update', qw(
                httpd-admin restart
 ));
 
-#--------------------------------------------------
-# actions for interface-update event
-#--------------------------------------------------
-event_templates('interface-update',
-                '/etc/httpd/admin-conf/httpd.conf');
-event_services('interface-update',
-               'httpd-admin' => 'restart');
  
 #
 # certificate-update event
