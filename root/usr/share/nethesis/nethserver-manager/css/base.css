@@ -38,7 +38,7 @@ script {display: none}
 #pageHeader h2 { display: none; }
 
 #allWrapper { }
-#allWrapper #pageContent { overflow: inherit }
+#allWrapper #pageContent { overflow: inherit; margin: 0 2px; }
 
 #loading-message {display: none}
 .NethguiLoading {display:none !important}
