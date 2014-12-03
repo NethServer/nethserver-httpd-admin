@@ -1,0 +1,31 @@
+{
+   #
+   # feature2956_ns6 -- Base: refactor Remote Access page
+   #
+   # The ValidFrom prop is migrated to AllowAccess
+   #
+
+   use esmith::ConfigDB;
+   use esmith::util;
+
+   my $cdb = esmith::ConfigDB->open();
+
+   my $validFrom = $cdb->get_prop_and_delete('httpd-admin', 'ValidFrom') || '';
+
+   # 1) Ignore ValidFrom if AllowHosts is already set
+   if($cdb->get_prop('httpd-admin', 'AllowHosts')) {
+       return "";
+   }
+
+   # 2) Sanitize and import validFrom value if access is private
+   if($cdb->get_prop('httpd-admin', 'access') eq 'private') {
+       my $newValue = join(',', map { 
+			       my ($ipaddr, $netmask) = (split(/\//, $_)); 
+			       $_ eq '0.0.0.0/0.0.0.0' ? () : esmith::util::computeLocalNetworkShortSpec($ipaddr, $netmask); 
+			   } split(/,/, $validFrom));
+       $cdb->set_prop('httpd-admin', 'AllowHosts', $newValue);
+   }
+
+   
+   "";
+}
