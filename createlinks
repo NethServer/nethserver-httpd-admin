@@ -51,8 +51,8 @@ event_services('nethserver-httpd-admin-update', qw(
 #
 event_templates('certificate-update', @certificates);
 
-event_services('certificate-update', qw(
-               httpd-admin reload
+event_actions('certificate-update', qw(
+       nethserver-httpd-admin-asyncreload 99
 ));
 
 #--------------------------------------------------
