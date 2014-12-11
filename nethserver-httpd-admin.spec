@@ -103,22 +103,39 @@ cp COPYING %{extradocs}/
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
-    --dir /var/cache/nethserver-httpd-admin 'attr(0750,srvmgr,srvmgr)' \
-    --dir /var/log/httpd-admin 'attr(0700,root,root)' \
     > %{name}-%{version}-%{release}-filelist
+mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log/httpd-admin
+mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/cache/nethserver-httpd-admin
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
+%attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
+%attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
+%attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
+%attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
+%attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/certs/httpd-admin.crt
+%attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin 
+%attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
+%attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
 
 %pre
 # ensure srvmgr user exists:
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
-/sbin/stop httpd-admin >/dev/null 2>&1 || : 
+if [ $1 -eq 1 ]; then
+   /sbin/stop httpd-admin >/dev/null 2>&1 || :
+fi
 
 %post
-/sbin/start httpd-admin >/dev/null 2>&1 || : 
+if [ $1 -eq 1 ]; then
+   /sbin/start httpd-admin >/dev/null 2>&1 || :
+fi
+
+%preun
+if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
+   /sbin/stop httpd-admin >/dev/null 2>&1 || :
+fi
 
 %changelog
 * Tue Dec 09 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.5-1.ns6
