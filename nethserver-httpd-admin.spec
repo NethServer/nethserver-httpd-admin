@@ -7,7 +7,7 @@
 %define symfonyprocess_commit 2.5.2
 %define datatables_commit 1.10.2
 %define datatablesplugins_commit fa5734b2908382f771047e1486a67405ee4d9b42
-%define extradocs root%{_docdir}/%{name}-%{version}
+%define extradocs %{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
@@ -57,58 +57,71 @@ the nethserver-manager web application
 %setup -D -T -b 9
 
 # Nethgui:
-cd $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}
+cd %{_builddir}/nethserver-nethgui-%{nethgui_commit}
 
 %build
 perl createlinks
 
-mkdir -p root/usr/share/nethesis/nethserver-manager
-cp -av $RPM_BUILD_DIR/ui-deps-bundle-%{uideps_commit}/{css,js} root/usr/share/nethesis/nethserver-manager/
-cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/Nethgui    root/usr/share/nethesis/Nethgui
-cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/src/Pimple              root/usr/share/nethesis/Pimple
-cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/{css,fonts}  root/usr/share/nethesis/nethserver-manager/
-cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/mustache.js     root/usr/share/nethesis/nethserver-manager/js
-cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/src/Mustache  root/usr/share/nethesis/Mustache
-cp -v $RPM_BUILD_DIR/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js root/usr/share/nethesis/nethserver-manager/js
-cp -v $RPM_BUILD_DIR/Plugins-%{datatablesplugins_commit}/sorting/*.js root/usr/share/nethesis/nethserver-manager/js
-pushd $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump $RPM_BUILD_DIR/%{name}-%{version}/root/usr/share/nethesis/Symfony/Component/Process; popd
-
-# Copy documentation and licenses from components:
-mkdir -p %{extradocs}/Pimple-%{pimple_commit}
-cp -av $RPM_BUILD_DIR/Pimple-%{pimple_commit}/{CHANGELOG,LICENSE,README.rst} %{extradocs}/Pimple-%{pimple_commit}/
-
-mkdir -p %{extradocs}/Font-Awesome-%{fontawesome_commit}
-cp -av $RPM_BUILD_DIR/Font-Awesome-%{fontawesome_commit}/README.md %{extradocs}/Font-Awesome-%{fontawesome_commit}/
-
-mkdir -p %{extradocs}/nethserver-nethgui-%{nethgui_commit}
-cp -av $RPM_BUILD_DIR/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{extradocs}/nethserver-nethgui-%{nethgui_commit}/
-
-mkdir -p %{extradocs}/mustache.js-%{mustachejs_commit}
-cp -av $RPM_BUILD_DIR/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.md}  %{extradocs}/mustache.js-%{mustachejs_commit}
-
-mkdir -p %{extradocs}/mustache.php-%{mustachephp_commit}
-cp -av $RPM_BUILD_DIR/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{extradocs}/mustache.php-%{mustachephp_commit}
-
-mkdir -p %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
-cp -av $RPM_BUILD_DIR/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{extradocs}/Symfony-Process-%{symfonyprocess_commit}
-
-mkdir -p %{extradocs}/DataTables-%{datatables_commit}
-cp -av $RPM_BUILD_DIR/DataTables-%{datatables_commit}/license.txt  %{extradocs}/DataTables-%{datatables_commit}
+%install
+(cd root ; find . -depth -print | cpio -dump %{buildroot})
+rm -f %{name}-%{version}-%{release}-filelist
+%{genfilelist} %{buildroot} \
+    > %{name}-%{version}-%{release}-filelist
+mkdir -p %{buildroot}/%{_localstatedir}/log/httpd-admin
+mkdir -p %{buildroot}/%{_localstatedir}/cache/nethserver-httpd-admin
 
 # Copy package documentation
-mkdir -p %{extradocs}
-cp COPYING %{extradocs}/
+mkdir -p %{buildroot}/%{extradocs}
+cp COPYING %{buildroot}/%{extradocs}
 
-%install
-(cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
-rm -f %{name}-%{version}-%{release}-filelist
-%{genfilelist} $RPM_BUILD_ROOT \
-    > %{name}-%{version}-%{release}-filelist
-mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log/httpd-admin
-mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/cache/nethserver-httpd-admin
+# Copy the server-manager dir
+mkdir -p %{buildroot}/usr/share/nethesis
+cp -av nethserver-manager %{buildroot}/usr/share/nethesis/nethserver-manager
+
+# Copy external dependencies
+cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}/usr/share/nethesis/nethserver-manager/
+cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/Nethgui    %{buildroot}/usr/share/nethesis/Nethgui
+cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}/usr/share/nethesis/Pimple
+cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}/usr/share/nethesis/nethserver-manager/
+cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}/usr/share/nethesis/nethserver-manager/js
+cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}/usr/share/nethesis/Mustache
+cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
+cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
+pushd %{_builddir}/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}/usr/share/nethesis/Symfony/Component/Process; popd
+
+# Copy documentation and licenses from components:
+mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
+cp -av %{_builddir}/Pimple-%{pimple_commit}/{CHANGELOG,LICENSE,README.rst} %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}/
+
+mkdir -p %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}
+cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/README.md %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}/
+
+mkdir -p %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}
+cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}/
+
+mkdir -p %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
+cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
+
+mkdir -p %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
+cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
+
+mkdir -p %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+cp -av %{_builddir}/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+
+mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
+cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
+
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
+%doc %{extradocs}
+
+/usr/share/nethesis/nethserver-manager
+/usr/share/nethesis/Nethgui
+/usr/share/nethesis/Pimple
+/usr/share/nethesis/Mustache
+/usr/share/nethesis/Symfony
+
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
