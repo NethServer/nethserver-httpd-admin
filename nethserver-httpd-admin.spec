@@ -34,7 +34,7 @@ Requires: httpd, php, mod_ssl, sudo
 Obsoletes: nethserver-nethgui
 Requires: nethserver-lib > 2.1.1-1
 Requires: nethserver-php
-Requires: nethserver-base
+Requires: nethserver-base > 2.5.4-1
 Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
 
