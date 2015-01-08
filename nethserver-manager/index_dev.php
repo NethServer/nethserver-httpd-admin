@@ -80,7 +80,7 @@ $FW
     ->setLogLevel(E_WARNING | E_ERROR | E_NOTICE)
     ->registerNamespace($namespaces[__NAMESPACE__])
     ->setDefaultModule('Dashboard')
-    ->setDecoratorTemplate('NethServer\\Template\\Nethesis')
+    ->setDecoratorTemplate('NethServer\\Template\\NethServer')
 ;
 
 try {

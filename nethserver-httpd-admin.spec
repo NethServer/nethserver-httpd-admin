@@ -1,4 +1,4 @@
-%define nethgui_commit 460f482dfaf0724586f96fb51b36719bfaaa853f
+%define nethgui_commit 8d925b0cb9e68e772faa574e6dd9b4daac5cdbd7
 %define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
@@ -34,7 +34,7 @@ Requires: httpd, php, mod_ssl, sudo, php-xml
 Obsoletes: nethserver-nethgui
 Requires: nethserver-lib > 2.1.1-1
 Requires: nethserver-php
-Requires: nethserver-base
+Requires: nethserver-base > 2.5.4-1
 Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
 
