@@ -67,6 +67,9 @@ $FW
     ->registerNamespace($namespaces[__NAMESPACE__])
     ->setDefaultModule('Dashboard')
     ->setDecoratorTemplate('NethServer\\Template\\NethServer')
+    ->setForcedLoginModule(function($dc) {
+        return $dc['Platform']->getDatabase('configuration')->getProp('httpd-admin', 'ForcedLoginModule');
+    })
 ;
 
 try {
