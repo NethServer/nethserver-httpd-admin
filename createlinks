@@ -59,3 +59,10 @@ event_actions('certificate-update', qw(
 # actions for migration-import event
 #--------------------------------------------------
 event_actions("migration-import", qw(nethserver-httpd-admin-migrate 30));
+
+#
+# system-init event
+#
+event_actions("system-init", qw(
+   enable-firstconfigwizard 20
+));
