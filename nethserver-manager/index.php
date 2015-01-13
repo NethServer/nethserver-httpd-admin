@@ -70,6 +70,11 @@ $FW
     ->setForcedLoginModule(function($dc) {
         return $dc['Platform']->getDatabase('configuration')->getProp('httpd-admin', 'ForcedLoginModule');
     })
+    ->setAuthenticationValidator(function($dc) {
+        $v = new \NethServer\Tool\PamValidator();
+        $v->setLog($dc['Log']);
+        return $v;
+    })
 ;
 
 try {
