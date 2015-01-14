@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.5
+Version: 1.3.6
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Wed Jan 14 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.6-1.ns6
+- Correctly handle history back button - Enhancement #2958 [NethServer]
+
 * Tue Dec 09 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.5-1.ns6
 - Web interface: IP validator allows not valid addresses - Bug #2913 [NethServer]
 
