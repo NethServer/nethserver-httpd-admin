@@ -12,7 +12,7 @@
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: 1.3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -121,6 +121,9 @@ fi
 /sbin/start httpd-admin >/dev/null 2>&1 || : 
 
 %changelog
+* Tue Jan 20 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.6-2.ns6
+- Add php-xml dependency - Bug #3006 [NethServer]
+
 * Wed Jan 14 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.6-1.ns6
 - Correctly handle history back button - Enhancement #2958 [NethServer]
 
