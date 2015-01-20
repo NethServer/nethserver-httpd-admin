@@ -30,7 +30,7 @@ URL: %{url_prefix}/%{name}
 BuildRequires: nethserver-devtools > 1.0.1, git
 BuildArch: noarch
 
-Requires: httpd, php, mod_ssl, sudo
+Requires: httpd, php, mod_ssl, sudo, php-xml
 Obsoletes: nethserver-nethgui
 Requires: nethserver-lib > 2.1.1-1
 Requires: nethserver-php
