@@ -185,7 +185,8 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .HelpDocument .warning { padding-left: 1em; margin-left: 1em; border-left: 2px solid #888 }
 .HelpDocument .warning {border-left-color: #F83939}
 .HelpDocument .admonition-title { font-weight: bold }
-
+.HelpDocument ul {list-style: square; margin-left: 20px}
+.HelpDocument ol {list-style: decimal; margin-left: 20px}
 .ui-tabs.ui-widget-content {border:none}
 .ui-tabs, .ui-tabs .ui-tabs-panel {padding: 0}
 .ui-tabs .ui-tabs-nav {margin-bottom: 1em; background: #fff; border-top: none; border-left: none; border-right: none}
