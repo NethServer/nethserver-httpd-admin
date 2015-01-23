@@ -180,6 +180,11 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .HelpDocument ul {list-style: disc; padding-left: 30px}
 
 .HelpDocument > div.section > :first-child {margin-top: 0}
+.HelpDocument .guilabel {display: inline-block; border: 1px outset #888; padding: 1px 3px; border-radius: 2px}
+.HelpDocument .note,
+.HelpDocument .warning { padding-left: 1em; margin-left: 1em; border-left: 2px solid #888 }
+.HelpDocument .warning {border-left-color: #F83939}
+.HelpDocument .admonition-title { font-weight: bold }
 
 .ui-tabs.ui-widget-content {border:none}
 .ui-tabs, .ui-tabs .ui-tabs-panel {padding: 0}
