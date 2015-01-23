@@ -41,7 +41,8 @@ script {display: none}
 #allWrapper #pageContent { overflow: inherit; margin: 0 2px; }
 
 #loading-message {display: none}
-.NethguiLoading {display:none !important}
+.NethguiLoading {background: transparent url(img/ajax-loader-big.gif) no-repeat fixed center !important ; border: none !important}
+.NethguiLoading * {visibility: hidden !important; border: none !important; background: none}
 
 .Navigation a {text-decoration: none}
 .Navigation li a:hover {text-decoration: none; background: #505b5e}
