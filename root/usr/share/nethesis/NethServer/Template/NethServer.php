@@ -8,7 +8,7 @@ $bootstrapJs = <<<"EOJS"
  */
 jQuery(document).ready(function($) {
     $('script.unobstrusive').remove();
-    $('#pageContent').Component();
+    $('#pageContent').Component();    
     $('.HelpArea').HelpArea();
     $('#hiddenAllWrapperCss').remove();
 
@@ -88,13 +88,24 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
     </head>
     <body>
         <div id="allWrapper">
-            <div id="pageHeader">
-            <?php if ( ! $view['disableHeader']): ?>
-                
-                    <div id="headerMenu"><a href="<?php echo $view->getModuleUrl('/UserProfile') ?>"><?php echo $T('UserProfile_Title'); ?></a></div>
-                    <h1 id="ModuleTitle"><?php echo htmlspecialchars($view['moduleTitle']) ?></h1>
-                    <div id="productTitle"><img src='<?php echo $view['logo']; ?>'/></div>
-            <?php endif; ?>
+            <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($view['logo']); ?>)">
+                <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
+              <?php if ( ! $view['disableHeader']): ?>
+		<div id="headerMenu">
+		    <div id="username"><i class="fa fa-user"></i> <?php echo htmlspecialchars($view['username']) ?></div>
+		    <ul id="subMenu">
+			<li><a href="<?php echo htmlspecialchars($view->getModuleUrl('/UserProfile')); ?>">
+			    <i class="fa fa-wrench"></i> <?php echo $T('Profile'); ?>
+			</a></li>
+			<li><form method="post" action="<?php echo htmlspecialchars($view->getModuleUrl('/Logout')); ?>">
+			    <input type="hidden" value="<?php echo htmlspecialchars($view['Logout']['nextPath']); ?>" name="Logout[nextPath]">
+			    <input type="hidden" value="logout" name="Logout[action]">			      
+			    <button type="submit"><i class="fa fa-power-off"></i> <?php echo $T('Logout'); ?></button>
+			</form></li>
+		    </ul>
+		</div>
+                <h1 id="ModuleTitle"><?php echo htmlspecialchars($view['moduleTitle']) ?></h1>                
+              <?php endif; ?>
             </div>
             <div id="pageContent">                
                 <div class="primaryContent" role="main">
@@ -104,7 +115,7 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
                          echo $view['currentModuleOutput'];
                     ?>
                 </div>
-                <?php if ( ! $view['disableMenu']): ?><div class="secondaryContent" role="menu"><div class="contentWrapper"><h2><?php echo htmlspecialchars($view->translate('Other modules')) ?></h2><?php echo $view['menuOutput'] . $view['logoutOutput'] ?></div></div><?php endif; ?>
+                <?php if ( ! $view['disableMenu']): ?><div class="secondaryContent" role="menu"><div class="contentWrapper"><h2><?php echo htmlspecialchars($view->translate('Other modules')) ?></h2><?php echo $view['menuOutput'] ?></div></div><?php endif; ?>
             </div><?php echo $view['helpAreaOutput'] ?>
             <?php if ( ! $view['disableFooter']): ?><div id="footer"><p><?php echo htmlspecialchars($view['company'] . ' - ' . $view['address']) ?></p></div><?php endif; ?>
         </div><?php
