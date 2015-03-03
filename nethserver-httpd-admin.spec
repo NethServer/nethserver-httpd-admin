@@ -11,8 +11,8 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.6
-Release: 2%{?dist}
+Version: 1.3.7
+Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
@@ -151,6 +151,18 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Tue Mar 03 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.7-1
+- Set PHP default timezone from system timezone - Enhancement #3068 [NethServer]
+- Move Logout button at top right - Enhancement #3046 [NethServer]
+- Restore from backup, disaster recovery and network interfaces - Feature #3041 [NethServer]
+- Differentiate root and admin users - Feature #3026 [NethServer]
+- Inline help: Internal server error - Bug #3006 [NethServer]
+- Show default password on server-manager login - Enhancement #2998 [NethServer]
+- Refactor Organization contacts page - Feature #2969 [NethServer]
+- Package Manager: new UPDATE button and optional packages selection - Feature #2963 [NethServer]
+- squidGuard: support multiple profiles - Enhancement #2958 [NethServer]
+- Base: first configuration wizard - Feature #2957 [NethServer]
+
 * Tue Jan 20 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.6-2.ns6
 - Add php-xml dependency - Bug #3006 [NethServer]
 
