@@ -20,8 +20,7 @@ namespace NethServer;
  * along with NethServer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// PHP settings (timezone, error reporting..)
-date_default_timezone_set('UTC');
+// PHP settings
 ini_set('log_errors', "1");
 ini_set('error_log', NULL);
 ini_set('error_reporting', E_ALL | E_STRICT);
