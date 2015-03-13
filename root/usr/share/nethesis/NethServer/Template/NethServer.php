@@ -60,8 +60,8 @@ $view
 // Custom colors
 if (isset($view['colors']) && count($view['colors']) == 3) {
     $view->includeCss("
-        #pageHeader {
-            background: {$view['colors'][0]} !important;
+        #pageHeader, #subMenu {
+            background-color: {$view['colors'][0]} !important;
         }
         .secondaryContent .contentWrapper {
             background: {$view['colors'][1]} !important;
@@ -69,6 +69,7 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
         .DataTable th.ui-state-default, .Navigation.Flat a.currentMenuItem, .Navigation.Flat a:hover, .header {
             color: {$view['colors'][2]} !important;
         }
+        .Navigation li a:hover { background: white !important }
         #Login .ui-widget-header {
              background: {$view['colors'][1]} !important;
         }
