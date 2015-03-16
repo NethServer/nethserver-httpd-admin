@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.3.7
+Version: 1.3.8
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -151,6 +151,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Mon Mar 16 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.8-1
+- Fix: UI customization does not work Bug #3087
+
 * Tue Mar 03 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.7-1
 - Set PHP default timezone from system timezone - Enhancement #3068 [NethServer]
 - Move Logout button at top right - Enhancement #3046 [NethServer]
