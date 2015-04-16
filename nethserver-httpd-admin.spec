@@ -1,4 +1,4 @@
-%define nethgui_commit f9d6b1545d7dc5e59aac56609ad475a7a2b83c46
+%define nethgui_commit 8562556c339740e219f82456d3988e35e076c5fa
 %define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
@@ -37,6 +37,7 @@ Requires: nethserver-php
 Requires: nethserver-base > 2.5.4-1
 Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
+Requires: nethserver-lang-it, nethserver-lang-en
 
 AutoReq: no
 
@@ -111,6 +112,8 @@ cp -av %{_builddir}/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buil
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 
+# Temporary home for English and Italian language packs:
+mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
@@ -121,6 +124,11 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 /usr/share/nethesis/Pimple
 /usr/share/nethesis/Mustache
 /usr/share/nethesis/Symfony
+/usr/share/nethesis/Override
+/usr/share/nethesis/Override/Language
+/usr/share/nethesis/Override/Help
+/usr/share/nethesis/Override/Module
+
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
