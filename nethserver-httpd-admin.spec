@@ -14,6 +14,9 @@ Name: nethserver-httpd-admin
 Version: 1.4.0
 Release: 1%{?dist}
 License: GPL
+URL: %{url_prefix}/%{name}
+BuildArch: noarch
+
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
@@ -25,28 +28,20 @@ Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Pr
 Source8: https://github.com/DataTables/DataTables/archive/%{datatables_commit}/DataTables-%{datatables_commit}.tar.gz
 Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commit}/Plugins-%{datatablesplugins_commit}.tar.gz
 
-URL: %{url_prefix}/%{name} 
-
-BuildRequires: nethserver-devtools > 1.0.1, git
-BuildArch: noarch
+BuildRequires: nethserver-devtools
 
 Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
-Obsoletes: nethserver-nethgui
-Requires: nethserver-lib > 2.1.1-1
+Requires: nethserver-lib
 Requires: nethserver-php
-Requires: nethserver-base > 2.5.4-1
-Requires: upstart
-Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
+Requires: nethserver-base
 Requires: nethserver-lang-it, nethserver-lang-en
 
-AutoReq: no
-
-%description 
+%description
 Runs an Apache instance on port 980 with SSL that serves
 the nethserver-manager web application
 
 %prep
-%setup    
+%setup
 %setup -D -T -b 1
 %setup -D -T -b 2
 %setup -D -T -b 3
@@ -124,18 +119,18 @@ mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
 /usr/share/nethesis/Pimple
 /usr/share/nethesis/Mustache
 /usr/share/nethesis/Symfony
-/usr/share/nethesis/Override
-/usr/share/nethesis/Override/Language
-/usr/share/nethesis/Override/Help
-/usr/share/nethesis/Override/Module
 
+%dir /usr/share/nethesis/Override
+%dir /usr/share/nethesis/Override/Language
+%dir /usr/share/nethesis/Override/Help
+%dir /usr/share/nethesis/Override/Module
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/certs/httpd-admin.crt
-%attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin 
+%attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
 
@@ -143,19 +138,6 @@ mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
 # ensure srvmgr user exists:
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
-fi
-if [ $1 -eq 1 ]; then
-   /sbin/stop httpd-admin >/dev/null 2>&1 || :
-fi
-
-%post
-if [ $1 -eq 1 ]; then
-   /sbin/start httpd-admin >/dev/null 2>&1 || :
-fi
-
-%preun
-if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
-   /sbin/stop httpd-admin >/dev/null 2>&1 || :
 fi
 
 %changelog
@@ -239,7 +221,7 @@ fi
 
 * Tue May  7 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
 - db defaults: added access prop with public default
-- httpd/vhost-default template: use Redirect directive, in place of RewriteRule #1838 
+- httpd/vhost-default template: use Redirect directive, in place of RewriteRule #1838
 
 * Tue Apr 30 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.3-1.ns6
 - Rebuild for automatic package handling. #1870
