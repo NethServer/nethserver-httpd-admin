@@ -71,19 +71,19 @@ mkdir -p %{buildroot}/%{extradocs}
 cp COPYING %{buildroot}/%{extradocs}
 
 # Copy the server-manager dir
-mkdir -p %{buildroot}/usr/share/nethesis
-cp -av nethserver-manager %{buildroot}/usr/share/nethesis/nethserver-manager
+mkdir -p %{buildroot}%{_nsuidir}
+cp -av nethserver-manager %{buildroot}%{_nsuidir}/nethserver-manager
 
 # Copy external dependencies
-cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}/usr/share/nethesis/nethserver-manager/
-cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/Nethgui    %{buildroot}/usr/share/nethesis/Nethgui
-cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}/usr/share/nethesis/Pimple
-cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}/usr/share/nethesis/nethserver-manager/
-cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}/usr/share/nethesis/nethserver-manager/js
-cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}/usr/share/nethesis/Mustache
-cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
-cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
-pushd %{_builddir}/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}/usr/share/nethesis/Symfony/Component/Process; popd
+cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}%{_nsuidir}/nethserver-manager/
+cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/Nethgui    %{buildroot}%{_nsuidir}/Nethgui
+cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}%{_nsuidir}/Pimple
+cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}%{_nsuidir}/nethserver-manager/
+cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}%{_nsuidir}/nethserver-manager/js
+cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}%{_nsuidir}/Mustache
+cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}%{_nsuidir}/nethserver-manager/js
+cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}%{_nsuidir}/nethserver-manager/js
+pushd %{_builddir}/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}%{_nsuidir}/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
@@ -108,22 +108,22 @@ mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 
 # Temporary home for English and Italian language packs:
-mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
+mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
 %doc %{extradocs}
 
-/usr/share/nethesis/nethserver-manager
-/usr/share/nethesis/Nethgui
-/usr/share/nethesis/Pimple
-/usr/share/nethesis/Mustache
-/usr/share/nethesis/Symfony
+%{_nsuidir}/nethserver-manager
+%{_nsuidir}/Nethgui
+%{_nsuidir}/Pimple
+%{_nsuidir}/Mustache
+%{_nsuidir}/Symfony
 
-%dir /usr/share/nethesis/Override
-%dir /usr/share/nethesis/Override/Language
-%dir /usr/share/nethesis/Override/Help
-%dir /usr/share/nethesis/Override/Module
+%dir %{_nsuidir}/Override
+%dir %{_nsuidir}/Override/Language
+%dir %{_nsuidir}/Override/Help
+%dir %{_nsuidir}/Override/Module
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
