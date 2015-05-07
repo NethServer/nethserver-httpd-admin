@@ -31,8 +31,6 @@ Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commi
 BuildRequires: nethserver-devtools
 
 Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
-Requires: nethserver-lib
-Requires: nethserver-php
 Requires: nethserver-base
 Requires: nethserver-lang-it, nethserver-lang-en
 
@@ -57,6 +55,7 @@ cd %{_builddir}/nethserver-nethgui-%{nethgui_commit}
 
 %build
 perl createlinks
+mkdir -p root/%{_nseventsdir}/%{name}-update
 
 %install
 (cd root ; find . -depth -print | cpio -dump %{buildroot})
@@ -124,6 +123,8 @@ mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 %dir %{_nsuidir}/Override/Language
 %dir %{_nsuidir}/Override/Help
 %dir %{_nsuidir}/Override/Module
+
+%dir %{_nseventsdir}/%{name}-update
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
