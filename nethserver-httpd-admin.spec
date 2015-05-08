@@ -30,8 +30,13 @@ Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commi
 
 BuildRequires: nethserver-devtools
 
+BuildRequires: systemd
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
+
 Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
-Requires: nethserver-base
+Requires: nethserver-base, nethserver-php
 Requires: nethserver-lang-it, nethserver-lang-en
 
 %description
@@ -64,6 +69,7 @@ rm -f %{name}-%{version}-%{release}-filelist
     > %{name}-%{version}-%{release}-filelist
 mkdir -p %{buildroot}/%{_localstatedir}/log/httpd-admin
 mkdir -p %{buildroot}/%{_localstatedir}/cache/nethserver-httpd-admin
+mkdir -p %{buildroot}/run/ptrack
 
 # Copy package documentation
 mkdir -p %{buildroot}/%{extradocs}
@@ -134,12 +140,23 @@ mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 %attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
+%dir %attr(1770,root,adm) /run/ptrack
+
 
 %pre
 # ensure srvmgr user exists:
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
+
+%post
+%systemd_post httpd-admin.service smwingsd.service
+
+%preun
+%systemd_preun httpd-admin.service smwingsd.service
+
+%postun
+%systemd_postun
 
 %changelog
 * Thu Apr 23 2015 Davide Principi <davide.principi@nethesis.it> - 1.4.0-1

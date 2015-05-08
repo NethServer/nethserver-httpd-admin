@@ -1,0 +1,16 @@
+[Unit]
+Description=Server Manager DB cache Daemon
+Documentation=https://github.com/nethesis/nethserver-httpd-admin
+After=network.target remote-fs.target nss-lookup.target
+Wants=smwingsd.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/httpd
+ExecStart=/usr/sbin/httpd -f /etc/httpd/admin-conf/httpd.conf -DFOREGROUND
+ExecReload=/usr/sbin/httpd -f /etc/httpd/admin-conf/httpd.conf -k graceful
+ExecStop=/bin/kill -WINCH ${MAINPID}
+KillSignal=SIGCONT
+
+[Install]
+WantedBy=multi-user.target

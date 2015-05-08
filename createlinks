@@ -31,7 +31,6 @@ my @certificates = (qw(
 # nethserver-httpd-admin-update event:
 #
 event_templates('nethserver-httpd-admin-update', qw(
-                /etc/init/httpd-admin.conf
 		/etc/httpd/admin-conf/httpd.conf
 		/etc/sudoers
 ), @certificates);
