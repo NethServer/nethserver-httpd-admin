@@ -1,5 +1,5 @@
 %define nethgui_commit 4b9e92c7d88c0e25daaae55f6116beff60ea6c13
-%define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
+%define uideps_commit 582e5fdcc75fc3b3caf6f64bc16f486506597d30
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
 %define mustachejs_commit 0.8.2
@@ -37,7 +37,7 @@ Requires: nethserver-php
 Requires: nethserver-base > 2.5.4-1
 Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
-Requires: nethserver-lang-it, nethserver-lang-en
+Requires: nethserver-lang-it > 1.0.3-1.ns6, nethserver-lang-en
 
 AutoReq: no
 
