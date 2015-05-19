@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -159,6 +159,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Tue May 19 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.1-1
+- jQuery DateTime l10n - Enhancement #3147 [NethServer]
+
 * Thu Apr 23 2015 Davide Principi <davide.principi@nethesis.it> - 1.4.0-1
 - Language packs support - Feature #3115 [NethServer]
 
