@@ -26,7 +26,7 @@ use strict;
 use JSON;
 use esmith::db;
 use base 'Net::Server::Multiplex';
-use Encode qw(encode decode);
+use Encode qw(encode decode is_utf8);
 
 umask 0117;
 __PACKAGE__->new()->run();
@@ -124,7 +124,13 @@ sub handle_request {
 
      $self->write_response($msg_type, $response);
 }
- 
+
+sub decode_cond
+{
+    my $string= shift;
+    return is_utf8($string) ? $string : decode('UTF-8', $string);
+}
+
 sub do_query {
     my $self = shift;
     my $dbn = shift;
@@ -140,9 +146,9 @@ sub do_query {
     } elsif($act eq 'getjson') {
 	$res = $db->prepare_json(@args);
     } elsif($act eq 'getprop') {
-	$res = $db->get_prop(@args);
+	$res = decode_cond($db->get_prop(@args));
     } elsif($act eq 'gettype') {
-	$res = $db->get_type(@args);
+	$res = decode_cond($db->get_type(@args));
     } else {
 	$self->log(0, "Unsupported action '$act'");
 	$res = undef;
