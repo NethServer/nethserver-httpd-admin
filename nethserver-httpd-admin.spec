@@ -1,5 +1,5 @@
 %define nethgui_commit 4b9e92c7d88c0e25daaae55f6116beff60ea6c13
-%define uideps_commit 582e5fdcc75fc3b3caf6f64bc16f486506597d30
+%define uideps_commit 278bbf411c49bffbb65eb10a03f133760d6ac33c
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
 %define mustachejs_commit 0.8.2
@@ -15,9 +15,9 @@ Version: 1.4.1
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
-Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
+Source1: https://github.com/NethServer/nethgui/archive/%{nethgui_commit}/nethgui-%{nethgui_commit}.tar.gz
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
-Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
+Source3: https://github.com/NethServer/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
 Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_commit}/Font-Awesome-%{fontawesome_commit}.tar.gz
 Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
 Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
@@ -58,7 +58,7 @@ the nethserver-manager web application
 %setup -D -T -b 9
 
 # Nethgui:
-cd %{_builddir}/nethserver-nethgui-%{nethgui_commit}
+cd %{_builddir}/nethgui-%{nethgui_commit}
 
 %build
 perl createlinks
@@ -81,7 +81,7 @@ cp -av nethserver-manager %{buildroot}/usr/share/nethesis/nethserver-manager
 
 # Copy external dependencies
 cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}/usr/share/nethesis/nethserver-manager/
-cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/Nethgui    %{buildroot}/usr/share/nethesis/Nethgui
+cp -av %{_builddir}/nethgui-%{nethgui_commit}/Nethgui    %{buildroot}/usr/share/nethesis/Nethgui
 cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}/usr/share/nethesis/Pimple
 cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}/usr/share/nethesis/nethserver-manager/
 cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}/usr/share/nethesis/nethserver-manager/js
@@ -97,8 +97,8 @@ cp -av %{_builddir}/Pimple-%{pimple_commit}/{CHANGELOG,LICENSE,README.rst} %{bui
 mkdir -p %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}
 cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/README.md %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}/
 
-mkdir -p %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}
-cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}/
+mkdir -p %{buildroot}/%{extradocs}/nethgui-%{nethgui_commit}
+cp -av %{_builddir}/nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{buildroot}/%{extradocs}/nethgui-%{nethgui_commit}/
 
 mkdir -p %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
 cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
