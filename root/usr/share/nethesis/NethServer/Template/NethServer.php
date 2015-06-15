@@ -27,12 +27,14 @@ $globalUseFile = new \ArrayObject();
  * jQuery & jQueryUI libraries:
  */
 if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
-    $globalUseFile->append('js/jquery-1.7.1.js');
-    $globalUseFile->append('js/jquery-ui-1.8.18.custom.js');
+    $globalUseFile->append('js/jquery-1.9.1.js');
+    $globalUseFile->append('js/jquery-migrate-1.2.1.js');
+    $globalUseFile->append('js/jquery-ui-1.8.23.js');
 } else {
     // require global javascript resources:
-    $globalUseFile->append('js/jquery-1.7.1.min.js');
-    $globalUseFile->append('js/jquery-ui-1.8.18.custom.min.js');
+    $globalUseFile->append('js/jquery-1.9.1.min.js');
+    $globalUseFile->append('js/jquery-migrate-1.2.1.min.js');
+    $globalUseFile->append('js/jquery-ui-1.8.23.min.js');
 }
 
 /*
