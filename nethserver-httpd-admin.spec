@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.4.1
+Version: 1.5.0
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -159,6 +159,13 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Mon Jun 22 2015 Davide Principi <davide.principi@nethesis.it> - 1.5.0-1
+- Updated jQuery and jQuery-UI libraries - Enhancement #2773 [NethServer]
+- Wrong Server Manager menu category order - Bug #3197 [NethServer]
+- smwingsd UTF-8 decode problems - Bug #3183 [NethServer]
+- Require HTTPS protocol on port 980 - Enhancement #3104 [NethServer]
+- Show host name in Server Manager - Enhancement #3103 [NethServer]
+
 * Tue May 19 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.1-1
 - jQuery DateTime l10n - Enhancement #3147 [NethServer]
 
