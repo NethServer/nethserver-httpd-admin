@@ -88,7 +88,7 @@ cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot
 cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}/usr/share/nethesis/Mustache
 cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
 cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
-pushd %{_builddir}/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}/usr/share/nethesis/Symfony/Component/Process; popd
+pushd %{_builddir}/process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}/usr/share/nethesis/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
@@ -107,7 +107,7 @@ mkdir -p %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
 cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
 
 mkdir -p %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
-cp -av %{_builddir}/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+cp -av %{_builddir}/process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
 
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
