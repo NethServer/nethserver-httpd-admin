@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.5.0
+Version: 1.6.0
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -159,6 +159,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Thu Sep 24 2015 Davide Principi <davide.principi@nethesis.it> - 1.6.0-1
+- Upgrade SSL/TLS defaults on 6.7 - Enhancement #3246 [NethServer]
+
 * Mon Jun 22 2015 Davide Principi <davide.principi@nethesis.it> - 1.5.0-1
 - Updated jQuery and jQuery-UI libraries - Enhancement #2773 [NethServer]
 - Wrong Server Manager menu category order - Bug #3197 [NethServer]
