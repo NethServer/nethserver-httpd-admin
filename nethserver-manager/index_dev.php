@@ -68,7 +68,6 @@ $nsbase = dirname(__DIR__);
 $loader = new \Composer\Autoload\ClassLoader();
 $loader->add('Nethgui',  $nsbase);
 $loader->add('NethServer', $nsbase);
-$loader->add('Override', $nsbase);
 $loader->register();
 foreach ($loader->getPrefixes() as $nsName => $paths) {
     $namespaces[trim($nsName, '\\')] = reset($paths) . DIRECTORY_SEPARATOR . trim($nsName, '\\');
@@ -81,7 +80,6 @@ $FW = new \Nethgui\Framework();
 $FW
     ->setLogLevel(E_WARNING | E_ERROR | E_NOTICE)
     ->registerNamespace($namespaces[__NAMESPACE__])
-    ->registerNamespace($namespaces['Override'])
     ->setDefaultModule('Dashboard')
     ->setDecoratorTemplate('NethServer\\Template\\NethServer')
     ->setForcedLoginModule(function($dc) {
