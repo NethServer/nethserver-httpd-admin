@@ -37,7 +37,7 @@ Requires: nethserver-php
 Requires: nethserver-base > 2.5.4-1
 Requires: upstart
 Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
-Requires: nethserver-lang-it > 1.0.3-1.ns6, nethserver-lang-en
+Requires: nethserver-lang-en
 
 AutoReq: no
 
@@ -112,9 +112,6 @@ cp -av %{_builddir}/process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buil
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 
-# Temporary home for English and Italian language packs:
-mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
-
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
 %doc %{extradocs}
@@ -124,10 +121,6 @@ mkdir -p %{buildroot}/usr/share/nethesis/Override/{Language,Help,Module}
 /usr/share/nethesis/Pimple
 /usr/share/nethesis/Mustache
 /usr/share/nethesis/Symfony
-/usr/share/nethesis/Override
-/usr/share/nethesis/Override/Language
-/usr/share/nethesis/Override/Help
-/usr/share/nethesis/Override/Module
 
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
