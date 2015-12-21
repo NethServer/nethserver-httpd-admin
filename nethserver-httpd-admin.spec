@@ -1,5 +1,5 @@
-%define nethgui_commit 4b9e92c7d88c0e25daaae55f6116beff60ea6c13
-%define uideps_commit d97a4dbf6d8b68cd9dbe9a0a633dd25ea4ca8d3f
+%define nethgui_commit 829016b780b4955807cd479b050dc2fd3b813bf4
+%define uideps_commit 278bbf411c49bffbb65eb10a03f133760d6ac33c
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.1.0
 %define mustachejs_commit 0.8.2
@@ -11,16 +11,16 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.4.0
+Version: 1.6.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
 BuildArch: noarch
 
 Source0: %{name}-%{version}.tar.gz
-Source1: https://github.com/nethesis/nethserver-nethgui/archive/%{nethgui_commit}/nethserver-nethgui-%{nethgui_commit}.tar.gz
+Source1: https://github.com/NethServer/nethgui/archive/%{nethgui_commit}/nethgui-%{nethgui_commit}.tar.gz
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
-Source3: https://github.com/nethesis/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
+Source3: https://github.com/NethServer/ui-deps-bundle/archive/%{uideps_commit}/ui-deps-bundle-%{uideps_commit}.tar.gz
 Source4: https://github.com/FortAwesome/Font-Awesome/archive/v%{fontawesome_commit}/Font-Awesome-%{fontawesome_commit}.tar.gz
 Source5: https://github.com/bobthecow/mustache.php/archive/v%{mustachephp_commit}/mustache.php-%{mustachephp_commit}.tar.gz
 Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustache.js-%{mustachejs_commit}.tar.gz
@@ -37,7 +37,7 @@ Requires(postun): systemd
 
 Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
 Requires: nethserver-base, nethserver-php
-Requires: nethserver-lang-it, nethserver-lang-en
+Requires: nethserver-lang-en
 
 %description
 Runs an Apache instance on port 980 with SSL that serves
@@ -56,7 +56,7 @@ the nethserver-manager web application
 %setup -D -T -b 9
 
 # Nethgui:
-cd %{_builddir}/nethserver-nethgui-%{nethgui_commit}
+cd %{_builddir}/nethgui-%{nethgui_commit}
 
 %build
 perl createlinks
@@ -81,14 +81,14 @@ cp -av nethserver-manager %{buildroot}%{_nsuidir}/nethserver-manager
 
 # Copy external dependencies
 cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}%{_nsuidir}/nethserver-manager/
-cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/Nethgui    %{buildroot}%{_nsuidir}/Nethgui
+cp -av %{_builddir}/nethgui-%{nethgui_commit}/Nethgui    %{buildroot}%{_nsuidir}/Nethgui
 cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}%{_nsuidir}/Pimple
 cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}%{_nsuidir}/nethserver-manager/
 cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}%{_nsuidir}/nethserver-manager/js
 cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}%{_nsuidir}/Mustache
 cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}%{_nsuidir}/nethserver-manager/js
 cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}%{_nsuidir}/nethserver-manager/js
-pushd %{_builddir}/Process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}%{_nsuidir}/Symfony/Component/Process; popd
+pushd %{_builddir}/process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}%{_nsuidir}/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
@@ -97,8 +97,8 @@ cp -av %{_builddir}/Pimple-%{pimple_commit}/{CHANGELOG,LICENSE,README.rst} %{bui
 mkdir -p %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}
 cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/README.md %{buildroot}/%{extradocs}/Font-Awesome-%{fontawesome_commit}/
 
-mkdir -p %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}
-cp -av %{_builddir}/nethserver-nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{buildroot}/%{extradocs}/nethserver-nethgui-%{nethgui_commit}/
+mkdir -p %{buildroot}/%{extradocs}/nethgui-%{nethgui_commit}
+cp -av %{_builddir}/nethgui-%{nethgui_commit}/{COPYING,Documentation/} %{buildroot}/%{extradocs}/nethgui-%{nethgui_commit}/
 
 mkdir -p %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
 cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/{CHANGES,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.js-%{mustachejs_commit}
@@ -107,13 +107,10 @@ mkdir -p %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
 cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/{CONTRIBUTING.md,LICENSE,README.md}  %{buildroot}/%{extradocs}/mustache.php-%{mustachephp_commit}
 
 mkdir -p %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
-cp -av %{_builddir}/Process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
+cp -av %{_builddir}/process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buildroot}/%{extradocs}/Symfony-Process-%{symfonyprocess_commit}
 
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
-
-# Temporary home for English and Italian language packs:
-mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
@@ -124,11 +121,6 @@ mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 %{_nsuidir}/Pimple
 %{_nsuidir}/Mustache
 %{_nsuidir}/Symfony
-
-%dir %{_nsuidir}/Override
-%dir %{_nsuidir}/Override/Language
-%dir %{_nsuidir}/Override/Help
-%dir %{_nsuidir}/Override/Module
 
 %dir %{_nseventsdir}/%{name}-update
 
@@ -141,7 +133,6 @@ mkdir -p %{buildroot}%{_nsuidir}/Override/{Language,Help,Module}
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
 %dir %attr(1770,root,adm) /run/ptrack
-
 
 %pre
 # ensure srvmgr user exists:
@@ -159,6 +150,25 @@ fi
 %systemd_postun
 
 %changelog
+* Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.6.2-1
+- Make Italian language pack optional - Enhancement #3265 [NethServer]
+
+* Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.6.1-1
+- Make Italian language pack optional - Enhancement #3265 [NethServer]
+
+* Thu Sep 24 2015 Davide Principi <davide.principi@nethesis.it> - 1.6.0-1
+- Upgrade SSL/TLS defaults on 6.7 - Enhancement #3246 [NethServer]
+
+* Mon Jun 22 2015 Davide Principi <davide.principi@nethesis.it> - 1.5.0-1
+- Updated jQuery and jQuery-UI libraries - Enhancement #2773 [NethServer]
+- Wrong Server Manager menu category order - Bug #3197 [NethServer]
+- smwingsd UTF-8 decode problems - Bug #3183 [NethServer]
+- Require HTTPS protocol on port 980 - Enhancement #3104 [NethServer]
+- Show host name in Server Manager - Enhancement #3103 [NethServer]
+
+* Tue May 19 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.1-1
+- jQuery DateTime l10n - Enhancement #3147 [NethServer]
+
 * Thu Apr 23 2015 Davide Principi <davide.principi@nethesis.it> - 1.4.0-1
 - Language packs support - Feature #3115 [NethServer]
 

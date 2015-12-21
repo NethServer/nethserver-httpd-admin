@@ -27,12 +27,14 @@ $globalUseFile = new \ArrayObject();
  * jQuery & jQueryUI libraries:
  */
 if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
-    $globalUseFile->append('js/jquery-1.7.1.js');
-    $globalUseFile->append('js/jquery-ui-1.8.18.custom.js');
+    $globalUseFile->append('js/jquery-1.9.1.js');
+    $globalUseFile->append('js/jquery-migrate-1.2.1.js');
+    $globalUseFile->append('js/jquery-ui-1.8.23.js');
 } else {
     // require global javascript resources:
-    $globalUseFile->append('js/jquery-1.7.1.min.js');
-    $globalUseFile->append('js/jquery-ui-1.8.18.custom.min.js');
+    $globalUseFile->append('js/jquery-1.9.1.min.js');
+    $globalUseFile->append('js/jquery-migrate-1.2.1.min.js');
+    $globalUseFile->append('js/jquery-ui-1.8.23.min.js');
 }
 
 /*
@@ -93,7 +95,7 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
 		<div id="headerMenu">
-		    <div id="username"><i class="fa fa-user"></i> <?php echo htmlspecialchars($view['username']) ?></div>
+            <div id="username"><i class="fa fa-user"></i> <?php echo htmlspecialchars($view['username'] . '@'  . gethostname()) ?></div>
 		    <ul id="subMenu">
 			<li><a href="<?php echo htmlspecialchars($view->getModuleUrl('/UserProfile')); ?>">
 			    <i class="fa fa-wrench"></i> <?php echo $T('Profile'); ?>
