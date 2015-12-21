@@ -1,6 +1,7 @@
 
 DocumentRoot /usr/share/nethesis/nethserver-manager
 Alias /icons/ /var/www/icons/
+ErrorDocument 400 /error.php
 
 <Directory /usr/share/nethesis/nethserver-manager/>
        Options +Indexes

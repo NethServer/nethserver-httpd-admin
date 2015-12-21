@@ -3,6 +3,7 @@
 #
 
 SSLProtocol All -SSLv2 -SSLv3
+SSLCipherSuite DEFAULT:!EXP:!SSLv2:!DES:!IDEA:!SEED:+3DES
 
 SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
 
