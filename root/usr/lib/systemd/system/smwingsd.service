@@ -1,6 +1,6 @@
 [Unit]
 Description=Server Manager DB cache Daemon
-Documentation=https://github.com/nethesis/nethserver-httpd-admin
+Documentation=https://github.com/NethServer/nethserver-httpd-admin
 PartOf=httpd-admin.service
 
 [Service]

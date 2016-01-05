@@ -1,6 +1,6 @@
 [Unit]
-Description=Server Manager DB cache Daemon
-Documentation=https://github.com/nethesis/nethserver-httpd-admin
+Description=Server Manager UI httpd instance
+Documentation=https://github.com/NethServer/nethserver-httpd-admin
 After=network.target remote-fs.target nss-lookup.target
 Wants=smwingsd.service
 
