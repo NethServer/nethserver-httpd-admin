@@ -1,0 +1,9 @@
+[Unit]
+Description=Graceful restart of httpd-admin
+Documentation=https://github.com/NethServer/nethserver-httpd-admin
+Requisite=httpd-admin.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/httpd -f /etc/httpd/admin-conf/httpd.conf -k graceful
+
