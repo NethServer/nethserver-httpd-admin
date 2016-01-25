@@ -1,0 +1,8 @@
+#
+# This file can be used to set additional environment variables for
+# the httpd-admin process, or pass additional options to the
+# httpd-admin executable. See httpd-admin.service unit.
+#
+
+LANG=C
+

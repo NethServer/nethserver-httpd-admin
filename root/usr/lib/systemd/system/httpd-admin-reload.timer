@@ -1,0 +1,9 @@
+[Unit]
+Description=Delayed graceful restart of httpd-admin
+Documentation=https://github.com/NethServer/nethserver-httpd-admin
+Conflicts=httpd-admin-reload.service
+
+[Timer]
+OnActiveSec=5
+
+

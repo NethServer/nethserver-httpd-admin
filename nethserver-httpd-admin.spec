@@ -133,6 +133,7 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
 %dir %attr(1770,root,adm) /run/ptrack
+%config(noreplace) /etc/sysconfig/httpd-admin
 
 %pre
 # ensure srvmgr user exists:
