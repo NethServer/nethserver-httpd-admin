@@ -228,3 +228,6 @@ p.TextLabel {margin: 0.5em 0}
 .secondaryContent .contentWrapper { background: #3D4547}
 .Navigation.Flat a.currentMenuItem { color: #2E2E2E}
 
+tr.running td:nth-child(3) { color: green }
+tr.stopped td:nth-child(3) { color: red }
+
