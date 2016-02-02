@@ -5,12 +5,10 @@
 <Directory />
     Options None
     AllowOverride None
-    order deny,allow
-    deny from all
-    allow from none
+    Require all denied
 </Directory>
 
 <Directory /var/www/icons>
-    Allow from all
+    Require all granted
 </Directory>
 
