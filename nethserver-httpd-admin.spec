@@ -123,6 +123,7 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 %{_nsuidir}/Symfony
 
 %dir %{_nseventsdir}/%{name}-update
+%dir %{_sysconfdir}/httpd/admin-conf.d
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
