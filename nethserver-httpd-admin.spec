@@ -1,7 +1,7 @@
 %define nethgui_commit 829016b780b4955807cd479b050dc2fd3b813bf4
 %define uideps_commit 278bbf411c49bffbb65eb10a03f133760d6ac33c
 %define pimple_commit 2.1.0
-%define fontawesome_commit 4.1.0
+%define fontawesome_commit 4.5.0
 %define mustachejs_commit 0.8.2
 %define mustachephp_commit 2.6.1
 %define symfonyprocess_commit 2.5.2
