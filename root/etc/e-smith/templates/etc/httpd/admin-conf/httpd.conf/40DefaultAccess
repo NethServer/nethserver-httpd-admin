@@ -1,14 +1,14 @@
-
-# First, we configure the "default" to be a very restrictive set of 
-# permissions.  
-
+#
+# 40DefaultAccess
+#
 <Directory />
     Options None
-    AllowOverride None
+    AllowOverride none
     Require all denied
 </Directory>
 
-<Directory /var/www/icons>
-    Require all granted
-</Directory>
+<Files ".ht*">
+    Require all denied
+</Files>
+
 
