@@ -46,7 +46,7 @@ extension_loaded('xdebug') && xdebug_disable();
 // Enable nethgui javascript files auto inclusion:
 define('NETHGUI_ENABLE_INCLUDE_WIDGET', TRUE);
 
-define('NETHGUI_MENU_CATEGORIES', 'Status, Management, Administration, Security, Configuration, Gateway');
+define('NETHGUI_MENU_CATEGORIES', 'Status, Report, Management, Administration, Security, Configuration, Gateway');
 
 $namespaces = array();
 include_once("autoload.php");
