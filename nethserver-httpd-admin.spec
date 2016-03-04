@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -152,6 +152,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Fri Mar 04 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.3-1
+- Invalid TCP port range - Bug #3333 [NethServer]
+
 * Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.6.2-1
 - Make Italian language pack optional - Enhancement #3265 [NethServer]
 
