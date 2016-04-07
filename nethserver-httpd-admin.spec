@@ -1,4 +1,4 @@
-%define nethgui_commit 849b02002390dfd462ae3fdad1f5b1ad5865a0e1
+%define nethgui_commit 2381854ab76ad73548dec512e3f0a779c54d19e3
 %define uideps_commit 278bbf411c49bffbb65eb10a03f133760d6ac33c
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.5.0
@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.3
+Version: 1.6.4
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -152,6 +152,9 @@ fi
 %systemd_postun
 
 %changelog
+* Fri Apr 01 2016 Davide Principi <davide.principi@nethesis.it> - 1.6.4-1
+- Language fallback to alternative country - Enhancement #3368 [NethServer]
+
 * Fri Mar 04 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.3-1
 - Invalid TCP port range - Bug #3333 [NethServer]
 
