@@ -43,7 +43,7 @@ if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
 $globalUseFile->append('js/jquery.dataTables.min.js');
 $globalUseFile->append('js/jquery.qtip.min.js');
 
-$lang = $view->getTranslator()->getLanguageCode();
+$lang = substr($view->getTranslator()->getLanguageCode(), 0, 2);
 if ($lang !== 'en') {
     $globalUseFile->append(sprintf('js/jquery.ui.datepicker-%s.js', $lang));
 }
