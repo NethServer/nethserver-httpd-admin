@@ -2,12 +2,11 @@
  * Nethgui (C) 2011 Nethesis Srl
 */
 
-
 * {margin: 0; padding: 0}
 ul, ol {list-style: none}
 ul.disc {list-style: disc inside}
 ul.disc li {margin: .2em 0}
-body {font-family: sans-serif; font-size: 12px; background-color: #fff}
+body {font-family: sans-serif; font-size: 12px;}
 table {font-family: sans-serif; font-size: 12px; width: 100%; }
 h1,h2,h3,h4,h5,h6 { font-size: 100%; margin: 0; padding: 0; font-weight: normal}
 fieldset {border: none}
@@ -47,7 +46,7 @@ script {display: none}
 
 .Navigation.Flat .category:first-child {margin-top: 0; padding-top: 0}
 .Navigation.Flat li a {padding: .5em; padding-left: 1.5em}
-.Navigation.Flat a.currentMenuItem { background-color: #fff }
+.Navigation.Flat a.currentMenuItem { background-color: #00A1DE; }
 
 .Navigation #Menu_search {width: 100%; border: none}
 .Navigation .searchPanel {margin: 0 .5em; background: transparent; position: relative; margin-right: 0.7em;}
@@ -85,8 +84,8 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .Buttonlist {min-height: 27px; position: relative}
 .Buttonlist .Help {position: absolute; top: 0; right: 0}
 .Buttonlist > .Button {margin-right: 0.4em;}
-.Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
-.Buttonlist > .Button.link.ui-state-hover:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-hover.png') repeat-x left bottom}
+/*.Buttonlist > .Button.link:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-normal.png') repeat-x left bottom}
+.Buttonlist > .Button.link.ui-state-hover:first-child {color: white; border: 1px solid #3079ED; text-transform: uppercase; background: #4D90FE url('img/blue-inset-hover.png') repeat-x left bottom}*/
 
 .ui-buttonset .ui-button {margin-right: -.1em}
 .ui-buttonset .ui-button.ui-state-hover {z-index: 10}
@@ -217,17 +216,167 @@ p.TextLabel {margin: 0.5em 0}
 @media screen and (min-width: 40em) {
     #pageContent {margin: 0 .5em; position: relative }
     .primaryContent {margin-left: 20.5em }
-    .secondaryContent {position: absolute; width: 20em;  top: 0; left: 0; margin: 0; padding-bottom: 50px }    
+    .secondaryContent {position: absolute; width: 20em;  top: 0; left: 0; margin: 0; padding-bottom: 50px }
     .CurrentModule { border-bottom: 1px solid #aaa; min-height: 300px; }
     .DataTable {min-height: auto;}
     .Tabs { min-height: 300px; }
-} /*end media screen */
+}
 
 .Navigation.Flat a {color: #fff;}
 .Navigation.Flat .category {color: #fff;}
-.secondaryContent .contentWrapper { background: #3D4547}
-.Navigation.Flat a.currentMenuItem { color: #2E2E2E}
+
+.secondaryContent .contentWrapper { background: #252525}
+.Navigation.Flat a.currentMenuItem { color: #FFF; font-weight: 600;}
 
 tr.running td:nth-child(3) { color: green }
 tr.stopped td:nth-child(3) { color: red }
 
+/* dashboard */
+div.dashboard-item {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    width: 300px;
+    min-height: 50px;
+    background: #fff;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    border-top: 2px solid #00A1DE;
+}
+.dashboard-item h2 {
+    font-weight: bold;
+    font-size: 120%;
+    text-align: left;
+    border-radius: 0px;
+    margin: -5px -5px 5px -5px;
+    background: #eee;
+    letter-spacing: 0.1px;
+    padding: 10px 0 7px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dashboard-item dt {
+    float: left;
+    clear: left;
+    text-align: right;
+    font-weight: bold;
+    padding: 0.5em;
+        line-height: 16px;
+}
+.dashboard-item dt:after {
+  content: ":";
+}
+
+.dashboard-item dd {
+    text-align: right;
+    padding: 0.5em;
+    line-height: 16px;
+}
+
+.dashboard-item dd:first-child {
+    margin-top: 8px;
+}
+
+
+  .dashboard-graph {
+    margin-top: 0.2em;
+    height:250px;
+    width:250px;
+  }
+
+  .dashboard-item .domain-title {
+      padding: 8px 0 0 5px;
+      font-weight: bold;
+  }
+
+  .Buttonlist > .Button.link:first-child {
+      color: white;
+      border: 1px solid #00729D;
+      text-transform: uppercase;
+      background: #00A1DE;
+  }
+
+  .Buttonlist > .Button.link.ui-state-hover:first-child {color: white; text-transform: uppercase; opacity: 0.7;}
+
+
+/* dashboard attributes */
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #00A1DE;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #00729D;
+}
+
+/* notifications */
+#Notification { margin-bottom: 0.5em; font-size: 1.2em }
+#Notification .fa-ul { margin: 0 }
+#Notification > ul > li { padding: 1em; margin-bottom: 0.5em; }
+#Notification ul.fa-ul > li { padding-left: 2.5em }
+#Notification ul.fa-ul > li.nolpad { padding-left: .5em }
+#Notification .fa-li { font-size: 1.2em; left: 0; top: .8em }
+
+.notification.bg-red {color: #fff; background-color: #C42200; border-color: #C42200}
+.notification.bg-red a {color: #fff}
+
+.notification.bg-green {color: #fff; background-color: #00B543; border-color: #00B543 }
+.notification.bg-green a {color: #fff}
+
+.notification.bg-yellow {color: #000; background-color: #FFB600; border-color: #FFB600 }
+.notification.bg-yellow a {color: #000}
+
+.notification.validationError dd {margin-bottom: .25em}
+
+/* buttons */
+
+#PackageManager_Modules_Available_categories label {
+    font-weight: bold;
+    letter-spacing: 1px;
+    background: #00A1DE;
+    border: 1px solid #00729D;
+    color: white;
+}
+
+/* applications */
+
+div.app-item {
+  margin: 5px;
+  border: 1px solid #ddd;
+  width: 300px;
+  height: 80px;
+  float: left;
+  border-top: 2px solid #00A1DE;
+}
+h2.app-title, .app-item .app-title {
+  font-size: 120%;
+  font-weight: bold;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0 8px 10px;
+  letter-spacing: 0.1px;
+}
+.app-item .app-text {
+    height: 15px;
+}
+.app-item .ButtonContainer {
+}
+.app-item .Buttonlist {
+     float: right;
+     margin-right: 20px;
+ }
+
+.app-item .button.link:first-child {
+  color: white;
+ border: 1px solid #00729D;
+  text-transform: uppercase;
+  background: #00A1DE;
+  padding: 9px 0px 6px;
+  text-decoration: none;
+}
+
+.app-item .button.link:first-child:hover {
+    opacity:0.7;
+}
+
+.app-reset {
+  clear: both;
+}
