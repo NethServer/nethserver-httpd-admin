@@ -1,13 +1,10 @@
 
 DocumentRoot /usr/share/nethesis/nethserver-manager
-Alias /icons/ /var/www/icons/
 ErrorDocument 400 /error.php
 
 <Directory /usr/share/nethesis/nethserver-manager/>
        Options +Indexes
-       Order Deny,Allow
-       Deny from all
-       Allow from { $localAccess || 'all' }
+       Require {$OUT .= ( $localAccess ) ? "ip $localAccess" : "all granted" ;}
        AddType application/x-httpd-php .php
        Options +FollowSymlinks
        RewriteEngine on 

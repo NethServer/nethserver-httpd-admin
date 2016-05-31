@@ -1,6 +1,12 @@
 <?php
 /* @var $view \Nethgui\Renderer\Xhtml */
 
+if(strstr($view['username'], '@')) {
+    $username = $view['username'];
+} else {
+    $username = $view['username'] . '@' . gethostname();
+}
+
 $filename = basename(__FILE__);
 $bootstrapJs = <<<"EOJS"
 /*
@@ -97,7 +103,7 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
 		<div id="headerMenu">
-            <div id="username"><i class="fa fa-user"></i> <?php echo htmlspecialchars($view['username'] . '@'  . gethostname()) ?></div>
+            <div id="username"><i class="fa fa-user"></i> <?php echo htmlspecialchars($username) ?></div>
 		    <ul id="subMenu">
 			<li><a href="<?php echo htmlspecialchars($view->getModuleUrl('/UserProfile')); ?>">
 			    <i class="fa fa-wrench"></i> <?php echo $T('Profile'); ?>

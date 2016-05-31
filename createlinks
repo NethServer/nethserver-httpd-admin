@@ -31,7 +31,6 @@ my @certificates = (qw(
 # nethserver-httpd-admin-update event:
 #
 event_templates('nethserver-httpd-admin-update', qw(
-                /etc/init/httpd-admin.conf
 		/etc/httpd/admin-conf/httpd.conf
 		/etc/sudoers
 ), @certificates);
@@ -39,12 +38,8 @@ event_templates('nethserver-httpd-admin-update', qw(
 event_actions('nethserver-httpd-admin-update', qw(
 	      initialize-default-databases 00
               nethserver-httpd-admin-conf 20
+              nethserver-httpd-admin-asyncreload 99
 ));
-
-event_services('nethserver-httpd-admin-update', qw(
-               httpd-admin restart
-));
-
  
 #
 # certificate-update event

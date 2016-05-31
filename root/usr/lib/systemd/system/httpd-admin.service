@@ -1,0 +1,15 @@
+[Unit]
+Description=Server Manager UI httpd instance
+Documentation=https://github.com/NethServer/nethserver-httpd-admin
+After=network.target remote-fs.target nss-lookup.target
+Wants=smwingsd.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/httpd-admin
+ExecStart=/usr/sbin/httpd -f /etc/httpd/admin-conf/httpd.conf -c 'MaxConnectionsPerChild 12' -DFOREGROUND
+ExecReload=/usr/sbin/httpd -f /etc/httpd/admin-conf/httpd.conf -k graceful
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

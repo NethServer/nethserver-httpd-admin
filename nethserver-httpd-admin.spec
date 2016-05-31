@@ -1,7 +1,7 @@
-%define nethgui_commit 2381854ab76ad73548dec512e3f0a779c54d19e3
+%define nethgui_commit 5e42f95e5c0fd7a8527625de1255a74b2b8ba648
 %define uideps_commit 278bbf411c49bffbb65eb10a03f133760d6ac33c
 %define pimple_commit 2.1.0
-%define fontawesome_commit 4.1.0
+%define fontawesome_commit 4.5.0
 %define mustachejs_commit 0.8.2
 %define mustachephp_commit 2.6.1
 %define symfonyprocess_commit 2.5.2
@@ -14,6 +14,9 @@ Name: nethserver-httpd-admin
 Version: 1.6.4
 Release: 1%{?dist}
 License: GPL
+URL: %{url_prefix}/%{name}
+BuildArch: noarch
+
 Source0: %{name}-%{version}.tar.gz
 Source1: https://github.com/NethServer/nethgui/archive/%{nethgui_commit}/nethgui-%{nethgui_commit}.tar.gz
 Source2: https://github.com/fabpot/Pimple/archive/v%{pimple_commit}/Pimple-%{pimple_commit}.tar.gz
@@ -25,28 +28,23 @@ Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Pr
 Source8: https://github.com/DataTables/DataTables/archive/%{datatables_commit}/DataTables-%{datatables_commit}.tar.gz
 Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commit}/Plugins-%{datatablesplugins_commit}.tar.gz
 
-URL: %{url_prefix}/%{name} 
+BuildRequires: nethserver-devtools
 
-BuildRequires: nethserver-devtools > 1.0.1, git
-BuildArch: noarch
+BuildRequires: systemd
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
-Obsoletes: nethserver-nethgui
-Requires: nethserver-lib > 2.1.1-1
-Requires: nethserver-php
-Requires: nethserver-base > 2.5.4-1
-Requires: upstart
-Requires: perl(IO::Multiplex), perl(Net::Server::Multiplex)
+Requires: nethserver-base, nethserver-php
 Requires: nethserver-lang-en
 
-AutoReq: no
-
-%description 
+%description
 Runs an Apache instance on port 980 with SSL that serves
 the nethserver-manager web application
 
 %prep
-%setup    
+%setup
 %setup -D -T -b 1
 %setup -D -T -b 2
 %setup -D -T -b 3
@@ -62,6 +60,7 @@ cd %{_builddir}/nethgui-%{nethgui_commit}
 
 %build
 perl createlinks
+mkdir -p root/%{_nseventsdir}/%{name}-update
 
 %install
 (cd root ; find . -depth -print | cpio -dump %{buildroot})
@@ -70,25 +69,26 @@ rm -f %{name}-%{version}-%{release}-filelist
     > %{name}-%{version}-%{release}-filelist
 mkdir -p %{buildroot}/%{_localstatedir}/log/httpd-admin
 mkdir -p %{buildroot}/%{_localstatedir}/cache/nethserver-httpd-admin
+mkdir -p %{buildroot}/run/ptrack
 
 # Copy package documentation
 mkdir -p %{buildroot}/%{extradocs}
 cp COPYING %{buildroot}/%{extradocs}
 
 # Copy the server-manager dir
-mkdir -p %{buildroot}/usr/share/nethesis
-cp -av nethserver-manager %{buildroot}/usr/share/nethesis/nethserver-manager
+mkdir -p %{buildroot}%{_nsuidir}
+cp -av nethserver-manager %{buildroot}%{_nsuidir}/nethserver-manager
 
 # Copy external dependencies
-cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}/usr/share/nethesis/nethserver-manager/
-cp -av %{_builddir}/nethgui-%{nethgui_commit}/Nethgui    %{buildroot}/usr/share/nethesis/Nethgui
-cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}/usr/share/nethesis/Pimple
-cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}/usr/share/nethesis/nethserver-manager/
-cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}/usr/share/nethesis/nethserver-manager/js
-cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}/usr/share/nethesis/Mustache
-cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
-cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}/usr/share/nethesis/nethserver-manager/js
-pushd %{_builddir}/process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}/usr/share/nethesis/Symfony/Component/Process; popd
+cp -av %{_builddir}/ui-deps-bundle-%{uideps_commit}/{css,js} %{buildroot}%{_nsuidir}/nethserver-manager/
+cp -av %{_builddir}/nethgui-%{nethgui_commit}/Nethgui    %{buildroot}%{_nsuidir}/Nethgui
+cp -av %{_builddir}/Pimple-%{pimple_commit}/src/Pimple              %{buildroot}%{_nsuidir}/Pimple
+cp -av %{_builddir}/Font-Awesome-%{fontawesome_commit}/{css,fonts}  %{buildroot}%{_nsuidir}/nethserver-manager/
+cp -av %{_builddir}/mustache.js-%{mustachejs_commit}/mustache.js     %{buildroot}%{_nsuidir}/nethserver-manager/js
+cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot}%{_nsuidir}/Mustache
+cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}%{_nsuidir}/nethserver-manager/js
+cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}%{_nsuidir}/nethserver-manager/js
+pushd %{_builddir}/process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}%{_nsuidir}/Symfony/Component/Process; popd
 
 # Copy documentation and licenses from components:
 mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
@@ -116,40 +116,40 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 %defattr(-,root,root)
 %doc %{extradocs}
 
-/usr/share/nethesis/nethserver-manager
-/usr/share/nethesis/Nethgui
-/usr/share/nethesis/Pimple
-/usr/share/nethesis/Mustache
-/usr/share/nethesis/Symfony
+%{_nsuidir}/nethserver-manager
+%{_nsuidir}/Nethgui
+%{_nsuidir}/Pimple
+%{_nsuidir}/Mustache
+%{_nsuidir}/Symfony
 
+%dir %{_nseventsdir}/%{name}-update
+%dir %{_sysconfdir}/httpd/admin-conf.d
 
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/certs/httpd-admin.crt
-%attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin 
+%attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
+%dir %attr(1770,root,adm) /run/ptrack
+%config(noreplace) /etc/sysconfig/httpd-admin
 
 %pre
 # ensure srvmgr user exists:
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
-if [ $1 -eq 1 ]; then
-   /sbin/stop httpd-admin >/dev/null 2>&1 || :
-fi
 
 %post
-if [ $1 -eq 1 ]; then
-   /sbin/start httpd-admin >/dev/null 2>&1 || :
-fi
+%systemd_post httpd-admin.service smwingsd.service
 
 %preun
-if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
-   /sbin/stop httpd-admin >/dev/null 2>&1 || :
-fi
+%systemd_preun httpd-admin.service smwingsd.service
+
+%postun
+%systemd_postun
 
 %changelog
 * Fri Apr 01 2016 Davide Principi <davide.principi@nethesis.it> - 1.6.4-1
@@ -257,7 +257,7 @@ fi
 
 * Tue May  7 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
 - db defaults: added access prop with public default
-- httpd/vhost-default template: use Redirect directive, in place of RewriteRule #1838 
+- httpd/vhost-default template: use Redirect directive, in place of RewriteRule #1838
 
 * Tue Apr 30 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.3-1.ns6
 - Rebuild for automatic package handling. #1870

@@ -1,1 +1,6 @@
 Include conf.d/php.conf
+
+# Supplemental configuration
+#
+# Load config files in the "/etc/httpd/admin-conf.d" directory, if any.
+IncludeOptional admin-conf.d/*.conf

@@ -224,12 +224,12 @@ p.TextLabel {margin: 0.5em 0}
 
 .Navigation.Flat a {color: #fff;}
 .Navigation.Flat .category {color: #fff;}
+
 .secondaryContent .contentWrapper { background: #252525}
 .Navigation.Flat a.currentMenuItem { color: #FFF; font-weight: 600;}
 
 tr.running td:nth-child(3) { color: green }
 tr.stopped td:nth-child(3) { color: red }
-
 
 /* dashboard */
 div.dashboard-item {
