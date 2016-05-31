@@ -95,7 +95,9 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
         <script>document.write('<style id="hiddenAllWrapperCss" type="text/css">#allWrapper {display:none}</style>')</script><?php echo $view->literal($view['Resource']['css']) ?>
     </head>
     <body>
+        <div id="body-background"></div>
         <div id="allWrapper">
+            <div id="pageHeader-background"></div>
             <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($view['logo']); ?>)">
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
