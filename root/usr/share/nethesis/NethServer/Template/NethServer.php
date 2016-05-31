@@ -1,5 +1,5 @@
 <?php
-/* @var $view \Nethgui\Renderer\Xhtml */ 
+/* @var $view \Nethgui\Renderer\Xhtml */
 
 $filename = basename(__FILE__);
 $bootstrapJs = <<<"EOJS"
@@ -8,7 +8,7 @@ $bootstrapJs = <<<"EOJS"
  */
 jQuery(document).ready(function($) {
     $('script.unobstrusive').remove();
-    $('#pageContent').Component();    
+    $('#pageContent').Component();
     $('.HelpArea').HelpArea();
     $('#hiddenAllWrapperCss').remove();
 
@@ -43,7 +43,7 @@ if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
 $globalUseFile->append('js/jquery.dataTables.min.js');
 $globalUseFile->append('js/jquery.qtip.min.js');
 
-$lang = substr($view->getTranslator()->getLanguageCode(), 0, 2);
+$lang = $view->getTranslator()->getLanguageCode();
 if ($lang !== 'en') {
     $globalUseFile->append(sprintf('js/jquery.ui.datepicker-%s.js', $lang));
 }
@@ -86,11 +86,13 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
     <head>
         <title><?php echo htmlspecialchars($view['company'] . " - " . $view['moduleTitle']) ?></title>
         <link rel="icon"  type="image/png"  href="<?php echo $view['favicon'] ?>" />
-        <meta name="viewport" content="width=device-width" />  
+        <meta name="viewport" content="width=device-width" />
         <script>document.write('<style id="hiddenAllWrapperCss" type="text/css">#allWrapper {display:none}</style>')</script><?php echo $view->literal($view['Resource']['css']) ?>
     </head>
     <body>
+        <div id="body-background"></div>
         <div id="allWrapper">
+            <div id="pageHeader-background"></div>
             <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($view['logo']); ?>)">
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
@@ -102,17 +104,17 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
 			</a></li>
 			<li><form method="post" action="<?php echo htmlspecialchars($view->getModuleUrl('/Logout')); ?>">
 			    <input type="hidden" value="<?php echo htmlspecialchars($view['Logout']['nextPath']); ?>" name="Logout[nextPath]">
-			    <input type="hidden" value="logout" name="Logout[action]">			      
+			    <input type="hidden" value="logout" name="Logout[action]">
 			    <button type="submit"><i class="fa fa-power-off"></i> <?php echo $T('Logout'); ?></button>
 			</form></li>
 		    </ul>
 		</div>
-                <h1 id="ModuleTitle"><?php echo htmlspecialchars($view['moduleTitle']) ?></h1>                
+                <h1 id="ModuleTitle"><?php echo htmlspecialchars($view['moduleTitle']) ?></h1>
               <?php endif; ?>
             </div>
-            <div id="pageContent">                
+            <div id="pageContent">
                 <div class="primaryContent" role="main">
-                    <?php 
+                    <?php
                          echo $view['notificationOutput'];
                          echo $view['trackerOutput'];
                          echo $view['currentModuleOutput'];
@@ -121,7 +123,9 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
                 <?php if ( ! $view['disableMenu']): ?><div class="secondaryContent" role="menu"><div class="contentWrapper"><h2><?php echo htmlspecialchars($view->translate('Other modules')) ?></h2><?php echo $view['menuOutput'] ?></div></div><?php endif; ?>
             </div><?php echo $view['helpAreaOutput'] ?>
             <?php if ( ! $view['disableFooter']): ?><div id="footer"><p><?php echo htmlspecialchars($view['company'] . ' - ' . $view['address']) ?></p></div><?php endif; ?>
-        </div><?php
+
+        </div>
+        <?php
         array_map(function ($f) use ($view) {
             printf("<script src='%s%s'></script>", $view->getPathUrl(), $f);
         }, iterator_to_array($globalUseFile));
