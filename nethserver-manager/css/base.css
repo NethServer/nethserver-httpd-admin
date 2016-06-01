@@ -206,18 +206,6 @@ p.TextLabel {margin: 0.5em 0}
 #pageHeader { height: 48px; background: transparent no-repeat 2px center; position:relative; margin: -48px 2px .5em 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px;}
 /* background body */
 
-#body-background {
-width: 100%; height: 100%; top: 0; left: 0;
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;
-}
-
-.ui-widget-content {
-    background: transparent;
-}
-
 /* background toolbar */
 
 #pageHeader-background {height: 48px;
