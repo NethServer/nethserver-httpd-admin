@@ -108,7 +108,6 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .dataTables_wrapper { margin-bottom: 8px; min-height: 0}
 .DataTable table {border-collapse: collapse; border: 1px solid #ccc; background: #fff}
 .DataTable td {padding: 4px 6px;}
-/*.DataTable .ui-widget-header { background: #eee; padding: 2px; color: #444}*/
 .DataTable .ui-widget-header { background: #fff; border: none; padding: 3px; font-weight: normal}
 .DataTable .ui-widget-header select { font-size: 100%}
 .DataTable .dataTables_filter { float: right;}
@@ -204,7 +203,34 @@ p.TextLabel {margin: 0.5em 0}
 .secondaryContent .contentWrapper { padding: .5em 0; border-radius: 2px; }
 .secondaryContent h2 {display:none}
 
-#pageHeader { height: 48px; background: #2E2E2E no-repeat 2px center; position:relative; margin: 0 2px .5em 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px;}
+#pageHeader { height: 48px; background: transparent no-repeat 2px center; position:relative; margin: -48px 2px .5em 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px;}
+/* background body */
+
+#body-background {
+width: 100%; height: 100%; top: 0; left: 0;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+.ui-widget-content {
+    background: transparent;
+}
+
+/* background toolbar */
+
+#pageHeader-background {height: 48px;
+    width: 100%; left: 0; z-index: -1;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+ background-image: url(/images/light-polygons/toolbar_lightpoly320.svg);
+ }
+
+      /* toolbar */
+
 #pageHeader > a:first-child { display: block; width: 50%; height: 100%; }
 #pageHeader h1 { display: none }
 
@@ -231,10 +257,7 @@ p.TextLabel {margin: 0.5em 0}
 .Navigation.Flat a {color: #fff;}
 .Navigation.Flat .category {color: #fff;}
 
-tr.running td:nth-child(3) { color: green }
-tr.stopped td:nth-child(3) { color: red }
-
-.secondaryContent .contentWrapper { background: #252525}
+.secondaryContent .contentWrapper { background-color: #252525}
 .Navigation.Flat a.currentMenuItem { color: #FFF; font-weight: 600;}
 
 tr.running td:nth-child(3) { color: green }
@@ -286,7 +309,6 @@ div.dashboard-item {
     margin-top: 8px;
 }
 
-
 .dashboard-graph {
     margin-top: 0.2em;
     height:250px;
@@ -294,11 +316,9 @@ div.dashboard-item {
 }
 
 .dashboard-item .domain-title {
-      padding: 8px 0 0 5px;
-      font-weight: bold;
+    padding: 8px 0 0 5px;
+    font-weight: bold;
 }
-
-
 
 /* dashboard attributes */
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
