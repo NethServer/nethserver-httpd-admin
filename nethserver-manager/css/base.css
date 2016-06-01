@@ -226,7 +226,7 @@ background-size: cover;
 #headerMenu {position: absolute; right: 15px; bottom: 0; padding: 5px; font-size: 110%; color: white; cursor: pointer}
 #headerMenu a {display: block; color: white; text-decoration: none}
 #headerMenu button {background: none; color: white; border: none; cursor: pointer}
-#subMenu {display: none; position: absolute; z-index: 1000; background: #2E2E2E; padding: 1px; width: 200px; right: 0; border-radius: 2px}
+#subMenu {display: none; position: absolute; z-index: 1000; background: #252525; padding: 1px; width: 200px; right: 0; border-radius: 2px; margin-top: 4px}
 #headerMenu:hover #subMenu, #headerMenu:focus #subMenu  {display:block}
 
 #subMenu li a {width: 180px; text-align: left; padding: 10px}

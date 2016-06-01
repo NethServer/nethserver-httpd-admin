@@ -71,13 +71,38 @@ $view
     ->useFile('css/base.css')
 ;
 // Custom colors
-if (isset($view['colors']) && count($view['colors']) == 3) {
+if (isset($view['headerBackground'])) {
     $view->includeCss("
-        #pageHeader, #subMenu {
-            background-color: {$view['colors'][0]} !important;
+        #pageHeader-background {
+            background-image: url(/images/{$view['headerBackground']}) !important;
         }
-        .secondaryContent .contentWrapper {
-            background: {$view['colors'][1]} !important;
+    ");
+}
+if (isset($view['menuBackground'])) {
+    $view->includeCss("
+    .secondaryContent .contentWrapper { background-image: url(/images/{$view['menuBackground']}); background-repeat:no-repeat;}
+    ");
+}
+
+if (isset($view['colors']) && count($view['colors']) == 3) {
+    if (!isset($view['headerBackground'])) {
+        $view->includeCss("
+            #pageHeader {
+                background-color: {$view['colors'][0]} !important;
+            }
+        ");
+    }
+    if (!isset($view['menuBackground'])) {
+        $view->includeCss("
+            .secondaryContent .contentWrapper {
+                background: {$view['colors'][1]} !important;
+            }
+        ");
+    }
+
+    $view->includeCss("
+        #subMenu {
+            background-color: {$view['colors'][0]} !important;
         }
         .DataTable th.ui-state-default, .Navigation.Flat a.currentMenuItem, .Navigation.Flat a:hover, .header {
             color: {$view['colors'][2]} !important;
