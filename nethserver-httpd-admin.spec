@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.4
+Version: 1.6.5
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -152,6 +152,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Mon Jun 06 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.5-1
+- HTTP datepicker resource not found - Bug #3390 [NethServer]
+
 * Fri Apr 01 2016 Davide Principi <davide.principi@nethesis.it> - 1.6.4-1
 - Language fallback to alternative country - Enhancement #3368 [NethServer]
 
