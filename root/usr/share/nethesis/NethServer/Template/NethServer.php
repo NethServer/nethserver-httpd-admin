@@ -1,5 +1,32 @@
 <?php
 /* @var $view \Nethgui\Renderer\Xhtml */
+
+//read css from db
+$db = $view->getModule()->getPlatform()->getDatabase('configuration');
+$myView = array();
+
+$colors = $db->getProp('httpd-admin', 'colors');
+if ($colors) {
+    $colors = explode(',', $colors);
+    $myView['colors'] = $colors;
+}
+$hb = $db->getProp('httpd-admin', 'headerBackground');
+$mb = $db->getProp('httpd-admin', 'menuBackground');
+if ($hb) {
+    $myView['headerBackground'] = $hb;
+}
+if ($mb) {
+    $myView['menuBackground'] = $mb;
+}
+$logo = $db->getProp('httpd-admin', 'logo');
+$myView['logo'] = $view->getPathUrl() . ($logo ? sprintf('images/%s', $logo) : 'images/logo.png');
+$myView['company'] = $db->getProp('OrganizationContact', 'Company');
+$myView['address'] = $db->getProp('OrganizationContact', 'Street') . ", " . $db->getProp('OrganizationContact', 'City');
+$favicon = $db->getProp('httpd-admin', 'favicon');
+$myView['favicon'] = $view->getPathUrl() . ($favicon ? sprintf('images/%s', $favicon) : 'images/favicon.png');
+
+
+
 if(strstr($view['username'], '@')) {
     $username = $view['username'];
 } else {
@@ -71,48 +98,48 @@ $view
     ->useFile('css/base.css')
 ;
 // Custom colors
-if (isset($view['headerBackground'])) {
+if (isset($myView['headerBackground'])) {
     $view->includeCss("
         #pageHeader-background {
-            background-image: url(/images/{$view['headerBackground']}) !important;
+            background-image: url(/images/{$myView['headerBackground']}) !important;
         }
     ");
 }
-if (isset($view['menuBackground'])) {
+if (isset($myView['menuBackground'])) {
     $view->includeCss("
-    .secondaryContent .contentWrapper { background-image: url(/images/{$view['menuBackground']}); background-repeat:no-repeat;}
+    .secondaryContent .contentWrapper { background-image: url(/images/{$myView['menuBackground']}); background-repeat:no-repeat;}
     ");
 }
 
-if (isset($view['colors']) && count($view['colors']) == 3) {
-    if (!isset($view['headerBackground'])) {
+if (isset($myView['colors']) && count($myView['colors']) == 3) {
+    if (!isset($myView['headerBackground'])) {
         $view->includeCss("
             #pageHeader {
-                background-color: {$view['colors'][0]} !important;
+                background-color: {$myView['colors'][0]} !important;
             }
         ");
     }
-    if (!isset($view['menuBackground'])) {
+    if (!isset($myView['menuBackground'])) {
         $view->includeCss("
             .secondaryContent .contentWrapper {
-                background: {$view['colors'][1]} !important;
+                background: {$myView['colors'][1]} !important;
             }
         ");
     }
 
     $view->includeCss("
         #subMenu {
-            background-color: {$view['colors'][0]} !important;
+            background-color: {$myView['colors'][0]} !important;
         }
         .DataTable th.ui-state-default, .Navigation.Flat a.currentMenuItem, .Navigation.Flat a:hover, .header {
-            color: {$view['colors'][2]} !important;
+            color: {$myView['colors'][2]} !important;
         }
         .Navigation li a:hover { background: white !important }
         #Login .ui-widget-header {
-             background: {$view['colors'][1]} !important;
+             background: {$myView['colors'][1]} !important;
         }
         #Login {
-            border: 1px solid {$view['colors'][1]} !important;
+            border: 1px solid {$myView['colors'][1]} !important;
         }
 
     ");
@@ -120,15 +147,15 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
 ?><!DOCTYPE html>
 <html lang="<?php echo $view['lang'] ?>">
     <head>
-        <title><?php echo htmlspecialchars($view['company'] . " - " . $view['moduleTitle']) ?></title>
-        <link rel="icon"  type="image/png"  href="<?php echo $view['favicon'] ?>" />
+        <title><?php echo htmlspecialchars($myView['company'] . " - " . $view['moduleTitle']) ?></title>
+        <link rel="icon"  type="image/png"  href="<?php echo $myView['favicon'] ?>" />
         <meta name="viewport" content="width=device-width" />  
         <script>document.write('<style id="hiddenAllWrapperCss" type="text/css">#allWrapper {display:none}</style>')</script><?php echo $view->literal($view['Resource']['css']) ?>
     </head>
     <body>
         <div id="allWrapper">
             <div id="pageHeader-background"></div>
-            <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($view['logo']); ?>)">
+            <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($myView['logo']); ?>)">
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
 		<div id="headerMenu">
@@ -157,7 +184,7 @@ if (isset($view['colors']) && count($view['colors']) == 3) {
                 </div>
                 <?php if ( ! $view['disableMenu']): ?><div class="secondaryContent" role="menu"><div class="contentWrapper"><h2><?php echo htmlspecialchars($view->translate('Other modules')) ?></h2><?php echo $view['menuOutput'] ?></div></div><?php endif; ?>
             </div><?php echo $view['helpAreaOutput'] ?>
-            <?php if ( ! $view['disableFooter']): ?><div id="footer"><p><?php echo htmlspecialchars($view['company'] . ' - ' . $view['address']) ?></p></div><?php endif; ?>
+            <?php if ( ! $view['disableFooter']): ?><div id="footer"><p><?php echo htmlspecialchars($myView['company'] . ' - ' . $myView['address']) ?></p></div><?php endif; ?>
         </div><?php
         array_map(function ($f) use ($view) {
             printf("<script src='%s%s'></script>", $view->getPathUrl(), $f);
