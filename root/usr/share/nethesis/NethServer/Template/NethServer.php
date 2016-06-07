@@ -99,9 +99,13 @@ $view
 ;
 // Custom colors
 if (isset($myView['headerBackground'])) {
+    $url =  "url('/images/{$myView['headerBackground']}') !important";
     $view->includeCss("
         #pageHeader-background {
-            background-image: url(/images/{$myView['headerBackground']}) !important;
+        background-image: $url;
+        background-image: -moz-linear-gradient(left, rgba(46,46,46,1) 0%, rgba(0,0,0,0) 50%, rgba(46,46,46,1) 100%), $url;
+        background-image: -webkit-linear-gradient(left, rgba(46,46,46,1) 0%,rgba(0,0,0,0) 50%,rgba(46,46,46,1) 100%), $url; 
+        background-image: linear-gradient(to right, rgba(46,46,46,1), rgba(0,0,0,0), rgba(46,46,46,1)), $url;
         }
     ");
 }
