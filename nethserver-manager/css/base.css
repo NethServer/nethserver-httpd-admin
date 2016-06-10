@@ -393,3 +393,70 @@ h2.app-title, .app-item .app-title {
 .app-reset {
   clear: both;
 }
+
+/* wizard */
+#FirstConfigWiz {
+    margin-top: 20px;
+    line-height: 1.5rem;
+}
+#FirstConfigWiz .cancel {
+    background: #464646;
+    color:white;
+    text-transform: uppercase;
+}
+#FirstConfigWiz .cancel:hover{
+    background: -webkit-linear-gradient(#464646,black); /*Safari 5.1-6*/
+    background: -o-linear-gradient(#464646,black); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(#464646,black); /*Fx 3.6-15*/
+    background: linear-gradient(rgba(46,46,46,0.8), black); /*Standard*/
+}
+#FirstConfigWiz .Buttonlist {
+    text-align: center;
+    margin-top: 15px;
+}
+#FirstConfigWiz > div.steps ol {
+    margin-top: 0px !important;
+    list-style-type: decimal !important;
+}
+#FirstConfigWiz > div.steps li {
+    display: list-item;
+}
+li.current ~ li {
+    background: transparent !important;
+}
+#FirstConfigWiz > div.steps li.current {
+    font-size: 130% !important;
+}
+#FirstConfigWiz .header {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+    padding: 9px 0 8px;
+}
+#FirstConfigWiz h3 {
+    font-size: 170%;
+    margin: 20px 0 8px 0;
+}
+.welc-next {
+    text-align: center;
+    position: relative;
+}
+@media screen and (max-width: 768px) {
+    #FirstConfigWiz > div.steps li {
+        margin-right: 0px !important;
+    }
+    .welc-next {
+        bottom:-10px;
+    }
+}
+@media screen and (min-width: 767px) {
+    #FirstConfigWiz > div.steps li:not(.current) {
+        font-size: 120%;
+    }
+    #FirstConfigWiz > div.steps {
+        width: 18em !important;
+    }
+    .welc-next {
+        bottom:-90px;
+    }
+}
