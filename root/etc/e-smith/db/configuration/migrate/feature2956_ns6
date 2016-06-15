@@ -18,7 +18,7 @@
    }
 
    # 2) Sanitize and import validFrom value if access is private
-   if($cdb->get_prop('httpd-admin', 'access') eq 'private') {
+   if(($cdb->get_prop('httpd-admin', 'access') || '') eq 'private') {
        my $newValue = join(',', map { 
 			       my ($ipaddr, $netmask) = (split(/\//, $_)); 
 			       $_ eq '0.0.0.0/0.0.0.0' ? () : esmith::util::computeLocalNetworkShortSpec($ipaddr, $netmask); 
