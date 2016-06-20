@@ -295,6 +295,8 @@ div.dashboard-item {
     text-align: right;
     padding: 0.5em;
     line-height: 16px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .dashboard-item dd:first-child {
