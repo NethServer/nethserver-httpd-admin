@@ -65,13 +65,13 @@ $globalUseFile = new \ArrayObject();
  * jQuery & jQueryUI libraries:
  */
 if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
-    $globalUseFile->append('js/jquery-1.9.1.js');
-    $globalUseFile->append('js/jquery-migrate-1.2.1.js');
+    $globalUseFile->append('js/jquery-1.12.4.js');
+    $globalUseFile->append('js/jquery-migrate-1.4.1.js');
     $globalUseFile->append('js/jquery-ui-1.8.23.js');
 } else {
     // require global javascript resources:
-    $globalUseFile->append('js/jquery-1.9.1.min.js');
-    $globalUseFile->append('js/jquery-migrate-1.2.1.min.js');
+    $globalUseFile->append('js/jquery-1.12.4.min.js');
+    $globalUseFile->append('js/jquery-migrate-1.4.1.min.js');
     $globalUseFile->append('js/jquery-ui-1.8.23.min.js');
 }
 
@@ -79,7 +79,6 @@ if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
  * jQuery plugins
  */
 $globalUseFile->append('js/jquery.dataTables.min.js');
-$globalUseFile->append('js/jquery.qtip.min.js');
 
 $lang = substr($view->getTranslator()->getLanguageCode(), 0, 2);
 if ($lang !== 'en') {
@@ -93,7 +92,6 @@ $view
     ->includeJavascript($bootstrapJs)
     // CSS:
     ->useFile('css/ui/jquery-ui-1.8.16.custom.css')
-    ->useFile('css/jquery.qtip.min.css')
     ->useFile('css/font-awesome.css')
     ->useFile('css/base.css')
 ;
