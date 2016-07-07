@@ -86,12 +86,12 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .Buttonlist > .Button {margin-right: 0.4em;}
 .Buttonlist > .Button.link:first-child {
       color: white;
-      border: 1px solid #00729D;
+      border: 1px solid #00425b;
       text-transform: uppercase;
-      background: #00A1DE;
+      background: #00719a;
 }
 
-.Buttonlist > .Button.link.ui-state-hover:first-child {color: white; text-transform: uppercase; opacity: 0.7;}
+.Buttonlist > .Button.link.ui-state-hover:first-child {color: white; text-transform: uppercase; opacity: 0.8;}
 
 .ui-buttonset .ui-button {margin-right: -.1em}
 .ui-buttonset .ui-button.ui-state-hover {z-index: 10}
@@ -133,6 +133,9 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .DataTable tr.locked td {color: #888;}
 .DataTable tr.locked td:first-child { background-image: url('../images/lock.png') }
 .DataTable tr.sync td:first-child { background-image: url('../images/sync.png') }
+.DataTable tr.free-eth td {color: #888; background-color: #f9f9f9}
+.DataTable tr.free-eth .Button { color: white; text-transform: uppercase; border: 1px solid #00425b; background: #00719a; }
+.DataTable tr.free-eth .Button.ui-state-hover {color: white; text-transform: uppercase; opacity: 0.8;}
 /* END DataTable jQuery plugin */
 
 /* BEGIN ObjectPicker Refs #617 */
@@ -333,7 +336,7 @@ div.dashboard-item {
 .notification.bg-red {color: #fff; background-color: #C42200; border-color: #C42200}
 .notification.bg-red a {color: #fff}
 
-.notification.bg-green {color: #fff; background-color: #00551F; border-color: #00551F }
+.notification.bg-green {color: #fff; background-color: #00B543; border-color: #00B543 }
 .notification.bg-green a {color: #fff}
 
 .notification.bg-yellow {color: #000; background-color: #FFB600; border-color: #FFB600 }
@@ -346,8 +349,8 @@ div.dashboard-item {
 #PackageManager_Modules_Available_categories label {
     font-weight: bold;
     letter-spacing: 1px;
-    background: #00A1DE;
-    border: 1px solid #00729D;
+    background: #00719a;
+    border: 1px solid #00425b;
     color: white;
 }
 
@@ -381,9 +384,9 @@ h2.app-title, .app-item .app-title {
 
 .app-item .button.link:first-child {
   color: white;
- border: 1px solid #00729D;
+  border: 1px solid #00425b;
   text-transform: uppercase;
-  background: #00A1DE;
+  background: #00719a;
   padding: 9px 0px 6px;
   text-decoration: none;
 }
