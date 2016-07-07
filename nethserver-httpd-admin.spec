@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.4
+Version: 2.0.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -152,6 +152,9 @@ fi
 %systemd_postun
 
 %changelog
+* Thu Jul 07 2016 Davide Principi <davide.principi@nethesis.it> - 2.0.0-1
+- First NS7 release
+
 * Fri Apr 01 2016 Davide Principi <davide.principi@nethesis.it> - 1.6.4-1
 - Language fallback to alternative country - Enhancement #3368 [NethServer]
 
