@@ -4,7 +4,7 @@
 %define fontawesome_commit 4.5.0
 %define mustachejs_commit 0.8.2
 %define mustachephp_commit 2.6.1
-%define symfonyprocess_commit 2.5.2
+%define symfonyprocess_commit 2.8.8
 %define datatables_commit 1.10.12
 %define datatablesplugins_commit ba06cf106a2aff79f751027fbce2032525ce69da
 %define extradocs %{_docdir}/%{name}-%{version}
