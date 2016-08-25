@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -152,6 +152,11 @@ fi
 %systemd_postun
 
 %changelog
+* Thu Aug 25 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.1-1
+- Handle table keys with '/' character - NethServer/dev#5079
+- Upgrade of the Process component
+- db default: add missing headerBackground and menuBackground props
+
 * Thu Jul 07 2016 Davide Principi <davide.principi@nethesis.it> - 2.0.0-1
 - First NS7 release
 
