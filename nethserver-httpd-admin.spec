@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -152,6 +152,11 @@ fi
 %systemd_postun
 
 %changelog
+* Thu Sep 01 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.2-1
+- Internationalized domain names (IDN) in UI - NethServer/dev#5093
+- Missing i18n labels - Bug NethServer/dev#5094
+- Apache vhost-default template expansion - NethServer/dev#5088
+
 * Thu Aug 25 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.1-1
 - Handle table keys with '/' character - NethServer/dev#5079
 - Upgrade of the Process component
