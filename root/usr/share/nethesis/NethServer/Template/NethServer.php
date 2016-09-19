@@ -79,6 +79,7 @@ if (defined('NETHGUI_DEBUG') && NETHGUI_DEBUG === TRUE) {
  * jQuery plugins
  */
 $globalUseFile->append('js/jquery.dataTables.min.js');
+$globalUseFile->append('js/jquery.timepicker.min.js');
 
 $lang = substr($view->getTranslator()->getLanguageCode(), 0, 2);
 if ($lang !== 'en') {
@@ -94,6 +95,7 @@ $view
     ->useFile('css/ui/jquery-ui-1.8.16.custom.css')
     ->useFile('css/font-awesome.css')
     ->useFile('css/base.css')
+    ->useFile('css/jquery.timepicker.css')
 ;
 // Custom colors
 if (isset($myView['headerBackground'])) {
