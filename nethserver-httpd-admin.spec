@@ -1,4 +1,4 @@
-%define nethgui_commit f63efe172f7b441bc9cead1f18ceab1b022ffdd6
+%define nethgui_commit 59bd4b8ef5a088365ff1bbdcdce758f9bc7289a6
 %define uideps_commit c8d156dfdabee8bc870fac9423d8d159250e3c41
 %define pimple_commit 2.1.0
 %define fontawesome_commit 4.5.0
@@ -7,6 +7,7 @@
 %define symfonyprocess_commit 2.8.8
 %define datatables_commit 1.10.12
 %define datatablesplugins_commit ba06cf106a2aff79f751027fbce2032525ce69da
+%define timepicker_commit 1.11.5
 %define extradocs %{_docdir}/%{name}-%{version}
 
 Summary: apache/mod_php stack for nethserver-manager
@@ -27,6 +28,7 @@ Source6: https://github.com/janl/mustache.js/archive/%{mustachejs_commit}/mustac
 Source7: https://github.com/symfony/Process/archive/v%{symfonyprocess_commit}/Process-%{symfonyprocess_commit}.tar.gz
 Source8: https://github.com/DataTables/DataTables/archive/%{datatables_commit}/DataTables-%{datatables_commit}.tar.gz
 Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commit}/Plugins-%{datatablesplugins_commit}.tar.gz
+Source10: https://github.com/jonthornton/jquery-timepicker/archive/%{timepicker_commit}/jquery-timepicker-%{timepicker_commit}.tar.gz
 
 BuildRequires: nethserver-devtools
 
@@ -54,6 +56,7 @@ the nethserver-manager web application
 %setup -D -T -b 7
 %setup -D -T -b 8
 %setup -D -T -b 9
+%setup -D -T -b 10
 
 # Nethgui:
 cd %{_builddir}/nethgui-%{nethgui_commit}
@@ -89,6 +92,8 @@ cp -av %{_builddir}/mustache.php-%{mustachephp_commit}/src/Mustache  %{buildroot
 cp -v %{_builddir}/DataTables-%{datatables_commit}/media/js/jquery.dataTables{,.min}.js %{buildroot}%{_nsuidir}/nethserver-manager/js
 cp -v %{_builddir}/Plugins-%{datatablesplugins_commit}/sorting/*.js %{buildroot}%{_nsuidir}/nethserver-manager/js
 pushd %{_builddir}/process-%{symfonyprocess_commit}; find . -name '*.php' | cpio -dump %{buildroot}%{_nsuidir}/Symfony/Component/Process; popd
+cp -v %{_builddir}/jquery-timepicker-%{timepicker_commit}/jquery.timepicker{,.min}.js %{buildroot}%{_nsuidir}/nethserver-manager/js
+cp -v %{_builddir}/jquery-timepicker-%{timepicker_commit}/jquery.timepicker.css %{buildroot}%{_nsuidir}/nethserver-manager/css
 
 # Copy documentation and licenses from components:
 mkdir -p %{buildroot}/%{extradocs}/Pimple-%{pimple_commit}
@@ -111,6 +116,9 @@ cp -av %{_builddir}/process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buil
 
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
+
+mkdir -p %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
+cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
 
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
