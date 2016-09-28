@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.2
+Version: 2.0.3
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -160,6 +160,9 @@ fi
 %systemd_postun
 
 %changelog
+* Wed Sep 28 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.3-1
+- Firewall: time rules - NethServer/dev#5107
+
 * Thu Sep 01 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.2-1
 - Internationalized domain names (IDN) in UI - NethServer/dev#5093
 - Missing i18n labels - Bug NethServer/dev#5094
