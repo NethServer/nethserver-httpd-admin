@@ -34,6 +34,8 @@ foreach (qw(
     headers
     setenvif
     ssl
+    proxy
+    proxy_http
     ))
 {
     next unless -f "/usr/lib/httpd/modules/mod_${_}.so" || 

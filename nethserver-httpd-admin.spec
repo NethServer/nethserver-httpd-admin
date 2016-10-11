@@ -112,6 +112,8 @@ cp -av %{_builddir}/process-%{symfonyprocess_commit}/{LICENSE,README.md}  %{buil
 mkdir -p %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{extradocs}/DataTables-%{datatables_commit}
 
+mkdir -p %{buildroot}/%{_sysconfdir}/httpd/admin-conf.d
+
 %files -f %{name}-%{version}-%{release}-filelist
 %defattr(-,root,root)
 %doc %{extradocs}
@@ -122,7 +124,7 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 /usr/share/nethesis/Mustache
 /usr/share/nethesis/Symfony
 
-
+%dir %{_sysconfdir}/httpd/admin-conf.d
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 %attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
