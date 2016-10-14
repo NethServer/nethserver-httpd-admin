@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.6
+Version: 1.6.7
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -154,6 +154,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Fri Oct 14 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.7-1
+- Backport CGP and lightsquid access on port 980 - Enhancement #3426 [NethServer 6]
+
 * Wed Jun 15 2016 Davide Principi <davide.principi@nethesis.it> - 1.6.6-1
 - Errors during system-init - Bug #3407 [NethServer] 
 
