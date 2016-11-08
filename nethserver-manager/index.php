@@ -34,9 +34,11 @@ setlocale(LC_CTYPE, 'en_US.utf-8');
 register_shutdown_function(function() {   
     $error = error_get_last();
     if (is_array($error) && (intval($error['type']) & error_reporting())) {
-        header('HTTP/1.1 500 Internal server error');        
         syslog(LOG_ERR, sprintf("[%s] %s - File %s, line %s", $error['type'], $error['message'], $error['file'], $error['line']));
-        printf("\n\n[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
+        if(intval($error['type']) & ~E_WARNING) {
+            header('HTTP/1.1 500 Internal server error');
+            printf("\n\n[%s] %s\n\nSee the system log for details.\n", $error['type'], $error['message']);
+        }
     }
 });
 
