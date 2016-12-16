@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.4
+Version: 2.0.5
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -160,6 +160,9 @@ fi
 %systemd_postun
 
 %changelog
+* Fri Dec 16 2016 Davide Principi <davide.principi@nethesis.it> - 2.0.5-1
+- Nethgui notifications fix -- NethServer/dev#5165
+
 * Wed Nov 09 2016 Davide Principi <davide.principi@nethesis.it> - 2.0.4-1
 - Strong SSL ciphers for httpd-admin
 - Silence WARNING messages in server output
