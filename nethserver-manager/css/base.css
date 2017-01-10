@@ -120,7 +120,7 @@ legend button {color: #444; text-decoration: underline; border: none; background
 .css_right {position: absolute; top: 0; right: 0}
 .DataTable th.ui-state-default {text-align: left; padding: .5em .3em; cursor: pointer; font-weight: bold; background: #E6E6E6; color: #2E2E2E; }
 .DataTables_sort_wrapper {position: relative}
-.DataTable tr {border-bottom: 1px solid #eee;}
+.DataTable tr {border-bottom: 1px solid #eee; height: 36px}
 .DataTable tr.user-new td {color: #888;}
 .DataTable tr.user-new td:first-child {color: #777; background: url('../images/key.png') no-repeat center right }
 .DataTable tr.user-locked td {color: #888;}
