@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.5
+Version: 2.0.6
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -160,6 +160,10 @@ fi
 %systemd_postun
 
 %changelog
+* Wed Jan 11 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.6-1
+- Logical interfaces UI tweaks - NethServer/dev#5189
+- httpd-admin: use KillMode=process - NethServer/dev#5190
+
 * Fri Dec 16 2016 Davide Principi <davide.principi@nethesis.it> - 2.0.5-1
 - Nethgui notifications fix -- NethServer/dev#5165
 
