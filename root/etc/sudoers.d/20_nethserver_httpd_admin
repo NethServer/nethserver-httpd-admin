@@ -1,5 +1,5 @@
 #
-# 50httpd-admin
+# 20_nethserver_httpd_admin
 #
 Defaults:%adm env_keep += "PTRACK_SOCKETPATH"
 

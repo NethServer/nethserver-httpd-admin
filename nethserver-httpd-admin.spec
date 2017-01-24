@@ -68,8 +68,9 @@ mkdir -p root/%{_nseventsdir}/%{name}-update
 %install
 (cd root ; find . -depth -print | cpio -dump %{buildroot})
 rm -f %{name}-%{version}-%{release}-filelist
-%{genfilelist} %{buildroot} \
-    > %{name}-%{version}-%{release}-filelist
+%{genfilelist} %{buildroot} | sed '
+\|^%{_sysconfdir}/sudoers.d/| d
+' > %{name}-%{version}-%{release}-filelist
 mkdir -p %{buildroot}/%{_localstatedir}/log/httpd-admin
 mkdir -p %{buildroot}/%{_localstatedir}/cache/nethserver-httpd-admin
 mkdir -p %{buildroot}/run/ptrack
@@ -141,6 +142,7 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 %attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
+%config %attr(440,root,root) %{_sysconfdir}/sudoers.d/20_nethserver_httpd_admin
 %dir %attr(1770,root,adm) /run/ptrack
 %config(noreplace) /etc/sysconfig/httpd-admin
 
