@@ -52,11 +52,6 @@ event_actions('certificate-update', qw(
        nethserver-httpd-admin-asyncreload 99
 ));
 
-#--------------------------------------------------
-# actions for migration-import event
-#--------------------------------------------------
-event_actions("migration-import", qw(nethserver-httpd-admin-migrate 30));
-
 #
 # system-init event
 #
