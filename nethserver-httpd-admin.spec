@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.8
+Version: 2.0.9
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Mon Mar 06 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.9-1
+- Migration from sme8 - NethServer/dev#5196
+
 * Wed Feb 15 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.8-1
 - Persist notifications on AJAX GET calls - nethgui#4009
 
