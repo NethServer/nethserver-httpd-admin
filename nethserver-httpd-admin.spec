@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.10
+Version: 2.0.11
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Tue May 30 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.11-1
+- Add an example to FQDN validator - NethServer/dev#5297
+
 * Mon May 22 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.10-1
 - PKI: SSL chain file not updated after certificate-update - Bug NethServer/dev#5283
 
