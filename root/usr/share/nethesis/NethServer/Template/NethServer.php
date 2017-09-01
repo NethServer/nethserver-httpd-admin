@@ -172,6 +172,7 @@ if (isset($myView['colors']) && count($myView['colors']) == 3) {
 			    <input type="hidden" value="<?php echo htmlspecialchars($view['Logout']['nextPath']); ?>" name="Logout[nextPath]">
 			    <input type="hidden" value="logout" name="Logout[action]">			      
 			    <button type="submit"><i class="fa fa-power-off"></i> <?php echo $T('Logout'); ?></button>
+			    <input type="hidden" name="csrfToken" value="<?php echo htmlspecialchars($view['csrfToken']) ?>">
 			</form></li>
 		    </ul>
 		</div>
