@@ -11,7 +11,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 1.6.7
+Version: 1.6.8
 Release: 1%{?dist}
 License: GPL
 Source0: %{name}-%{version}.tar.gz
@@ -154,6 +154,9 @@ if [ $1 -eq 0 ] && [ -f /var/run/httpd-admin.pid ]; then
 fi
 
 %changelog
+* Fri Sep 08 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.8-1
+- CSRF and XSS vulnerabilities in server manager - Bug NethServer/dev#5345
+
 * Fri Oct 14 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.7-1
 - Backport CGP and lightsquid access on port 980 - Enhancement #3426 [NethServer 6]
 
