@@ -4,6 +4,6 @@
     sharedscripts
     delaycompress
     postrotate
-        /sbin/reload httpd-admin > /dev/null 2>/dev/null || true
+         /bin/systemctl reload httpd-admin.service > /dev/null 2>/dev/null || true
     endscript
 }
