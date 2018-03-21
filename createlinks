@@ -65,3 +65,16 @@ event_actions("system-init", qw(
 # actions for hostname-modify event
 #--------------------------------------------------
 event_actions("hostname-modify", qw(nethserver-httpd-admin-smwingsd-restart 30));
+
+
+#
+# tls-policy-save event
+#
+
+event_templates('tls-policy-save', qw(
+        /etc/httpd/admin-conf/httpd.conf
+));
+
+event_services('tls-policy-save', qw(
+        httpd-admin reload
+));
