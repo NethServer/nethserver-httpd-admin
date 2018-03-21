@@ -1,9 +1,21 @@
 #
 # 30ssl
 #
+{
+ my $tlsPolicy = $tls{'policy'} || 'legacy';
+ my $HttpdExeption = $tls{'HttpdAdminExeptionStatus'} || 'disabled';
 
+ if ($tlsPolicy eq 'legacy') {
+     $OUT .= '
 # settings by https://cipherli.st/
 SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+';
+ }
+
+ elsif ($tlsPolicy eq '20180330') {
+     $OUT .= "SSLCipherSuite EDH+aRSA+AES256:EECDH+aRSA+AES256:!SSLv3\n";
+ }
+}
 SSLProtocol All -SSLv2 -SSLv3
 SSLHonorCipherOrder On
 SSLCompression off
