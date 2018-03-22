@@ -3,7 +3,6 @@
 #
 {
  my $tlsPolicy = $tls{'policy'} || 'legacy';
- my $HttpdExeption = $tls{'HttpdAdminExeptionStatus'} || 'disabled';
 
  if ($tlsPolicy eq 'legacy') {
      $OUT .= '
