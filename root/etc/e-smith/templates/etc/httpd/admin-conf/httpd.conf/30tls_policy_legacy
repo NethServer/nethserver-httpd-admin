@@ -6,6 +6,7 @@
 
  if ($tlsPolicy eq '') {
     $OUT .= '
+# Cipher selection 2017-10-26 (Legacy)
 # settings by https://cipherli.st/
 SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
 SSLProtocol All -SSLv2 -SSLv3
