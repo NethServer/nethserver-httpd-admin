@@ -76,5 +76,5 @@ event_templates('tls-policy-save', qw(
 ));
 
 event_services('tls-policy-save', qw(
-        httpd-admin reload
+        httpd-admin restart
 ));
