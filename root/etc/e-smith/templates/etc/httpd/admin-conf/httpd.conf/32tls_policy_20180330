@@ -1,0 +1,11 @@
+{
+ my $tlsPolicy = $tls{'policy'} || '0';
+ if ($tlsPolicy >= 20180330) {
+    $OUT .= '
+# Cipher selection 2018-03-30
+# Only TLS1.2 cipher
+SSLCipherSuite EDH+aRSA+AES256:EECDH+aRSA+AES256:!SSLv3
+SSLProtocol All -SSLv2 -SSLv3
+';
+ }
+}

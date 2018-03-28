@@ -1,10 +1,4 @@
-#
-# 30ssl
-#
 
-# settings by https://cipherli.st/
-SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
-SSLProtocol All -SSLv2 -SSLv3
 SSLHonorCipherOrder On
 SSLCompression off
 SSLUseStapling on
@@ -15,5 +9,3 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 fo
 { $pki{ChainFile} ? '' : '# '}SSLCertificateChainFile { $pki{ChainFile} }
 SSLCertificateFile /etc/pki/tls/certs/httpd-admin.crt
 SSLCertificateKeyFile /etc/pki/tls/private/httpd-admin.key
-
-
