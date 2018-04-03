@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.0.14
+Version: 2.1.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Tue Apr 03 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.1.0-1
+- Hardening TLS policy 2018-03-30 - NethServer/dev#5438
+
 * Wed Nov 08 2017 Davide Principi <davide.principi@nethesis.it> - 2.0.14-1
 - logrotate: httpd-admin fails reload - Bug NethServer/dev#5371
 
