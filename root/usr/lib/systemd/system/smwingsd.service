@@ -8,5 +8,5 @@ Type=forking
 ExecStart=/usr/libexec/nethserver/smwingsd
 ExecStop=
 KillMode=process
-
+Restart=on-failure
 
