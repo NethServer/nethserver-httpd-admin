@@ -9,4 +9,5 @@ ExecStart=/usr/libexec/nethserver/smwingsd
 ExecStop=
 KillMode=process
 Restart=on-failure
-
+StartLimitBurst=3
+StartLimitIntervalSec=20
