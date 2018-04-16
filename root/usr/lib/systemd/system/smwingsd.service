@@ -10,4 +10,4 @@ ExecStop=
 KillMode=process
 Restart=on-failure
 StartLimitBurst=3
-StartLimitIntervalSec=20
+StartLimitInterval=20s
