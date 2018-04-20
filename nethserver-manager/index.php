@@ -78,7 +78,7 @@ $FW
         $v->setLog($dc['Log']);
         return $v;
     })
-    ->setSessionSetup(function($dc) {
+    ->setSessionSetupProcedure(function($dc) {
         $cdb = $dc['Platform']->getDatabase('configuration');
         $maxSessionIdleTime = intval($cdb->getProp('httpd-admin', 'MaxSessionIdleTime'));
         $maxSessionLifeTime = intval($cdb->getProp('httpd-admin', 'MaxSessionLifeTime'));
