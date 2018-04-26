@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.1.1
+Version: 2.2.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,10 @@ fi
 %systemd_postun
 
 %changelog
+* Thu Apr 26 2018 Davide Principi <davide.principi@nethesis.it> - 2.2.0-1
+- Server Manager session timeout - NethServer/dev#5460
+- CSRF token verification failed errors - Bug NethServer/dev#5459
+
 * Tue Apr 17 2018 Davide Principi <davide.principi@nethesis.it> - 2.1.1-1
 - Restart smwingsd on failure - NethServer/dev#5453
 
