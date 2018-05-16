@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.2.1
+Version: 2.3.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Wed May 16 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.0-1
+- Change of defaults for NS 7.5 - NethServer/dev#5490
+
 * Wed May 02 2018 Davide Principi <davide.principi@nethesis.it> - 2.2.1-1
 - CSRF token storage initialization regression - Bug NethServer/dev#5477
 
