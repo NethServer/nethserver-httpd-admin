@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Thu May 31 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.1-1
+- Increase default MaxSessionIdleTime to 1 hour
+
 * Wed May 16 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.0-1
 - Change of defaults for NS 7.5 - NethServer/dev#5490
 
