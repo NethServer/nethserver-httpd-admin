@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.3.1
+Version: 2.3.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Tue Jun 26 2018 Davide Principi <davide.principi@nethesis.it> - 2.3.2-1
+- Allow Elliptic Curve Criptography (ECC) certificate - NethServer/dev#5509
+
 * Thu May 31 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.1-1
 - Increase default MaxSessionIdleTime to 1 hour
 
