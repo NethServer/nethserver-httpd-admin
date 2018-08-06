@@ -465,3 +465,31 @@ li.current ~ li {
         bottom:-70px;
     }
 }
+
+.PasswordInput {
+    position:relative;
+    display: inline-block;
+}
+
+.PasswordInput .TextInput.mandatory {
+    background: none;
+}
+
+.PasswordButton {
+    display: inline-block;
+    position: absolute;
+    right: -4px;
+    background: none;
+    border: none;
+    height: 32px;
+    width: 32px;
+    outline: none;
+}
+
+.PasswordButton::-moz-focus-inner {
+    border: 0;
+}
+
+.PasswordButton .ui-button-text {
+    padding: 0;
+}
