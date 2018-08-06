@@ -483,6 +483,11 @@ li.current ~ li {
     border: none;
     height: 32px;
     width: 32px;
+    outline: none;
+}
+
+.PasswordButton::-moz-focus-inner {
+    border: 0;
 }
 
 .PasswordButton .ui-button-text {
