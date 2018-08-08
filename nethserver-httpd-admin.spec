@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.3.2
+Version: 2.3.3
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,10 @@ fi
 %systemd_postun
 
 %changelog
+* Wed Aug 08 2018 Davide Principi <davide.principi@nethesis.it> - 2.3.3-1
+- Enhancement: (un)mask password fields - NethServer/dev#5554
+- TEXTINPUT_PASSWORD fields rendered as plain text - Bug NethServer/dev#5553
+
 * Tue Jun 26 2018 Davide Principi <davide.principi@nethesis.it> - 2.3.2-1
 - Allow Elliptic Curve Criptography (ECC) certificate - NethServer/dev#5509
 
