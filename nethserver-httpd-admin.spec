@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Tue Aug 28 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.4-1
+- Login page: weird rendering of password field - Bug NethServer/dev#5573
+
 * Wed Aug 08 2018 Davide Principi <davide.principi@nethesis.it> - 2.3.3-1
 - Enhancement: (un)mask password fields - NethServer/dev#5554
 - TEXTINPUT_PASSWORD fields rendered as plain text - Bug NethServer/dev#5553
