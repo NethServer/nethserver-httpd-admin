@@ -493,3 +493,10 @@ li.current ~ li {
 .PasswordButton .ui-button-text {
     padding: 0;
 }
+#Login_password {
+    padding-right: 20px;
+    width: -moz-available;
+}
+#LoginAction .PasswordButton {
+    right: 0px; /*no slip out of input field by the right side*/
+}
