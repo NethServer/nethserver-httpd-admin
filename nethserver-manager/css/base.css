@@ -500,3 +500,20 @@ li.current ~ li {
 #LoginAction .PasswordButton {
     right: 0px; /*no slip out of input field by the right side*/
 }
+
+#cockpitTooltip {
+    background-color: #252525;
+    color: white;
+    border-radius: 2px;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: none;
+}
+
+#cockpitTooltip > a{
+    color: white;
+}
+
+#closeCockpitTooltip {
+    text-decoration: none;
+}

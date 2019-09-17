@@ -24,7 +24,11 @@ $myView['company'] = $db->getProp('OrganizationContact', 'Company');
 $myView['address'] = $db->getProp('OrganizationContact', 'Street') . ", " . $db->getProp('OrganizationContact', 'City');
 $favicon = $db->getProp('httpd-admin', 'favicon');
 $myView['favicon'] = $view->getPathUrl() . ($favicon ? sprintf('images/%s', $favicon) : 'images/favicon.png');
-
+if (file_exists("/etc/e-smith/db/configuration/defaults/cockpit.socket")) {
+    $myView['cockpitUrl'] = "https://". $_SERVER['SERVER_NAME'] . ":9090";
+} else {
+    $myView['cockpitUrl'] = '';
+}
 
 
 if(strstr($view['username'], '@')) {
@@ -55,6 +59,16 @@ jQuery(document).ready(function($) {
         $('#pageHeader-background').hide();
     } else {
         $('#pageHeader-background').show();
+    }
+
+    if( localStorage.getItem("hideCockpitTooltip") == null ) {
+        $( "#cockpitTooltip" ).show();
+        $( "#closeCockpitTooltip" ).click(function() {
+            $( "#cockpitTooltip" ).hide();
+            localStorage.setItem("hideCockpitTooltip", true);
+        });
+    } else {
+        $( "#cockpitTooltip" ).hide();
     }
 });
 EOJS;
@@ -157,6 +171,11 @@ if (isset($myView['colors']) && count($myView['colors']) == 3) {
         <script>document.write('<style id="hiddenAllWrapperCss" type="text/css">#allWrapper {display:none}</style>')</script><?php echo $view->literal($view['Resource']['css']) ?>
     </head>
     <body>
+         <?php if ($myView['cockpitUrl']): ?>
+            <div id="cockpitTooltip"><?php echo htmlspecialchars($view->translate('cockpit_available')) ?><a href="<?php echo $myView['cockpitUrl'] ?>"><?php echo $myView['cockpitUrl'] ?></a>
+            <a href="#" id="closeCockpitTooltip" class="fa fa-times pull-right"></a>
+            </div>
+        <?php endif; ?>
         <div id="allWrapper">
             <div id="pageHeader-background"></div>
             <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($myView['logo']); ?>)">
