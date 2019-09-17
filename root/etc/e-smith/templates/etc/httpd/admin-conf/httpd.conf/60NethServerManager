@@ -1,6 +1,6 @@
 
 DocumentRoot /usr/share/nethesis/nethserver-manager
-ErrorDocument 400 /error.php
+ErrorDocument 400 /error.html
 
 <Directory /usr/share/nethesis/nethserver-manager/>
        Options +Indexes
@@ -9,7 +9,7 @@ ErrorDocument 400 /error.php
        Options +FollowSymlinks
        RewriteEngine on 
        RewriteBase /
-       RewriteRule ^(js/|fonts/|css/|images/|icons/|.+\.php) - [PT,L]
+       RewriteRule ^(js/|fonts/|css/|images/|icons/|.+\.php|error\.html) - [PT,L]
        RewriteRule ^favicon.ico$ images/favicon.ico [L]
        RewriteRule ^(.*)$ index.php/$1 [L] 
        php_value session.save_path /var/cache/nethserver-httpd-admin
