@@ -172,7 +172,7 @@ if (isset($myView['colors']) && count($myView['colors']) == 3) {
     </head>
     <body>
          <?php if ($myView['cockpitUrl']): ?>
-            <div id="cockpitTooltip"><?php echo htmlspecialchars($view->translate('cockpit_available')) ?><a href="<?php echo $myView['cockpitUrl'] ?>"><?php echo $myView['cockpitUrl'] ?></a>
+            <div id="cockpitTooltip"><?php echo htmlspecialchars($view->translate('cockpit_available')) ?><a href="<?php echo htmlspecialchars($myView['cockpitUrl']) ?>"><?php echo htmlspecialchars($myView['cockpitUrl']) ?></a>
             <a href="#" id="closeCockpitTooltip" class="fa fa-times pull-right"></a>
             </div>
         <?php endif; ?>
