@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.3.4
+Version: 2.4.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Tue Oct 01 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.4.0-1
+- New NethServer 7.7.1908 defaults - NethServer/dev#5831
+
 * Tue Aug 28 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.3.4-1
 - Login page: weird rendering of password field - Bug NethServer/dev#5573
 
