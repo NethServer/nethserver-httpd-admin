@@ -178,7 +178,7 @@ if (isset($myView['colors']) && count($myView['colors']) == 3) {
         <?php endif; ?>
         <div id="allWrapper">
             <div id="pageHeader-background"></div>
-            <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($myView['logo']); ?>)">
+            <div id="pageHeader" style="background-image: url(<?php echo htmlspecialchars($myView['logo']); ?>); background-size: auto 40px;">
                 <a href='<?php echo \htmlspecialchars($view->getSiteUrl()); ?>'></a>
               <?php if ( ! $view['disableHeader']): ?>
 		<div id="headerMenu">
