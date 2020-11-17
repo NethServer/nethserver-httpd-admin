@@ -53,14 +53,6 @@ event_actions('certificate-update', qw(
        nethserver-httpd-admin-asyncreload 99
 ));
 
-#
-# system-init event
-#
-event_actions("system-init", qw(
-   enable-firstconfigwizard 20
-));
-
-
 #--------------------------------------------------
 # actions for hostname-modify event
 #--------------------------------------------------
