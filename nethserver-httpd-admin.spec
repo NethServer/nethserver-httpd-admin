@@ -12,7 +12,7 @@
 
 Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
-Version: 2.5.1
+Version: 2.6.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -162,6 +162,9 @@ fi
 %systemd_postun
 
 %changelog
+* Wed Nov 18 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.6.0-1
+- New NethServer 7.9.2009 defaults - NethServer/dev#6320
+
 * Fri Jul 17 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.5.1-1
 - Cockpit: enhance rebranding - nethesis/dev#5843
 
