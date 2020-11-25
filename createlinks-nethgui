@@ -25,11 +25,11 @@ use esmith::Build::CreateLinks  qw(:all);
 #
 # nethserver-httpd-admin-nethgui-update event
 #
-event_templates('nethserver-httpd-admin-nethgui-update', qw(
+event_templates('nethserver-httpd-admin-update', qw(
     /etc/httpd/admin-conf/httpd.conf
 ));
 
-event_services('nethserver-httpd-admin-nethgui-update', qw(
+event_services('nethserver-httpd-admin-update', qw(
     httpd-admin reload
 ));
 

@@ -135,7 +135,7 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 
 %files -f filelist-nethgui
 %defattr(-,root,root)
-%dir %{_nseventsdir}/%{name}-update
+%dir %{_nseventsdir}/nethserver-httpd-admin-update
 %doc %{extradocs}
 
 %{_nsuidir}/nethserver-manager
@@ -150,7 +150,7 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 
 %files service -f filelist-service
-%dir %{_nseventsdir}/%{name}-update
+%dir %{_nseventsdir}/nethserver-httpd-admin-service-update
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/certs/httpd-admin.crt

@@ -28,18 +28,18 @@ my @certificates = (qw(
 ));
 
 #
-# nethserver-httpd-admin-update event:
+# nethserver-httpd-admin-service-update event:
 #
-event_templates('nethserver-httpd-admin-update', qw(
+event_templates('nethserver-httpd-admin-service-update', qw(
 		/etc/httpd/admin-conf/httpd.conf
 ), @certificates);
 
-event_actions('nethserver-httpd-admin-update', qw(
+event_actions('nethserver-httpd-admin-service-update', qw(
 	      initialize-default-databases 00
               nethserver-httpd-admin-conf 20
 ));
 
-event_services('nethserver-httpd-admin-update', qw(
+event_services('nethserver-httpd-admin-service-update', qw(
     httpd-admin reload
 ));
  
