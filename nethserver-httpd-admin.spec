@@ -10,7 +10,6 @@
 %define timepicker_commit 1.11.5
 %define extradocs %{_docdir}/%{name}-%{version}
 
-Summary: apache/mod_php stack for nethserver-manager
 Name: nethserver-httpd-admin
 Version: 2.6.0
 Release: 1%{?dist}
@@ -31,19 +30,27 @@ Source9: https://github.com/DataTables/Plugins/archive/%{datatablesplugins_commi
 Source10: https://github.com/jonthornton/jquery-timepicker/archive/%{timepicker_commit}/jquery-timepicker-%{timepicker_commit}.tar.gz
 
 BuildRequires: nethserver-devtools
-
 BuildRequires: systemd
+
+Summary: Apache instance for local system administration
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-
-Requires: httpd, php, mod_ssl, sudo, php-xml, php-intl
+Requires: httpd, php, mod_ssl, php-xml, php-intl
 Requires: nethserver-base, nethserver-php
-Requires: nethserver-lang-en
 
 %description
-Runs an Apache instance on port 980 with SSL that serves
-the nethserver-manager web application
+Additional Apache instance listening on HTTPS port :980 for local system administration.
+
+%package nethgui
+BuildArch: noarch
+Summary: Nethgui Server Manager
+Requires: nethserver-httpd-admin
+Requires: nethserver-lang-en
+Requires: sudo
+
+%description nethgui
+Nethgui Server Manager PHP web application
 
 %prep
 %setup
@@ -62,15 +69,20 @@ the nethserver-manager web application
 cd %{_builddir}/nethgui-%{nethgui_commit}
 
 %build
-perl createlinks
-mkdir -p root/%{_nseventsdir}/%{name}-update
+
+for package in service nethgui; do
+    ln -sf ${package} root; perl createlinks-${package}; rm -f root
+    (cd ${package} ; %{makedocs})
+    %{genfilelist} ${PWD}/${package} > filelist-${package}
+done
+
+mkdir -p service/%{_nseventsdir}/nethserver-httpd-admin-update
+mkdir -p nethgui/%{_nseventsdir}/nethserver-httpd-admin-nethgui-update
 
 %install
-(cd root ; find . -depth -print | cpio -dump %{buildroot})
-rm -f %{name}-%{version}-%{release}-filelist
-%{genfilelist} %{buildroot} | sed '
-\|^%{_sysconfdir}/sudoers.d/| d
-' > %{name}-%{version}-%{release}-filelist
+for package in service nethgui; do
+    (cd ${package}; find . -depth -print | cpio -dump %{buildroot})
+done
 mkdir -p %{buildroot}/%{_localstatedir}/log/httpd-admin
 mkdir -p %{buildroot}/%{_localstatedir}/cache/nethserver-httpd-admin
 mkdir -p %{buildroot}/run/ptrack
@@ -121,8 +133,9 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 mkdir -p %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
 cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
 
-%files -f %{name}-%{version}-%{release}-filelist
+%files nethgui -f filelist-nethgui
 %defattr(-,root,root)
+%dir %{_nseventsdir}/%{name}-update
 %doc %{extradocs}
 
 %{_nsuidir}/nethserver-manager
@@ -130,20 +143,20 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 %{_nsuidir}/Pimple
 %{_nsuidir}/Mustache
 %{_nsuidir}/Symfony
+%config %attr(440,root,root) %{_sysconfdir}/sudoers.d/20_nethserver_httpd_admin
+%dir %attr(1770,root,adm) /run/ptrack
 
-%dir %{_nseventsdir}/%{name}-update
 %dir %{_sysconfdir}/httpd/admin-conf.d
-
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
-%attr(0644,root,root) %ghost %{_sysconfdir}/init/httpd-admin.conf
+
+%files -f filelist-service
+%dir %{_nseventsdir}/%{name}-update
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/certs/httpd-admin.crt
 %attr(0700,root,root) %dir %{_localstatedir}/log/httpd-admin
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/access_log
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
-%config %attr(440,root,root) %{_sysconfdir}/sudoers.d/20_nethserver_httpd_admin
-%dir %attr(1770,root,adm) /run/ptrack
 %config(noreplace) /etc/sysconfig/httpd-admin
 
 %pre
@@ -152,14 +165,23 @@ if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
 
+%post nethgui
+%systemd_post smwingsd.service
+
 %post
-%systemd_post httpd-admin.service smwingsd.service
+%systemd_post httpd-admin.service
+
+%preun nethgui
+%systemd_preun smwingsd.service
 
 %preun
-%systemd_preun httpd-admin.service smwingsd.service
+%systemd_preun httpd-admin.service
+
+%postun nethgui
+%systemd_postun smwingsd.service
 
 %postun
-%systemd_postun
+%systemd_postun httpd-admin.service
 
 %changelog
 * Wed Nov 18 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.6.0-1
