@@ -11,7 +11,7 @@
 %define extradocs %{_docdir}/%{name}-%{version}
 
 Name: nethserver-httpd-admin
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -184,6 +184,9 @@ fi
 %systemd_postun httpd-admin.service
 
 %changelog
+* Wed Nov 25 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.7.0-1
+- Access web applications from port 980 - NethServer/dev#6344
+
 * Wed Nov 18 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.6.0-1
 - New NethServer 7.9.2009 defaults - NethServer/dev#6320
 
