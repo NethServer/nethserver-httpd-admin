@@ -53,12 +53,6 @@ event_actions('certificate-update', qw(
        nethserver-httpd-admin-asyncreload 99
 ));
 
-#--------------------------------------------------
-# actions for hostname-modify event
-#--------------------------------------------------
-event_actions("hostname-modify", qw(nethserver-httpd-admin-smwingsd-restart 30));
-
-
 #
 # tls-policy-save event
 #
