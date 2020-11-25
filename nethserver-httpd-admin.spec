@@ -32,6 +32,16 @@ Source10: https://github.com/jonthornton/jquery-timepicker/archive/%{timepicker_
 BuildRequires: nethserver-devtools
 BuildRequires: systemd
 
+Summary: Nethgui Server Manager
+Requires: nethserver-httpd-admin-service
+Requires: nethserver-lang-en
+Requires: sudo
+
+%description
+Nethgui Server Manager PHP web application
+
+%package service
+BuildArch: noarch
 Summary: Apache instance for local system administration
 Requires(post): systemd
 Requires(preun): systemd
@@ -39,18 +49,8 @@ Requires(postun): systemd
 Requires: httpd, php, mod_ssl, php-xml, php-intl
 Requires: nethserver-base, nethserver-php
 
-%description
+%description service
 Additional Apache instance listening on HTTPS port :980 for local system administration.
-
-%package nethgui
-BuildArch: noarch
-Summary: Nethgui Server Manager
-Requires: nethserver-httpd-admin
-Requires: nethserver-lang-en
-Requires: sudo
-
-%description nethgui
-Nethgui Server Manager PHP web application
 
 %prep
 %setup -q
@@ -133,7 +133,7 @@ cp -av %{_builddir}/DataTables-%{datatables_commit}/license.txt  %{buildroot}/%{
 mkdir -p %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
 cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroot}/%{extradocs}/jquery-timepicker-%{timepicker_commit}
 
-%files nethgui -f filelist-nethgui
+%files -f filelist-nethgui
 %defattr(-,root,root)
 %dir %{_nseventsdir}/%{name}-update
 %doc %{extradocs}
@@ -149,7 +149,7 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 %dir %{_sysconfdir}/httpd/admin-conf.d
 %attr(0750,srvmgr,srvmgr) %dir %{_localstatedir}/cache/nethserver-httpd-admin
 
-%files -f filelist-service
+%files service -f filelist-service
 %dir %{_nseventsdir}/%{name}-update
 %attr(0644,root,root) %ghost %{_sysconfdir}/httpd/admin-conf/httpd.conf
 %attr(0600,root,root) %ghost %{_sysconfdir}/pki/tls/private/httpd-admin.key
@@ -165,22 +165,22 @@ if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
 fi
 
-%post nethgui
+%post
 %systemd_post smwingsd.service
 
-%post
-%systemd_post httpd-admin.service
-
-%preun nethgui
+%preun
 %systemd_preun smwingsd.service
 
-%preun
-%systemd_preun httpd-admin.service
-
-%postun nethgui
+%postun
 %systemd_postun smwingsd.service
 
-%postun
+%post service
+%systemd_post httpd-admin.service
+
+%preun service
+%systemd_preun httpd-admin.service
+
+%postun service
 %systemd_postun httpd-admin.service
 
 %changelog
