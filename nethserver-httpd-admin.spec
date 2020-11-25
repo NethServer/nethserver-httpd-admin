@@ -159,7 +159,7 @@ cp -av %{_builddir}/jquery-timepicker-%{timepicker_commit}/README.md  %{buildroo
 %attr(0644,root,root) %config %ghost %{_localstatedir}/log/httpd-admin/error_log
 %config(noreplace) /etc/sysconfig/httpd-admin
 
-%pre
+%pre service
 # ensure srvmgr user exists:
 if ! id srvmgr >/dev/null 2>&1 ; then
    useradd -r -U -G adm srvmgr
