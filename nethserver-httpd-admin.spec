@@ -53,17 +53,17 @@ Requires: sudo
 Nethgui Server Manager PHP web application
 
 %prep
-%setup
-%setup -D -T -b 1
-%setup -D -T -b 2
-%setup -D -T -b 3
-%setup -D -T -b 4
-%setup -D -T -b 5
-%setup -D -T -b 6
-%setup -D -T -b 7
-%setup -D -T -b 8
-%setup -D -T -b 9
-%setup -D -T -b 10
+%setup -q
+%setup -q -D -T -b 1
+%setup -q -D -T -b 2
+%setup -q -D -T -b 3
+%setup -q -D -T -b 4
+%setup -q -D -T -b 5
+%setup -q -D -T -b 6
+%setup -q -D -T -b 7
+%setup -q -D -T -b 8
+%setup -q -D -T -b 9
+%setup -q -D -T -b 10
 
 # Nethgui:
 cd %{_builddir}/nethgui-%{nethgui_commit}
@@ -230,7 +230,7 @@ fi
 
 * Sat Sep 09 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.13-1
 - CSRF and XSS vulnerabilities in server manager - Bug NethServer/dev#5345
-- latest nethgui changes not included in nethserver-httpd-admin 2.0.12-1 - Bug NethServer/dev#5347 !! INCOMPLETE
+- latest nethgui changes not included in nethserver-httpd-admin 2.0.12-1 - Bug NethServer/dev#5347
 
 * Fri Sep 08 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.12-1
 - CSRF and XSS vulnerabilities in server manager - Bug NethServer/dev#5345
