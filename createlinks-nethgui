@@ -29,8 +29,9 @@ event_templates('nethserver-httpd-admin-update', qw(
     /etc/httpd/admin-conf/httpd.conf
 ));
 
+# Full restart is required to start also smwingsd
 event_services('nethserver-httpd-admin-update', qw(
-    httpd-admin reload
+    httpd-admin restart
 ));
 
 #
