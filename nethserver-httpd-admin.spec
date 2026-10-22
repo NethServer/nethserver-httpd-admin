@@ -11,7 +11,7 @@
 %define extradocs %{_docdir}/%{name}-%{version}
 
 Name: nethserver-httpd-admin
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -184,6 +184,9 @@ fi
 %systemd_postun httpd-admin.service
 
 %changelog
+* Thu Oct 22 2026 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.7.2-1
+- PHP critical RCE vulnerabilities (CVE-2026-109618 / CVE-2026-109619) - NethServer/dev#8256
+
 * Mon Feb 06 2023 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.7.1-1
 - Bump release to force restart
   Reload failed after release of https://access.redhat.com/errata/RHBA-2023:0401
